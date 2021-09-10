@@ -1,15 +1,13 @@
 import { EntityRepository, Repository } from "typeorm";
 import { User } from "./auth.entity";
-import { SignUpEncryptionDto } from "./dto/signup/signup.encryption.dto";
 import { SignUpDataDto } from "./dto/signup/signup.data.dto";
 import { SignInRequestDto } from "./dto/signin/signin.request.dto";
 import { Active } from "src/common/enum/Active";
+import { SignUpRequestDto } from "./dto/signup/signup.request.dto";
 @EntityRepository(User)
 export class AuthRepository extends Repository<User> {
-  async signup(
-    signUpEncryptionDto: SignUpEncryptionDto
-  ): Promise<SignUpDataDto> {
-    const { nickname, phone } = signUpEncryptionDto;
+  async signup(signUpRequestDto: SignUpRequestDto): Promise<SignUpDataDto> {
+    const { nickname, phone } = signUpRequestDto;
 
     // TODO 비밀번호 암호화하기
     const user = new User();

@@ -1,20 +1,16 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { JwtService } from "@nestjs/jwt";
-import * as bcrypt from "bcryptjs";
 import { AuthRepository } from "./auth.repository";
 import { SignInRequestDto } from "./dto/signin/signin.request.dto";
 import { SignInResponseDto } from "./dto/signin/signin.response.dto";
 import { SignUpRequestDto } from "./dto/signup/signup.request.dto";
 import { SignUpResponseDto } from "./dto/signup/signup.response.dto";
-import { SignUpEncryptionDto } from "./dto/signup/signup.encryption.dto";
 import utilResponse from "../common/response/util.response";
 import messageResponse from "../common/response/message.response";
 import { JwtPayload } from "../common/jwt/dto/jwtPayload.dto";
 import { SignInDataDto } from "./dto/signin/signin.data.dto";
 import { SignUpDataDto } from "./dto/signup/signup.data.dto";
-import { FindPasswordRequestDto } from "./dto/findPassword/findPassword.request.dto";
-import { FindPasswordResponseDto } from "./dto/findPassword/findPassword.response.dto";
 
 @Injectable()
 export class AuthService {

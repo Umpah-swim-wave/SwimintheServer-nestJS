@@ -1,11 +1,9 @@
 import { Test } from "@nestjs/testing";
-import * as bcrypt from "bcryptjs";
 import { AuthRepository } from "./auth.repository";
 import { AuthService } from "./auth.service";
 import { SignUpRequestDto } from "./dto/signup/signup.request.dto";
 import { SignUpDataDto } from "./dto/signup/signup.data.dto";
 import { SignInRequestDto } from "./dto/signin/signin.request.dto";
-import { SignUpEncryptionDto } from "./dto/signup/signup.encryption.dto";
 import { JwtService } from "@nestjs/jwt";
 
 const mockAuthRepository = () => ({
@@ -52,13 +50,13 @@ describe("AuthService", () => {
 
   describe("signUp", () => {
     it("calls AuthRepository.signup and returns the result", async () => {
-      const signUpEncryption: SignUpEncryptionDto = {
+      const signUpRequestDto: SignUpRequestDto = {
         nickname: mockSignup.nickname,
         phone: mockSignup.phone,
       };
-      authRepository.signup.mockResolvedValue(signUpEncryption);
+      authRepository.signup.mockResolvedValue(signUpRequestDto);
       const result = await authService.signUp(mockSignup);
-      expect(result.data).toEqual(signUpEncryption);
+      expect(result.data).toEqual(signUpRequestDto);
     });
   });
 
