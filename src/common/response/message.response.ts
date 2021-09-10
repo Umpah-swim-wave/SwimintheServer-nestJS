@@ -10,6 +10,9 @@ export default {
   /*user*/
   GET_USER_SUCCESS: "유저 조회 성공",
   SEND_SUCCESS: "인증번호 전송 성공",
+  NO_USER: "존재하지않는 유저 id 입니다.",
+  SIGN_IN_SUCCESS: "로그인 성공",
+  SIGN_UP_SUCCESS: "회원가입 성공",
 
   /*토큰*/
   EXPIRED_TOKEN: "expired token",

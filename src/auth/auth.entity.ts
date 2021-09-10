@@ -14,7 +14,7 @@ export class User extends BaseEntity {
 
   @Column({
     type: "varchar",
-    length: 45,
+    length: 20,
   })
   phone: string;
 
@@ -25,8 +25,8 @@ export class User extends BaseEntity {
   active: Active;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-  createdAt: string;
+  created_at: string;
 
   @Column({ type: "timestamp" })
-  updatedAt: string;
+  updated_at: string;
 }
