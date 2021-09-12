@@ -1,4 +1,4 @@
-import { Active } from "src/common/enum/Active";
+import { Active } from "../common/enum/Active";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

@@ -60,11 +60,11 @@ describe("AuthService", () => {
     });
   });
 
-  describe("validationPhone", () => {
-    it("calls AuthRepository.validationPhone and returns the result", async () => {
-      authRepository.validationPhone(mockSigninPhone);
-      const result = await authService.signIn(mockSigninPhoneValidationFail);
-      expect(result.success).toEqual(false);
-    });
-  });
+  // describe("validationPhone", () => {
+  //   it("calls AuthRepository.validationPhone and returns the result", async () => {
+  //     authRepository.validationPhone(mockSigninPhone);
+  //     const result = await authService.signIn(mockSigninPhoneValidationFail);
+  //     expect(result.success).toEqual(false);
+  //   });
+  // });
 });
