@@ -2,13 +2,11 @@ import { Test } from "@nestjs/testing";
 import { AuthRepository } from "./auth.repository";
 import { AuthService } from "./auth.service";
 import { SignUpRequestDto } from "./dto/signup/signup.request.dto";
-import { SignUpDataDto } from "./dto/signup/signup.data.dto";
-import { SignInRequestDto } from "./dto/signin/signin.request.dto";
 import { JwtService } from "@nestjs/jwt";
 
 const mockAuthRepository = () => ({
   signup: jest.fn(),
-  validationPhone: jest.fn(),
+  // validationPhone: jest.fn(),
 });
 
 const mockJwtService = {
@@ -20,17 +18,7 @@ const mockSignup: SignUpRequestDto = {
   nickname: "nestTest",
   phone: "01000000000",
 };
-const mockSignupData: SignUpDataDto = {
-  nickname: "nestTest",
-};
 
-const mockSigninPhoneValidationFail: SignInRequestDto = {
-  phone: "01000000000",
-};
-
-const mockSigninPhone: SignInRequestDto = {
-  phone: "01000000000",
-};
 describe("AuthService", () => {
   let authService: AuthService;
   let authRepository;
