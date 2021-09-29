@@ -1,8 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { BaseResponseDto } from "src/common/dto/base.response.dto";
-import { SignInDataDto } from "./signin.data.dto";
 
-export class SignInResponseDto extends BaseResponseDto {
+export class RecordDailyResponseDto extends BaseResponseDto {
   @ApiProperty({ description: "리턴 값" })
-  data?: SignInDataDto;
+  data?: null;
 }

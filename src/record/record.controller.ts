@@ -1,6 +1,7 @@
 import { Body, Controller, Post, ValidationPipe } from "@nestjs/common";
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
-import { RecordFilterDto } from "./dto/postRecordList/recordFilter.request.dto";
+import { RecordDailyFilterDto } from "./dto/recordFilter.request.dto";
+import { RecordDailyResponseDto } from "./dto/recordList.response.dto";
 import { RecordService } from "./record.service";
 
 @ApiTags("record")
@@ -8,19 +9,21 @@ import { RecordService } from "./record.service";
 export class RecordController {
   constructor(private recordService: RecordService) {}
 
-  @Post("/list")
+  @Post("/daily/list")
   @ApiOperation({
-    summary: "기록 조회 API",
-    description: "유저의 기록을 조회하는 API.",
+    summary: "일간 기록 조회 API",
+    description: "유저의 일간 기록을 조회하는 API.",
   })
   @ApiCreatedResponse({
-    description: "기록을 조회한다.",
-    // type: TODO response type 정하고 변경
+    description: "일간 기록을 조회한다.",
+    type: RecordDailyResponseDto,
   })
-  postRecordList(
-    @Body(ValidationPipe) recordFilterDto: RecordFilterDto
-  ): Promise<void> {
+  async postRecordList(
+    @Body(ValidationPipe) recordDailyFilterDto: RecordDailyFilterDto
+  ): Promise<RecordDailyResponseDto> {
     // TODO response type 정하고 변경
-    return this.recordService.postRecordList(recordFilterDto);
+    return await this.recordService.findRecordDailyListByDateAnd(
+      recordDailyFilterDto
+    );
   }
 }
