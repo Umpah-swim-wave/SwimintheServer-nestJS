@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { RecordDailyFilterDto } from "./dto/recordFilter.request.dto";
-import { RecordDailyResponseDto } from "./dto/recordList.response.dto";
+import { RecordDailyOverViewResponseDto } from "./dto/record.response.dto";
 import { RecordRepository } from "./record.repository";
 
 @Injectable()
@@ -11,9 +11,9 @@ export class RecordService {
     private readonly RecordRepository: RecordRepository
   ) {}
 
-  async findRecordDailyListByDateAnd(
+  async findRecordDailyOverviewByDateAnd(
     recordDailyFilterDto: RecordDailyFilterDto
-  ): Promise<RecordDailyResponseDto> {
+  ): Promise<RecordDailyOverViewResponseDto> {
     return null;
   }
 }
