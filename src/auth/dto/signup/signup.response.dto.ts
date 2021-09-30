@@ -4,5 +4,5 @@ import { SignUpDataDto } from "./signup.data.dto";
 
 export class SignUpResponseDto extends BaseResponseDto {
   @ApiProperty({ description: "리턴 값" })
-  data?: SignUpDataDto;
+  readonly data: SignUpDataDto;
 }

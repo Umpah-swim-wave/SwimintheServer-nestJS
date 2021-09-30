@@ -11,7 +11,13 @@ export class RecordService {
     private readonly RecordRepository: RecordRepository
   ) {}
 
-  async findRecordDailyOverviewByDateAnd(
+  async findDailyRecordOverviewByDateAndStroke(
+    recordDailyFilterDto: RecordDailyFilterDto
+  ): Promise<RecordDailyOverViewResponseDto> {
+    return null;
+  }
+
+  async findDailyRecordList(
     recordDailyFilterDto: RecordDailyFilterDto
   ): Promise<RecordDailyOverViewResponseDto> {
     return null;

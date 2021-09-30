@@ -8,18 +8,18 @@ export class RecordDailyOverViewResponseDto extends BaseResponseDto {
 
 export class RecordDailyOverviewDataDto {
   @ApiProperty({ description: "리턴 값" })
-  total_distance: number;
-  total_time: number;
-  total_alorie: number;
-  total_bpm: number;
-  freestyle_total_distance: number;
-  freestyle_total_speed: number;
-  breast_total_distance: number;
-  breast_total_speed: number;
-  back_total_distance: number;
-  back_total_speed: number;
-  butterfly_total_distance: number;
-  butterfly_total_speed: number;
-  medley_total_distance: number;
-  medley_total_speed: number;
+  readonly total_distance: number;
+  readonly total_time: number;
+  readonly total_alorie: number;
+  readonly total_bpm: number;
+  readonly freestyle_total_distance: number;
+  readonly freestyle_total_speed: number;
+  readonly breast_total_distance: number;
+  readonly breast_total_speed: number;
+  readonly back_total_distance: number;
+  readonly back_total_speed: number;
+  readonly butterfly_total_distance: number;
+  readonly butterfly_total_speed: number;
+  readonly medley_total_distance: number;
+  readonly medley_total_speed: number;
 }

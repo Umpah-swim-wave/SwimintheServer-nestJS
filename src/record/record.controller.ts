@@ -1,6 +1,9 @@
 import { Body, Controller, Post, ValidationPipe } from "@nestjs/common";
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
-import { RecordDailyFilterDto } from "./dto/recordFilter.request.dto";
+import {
+  RecordDailyFilterDto,
+  RecordDailyDto,
+} from "./dto/recordFilter.request.dto";
 import { RecordDailyOverViewResponseDto } from "./dto/record.response.dto";
 import { RecordService } from "./record.service";
 
@@ -16,14 +19,28 @@ export class RecordController {
   })
   @ApiCreatedResponse({
     description: "일간 기록의 오버뷰를 조회한다.",
-    type: RecordDailyOverViewResponseDto,
   })
-  async postRecordOverview(
+  async findRecordDailyOverview(
     @Body(ValidationPipe) recordDailyFilterDto: RecordDailyFilterDto
   ): Promise<RecordDailyOverViewResponseDto> {
     // TODO response type 정하고 변경
-    return await this.recordService.findRecordDailyOverviewByDateAnd(
+    return await this.recordService.findDailyRecordOverviewByDateAndStroke(
       recordDailyFilterDto
     );
+  }
+
+  @Post("/daily/list")
+  @ApiOperation({
+    summary: "일간 랩스 기록 조회 API",
+    description: "유저의 일간 일간 랩스 기록을 조회하는 API.",
+  })
+  @ApiCreatedResponse({
+    description: "일간 랩스 기록을 조회한다.",
+  })
+  async findRecordDailyList(
+    @Body(ValidationPipe) recordDailyDto: RecordDailyDto
+  ): Promise<RecordDailyOverViewResponseDto> {
+    // TODO response type 정하고 변경
+    return await this.recordService.findDailyRecordList(recordDailyDto);
   }
 }
