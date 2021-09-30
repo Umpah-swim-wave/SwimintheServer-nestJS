@@ -7,8 +7,9 @@ export class Record extends BaseEntity {
   id: number;
 
   @Column({
-    type: "text",
-    default: "Y",
+    type: "enum",
+    enum: Active,
+    default: Active.Y,
   })
   active: Active;
 

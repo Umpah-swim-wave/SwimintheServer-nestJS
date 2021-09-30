@@ -4,7 +4,8 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { typeOrmConfig } from "./config/typeorm.config";
 
 import "dotenv/config";
+import { RecordModule } from "./record/record.module";
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), AuthModule],
+  imports: [TypeOrmModule.forRoot(typeOrmConfig), AuthModule, RecordModule],
 })
 export class AppModule {}

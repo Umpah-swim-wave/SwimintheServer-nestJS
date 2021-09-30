@@ -1,11 +1,8 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { SignInDataDto } from './signin.data.dto';
+import { ApiProperty } from "@nestjs/swagger";
+import { BaseResponseDto } from "src/common/dto/base.response.dto";
+import { SignInDataDto } from "./signin.data.dto";
 
-export class SignInResponseDto {
-  @ApiProperty({ description: '성공여부' })
-  success: boolean;
-  @ApiProperty({ description: '메시지' })
-  message: string;
-  @ApiProperty({ description: '리턴 값' })
-  data?: SignInDataDto;
+export class SignInResponseDto extends BaseResponseDto {
+  @ApiProperty({ description: "리턴 값" })
+  readonly data?: SignInDataDto;
 }
