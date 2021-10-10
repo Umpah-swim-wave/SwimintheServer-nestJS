@@ -3,10 +3,11 @@ import { AuthRepository } from "./auth.repository";
 import { AuthService } from "./auth.service";
 import { SignUpRequestDto } from "./dto/signup/signup.request.dto";
 import { JwtService } from "@nestjs/jwt";
+import { SignInRequestDto } from "./dto/signin/signin.request.dto";
 
 const mockAuthRepository = () => ({
   signup: jest.fn(),
-  // validationPhone: jest.fn(),
+  validationPhone: jest.fn(),
 });
 
 const mockJwtService = {
@@ -16,6 +17,10 @@ const mockJwtService = {
 
 const mockSignup: SignUpRequestDto = {
   nickname: "nestTest",
+  phone: "01000000000",
+};
+
+const mockSignin: SignInRequestDto = {
   phone: "01000000000",
 };
 
@@ -48,11 +53,14 @@ describe("AuthService", () => {
     });
   });
 
-  // describe("validationPhone", () => {
-  //   it("calls AuthRepository.validationPhone and returns the result", async () => {
-  //     authRepository.validationPhone(mockSigninPhone);
-  //     const result = await authService.signIn(mockSigninPhoneValidationFail);
-  //     expect(result.success).toEqual(false);
-  //   });
-  // });
+  describe("signIn", () => {
+    it("calls AuthRepository.signin and returns the result", async () => {
+      const signInRequestDto: SignInRequestDto = {
+        phone: mockSignin.phone,
+      };
+      authRepository.validationPhone.mockResolvedValue(signInRequestDto);
+      const result = await authService.signIn(mockSignin);
+      expect(result.data).toEqual(signInRequestDto);
+    });
+  });
 });
