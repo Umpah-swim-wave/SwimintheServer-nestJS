@@ -4,8 +4,15 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { typeOrmConfig } from "./config/typeorm.config";
 
 import "dotenv/config";
-import { RecordModule } from "./record/record.module";
+import { DayRecordModule } from "./dayRecord/dayRecord.module";
+import { RecordModule } from "./record/Record.module";
+
 @Module({
-  imports: [TypeOrmModule.forRoot(typeOrmConfig), AuthModule, RecordModule],
+  imports: [
+    TypeOrmModule.forRoot(typeOrmConfig),
+    AuthModule,
+    DayRecordModule,
+    RecordModule,
+  ],
 })
 export class AppModule {}

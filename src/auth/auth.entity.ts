@@ -1,7 +1,9 @@
-import { Active } from "../common/enum/Active";
+import { Active } from "../common/enum/Enum";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity({
+  name: "users",
+})
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -20,14 +22,22 @@ export class User extends BaseEntity {
 
   @Column({
     type: "enum",
+    enumName: "active",
     enum: Active,
     default: Active.Y,
   })
   active: Active;
 
-  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-  created_at: string;
+  @Column({
+    type: "timestamp",
+    name: "created_at",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  createdAt: string;
 
-  @Column({ type: "timestamp" })
-  updated_at: string;
+  @Column({
+    type: "timestamp",
+    name: "updated_at",
+  })
+  updatedAt: string;
 }
