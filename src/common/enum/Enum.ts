@@ -14,9 +14,9 @@ export enum DayOfWeek {
 }
 
 export enum Stroke {
-  FREESTYLE = "FREESTYLE",
-  BREAST = "BREAST",
-  BACK = "BACK",
-  BUTTERFLY = "BUTTERFLY",
-  IM = "IM",
+  FREESTYLE = "FREESTYLE", // 자유형
+  BACK = "BACK", // 배영
+  BREAST = "BREAST", // 평영
+  BUTTERFLY = "BUTTERFLY", // 접영
+  IM = "IM", // 혼영
 }
