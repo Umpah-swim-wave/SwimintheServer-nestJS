@@ -1,4 +1,4 @@
-import { Active, SwimSet, Stroke } from "src/common/enum/Enum"; // Active 쓸 건지 다시 확인!
+import { Active, SwimSet, Stroke } from "../common/enum/Enum";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({
@@ -52,6 +52,7 @@ export class userRoutine extends BaseEntity {
 
   @Column({
     type: "enum",
+    name: "swim_set",
     enumName: "swim_set",
     enum: SwimSet,
     comment: "수영 세트 구분", // set 이름도 enum으로 설정
@@ -60,6 +61,7 @@ export class userRoutine extends BaseEntity {
 
   @Column({
     type: "enum",
+    name: "stroke",
     enumName: "stroke",
     enum: Stroke,
     comment: "영법",
@@ -79,6 +81,15 @@ export class userRoutine extends BaseEntity {
     comment: "수영한 시간 (단위 : s)",
   })
   time: number;
+
+  @Column({
+    type: "enum",
+    name: "active",
+    enumName: "active",
+    enum: Active,
+    default: Active.Y,
+  })
+  active: Active;
 
   @Column({
     type: "timestamp",

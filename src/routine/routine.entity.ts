@@ -1,4 +1,4 @@
-import { Active, SwimSet, Stroke } from "src/common/enum/Enum"; // Active 쓸 건지 다시 확인!
+import { SwimSet, Stroke } from "../common/enum/Enum";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({
@@ -7,13 +7,6 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export class Routine extends BaseEntity {
   @PrimaryGeneratedColumn() // 열 자동 생성 위해 쓰이는 데코레이터
   id: number;
-
-  @Column({
-    type: "int",
-    name: "user_id",
-    comment: "유저 Table PK (FK)",
-  })
-  userId: number;
 
   @Column({
     type: "varchar", // 제목 길이는 다양하므로 varchar로 설정
@@ -52,6 +45,7 @@ export class Routine extends BaseEntity {
 
   @Column({
     type: "enum",
+    name: "swim_set",
     enumName: "swim_set",
     enum: SwimSet,
     comment: "수영 세트 구분", // set 이름도 enum으로 설정
@@ -60,6 +54,7 @@ export class Routine extends BaseEntity {
 
   @Column({
     type: "enum",
+    name: "stroke",
     enumName: "stroke",
     enum: Stroke,
     comment: "영법",
