@@ -22,7 +22,6 @@ export class RecordController {
   ): Promise<void> {
     // TODO response type 정하고 변경
     await this.recordService.insertRecordByUser(recordDto);
-    console.log("test");
     return;
   }
 }

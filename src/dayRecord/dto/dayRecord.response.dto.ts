@@ -3,7 +3,7 @@ import { BaseResponseDto } from "src/common/dto/base.response.dto";
 import {
   RecordDailyLabsDto,
   RecordDailyOverviewDataDto,
-} from "./record.data.dto";
+} from "./dayRecord.data.dto";
 
 export class RecordDailyOverViewResponseDto extends BaseResponseDto {
   @ApiProperty({ description: "리턴 값" })
