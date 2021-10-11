@@ -20,3 +20,9 @@ export enum Stroke {
   BUTTERFLY = "BUTTERFLY", // 접영
   IM = "IM", // 혼영
 }
+
+export enum SwimSet {
+  WARMUP = "WARMUP",
+  MAIN = "MAIN",
+  COOLDOWN = "COOLDOWN",
+}
