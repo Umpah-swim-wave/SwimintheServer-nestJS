@@ -1,8 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import utilResponse from "../common/response/util.response";
+import messageResponse from "../common/response/message.response";
 import { DayRecord } from "../dayRecord/dayRecord.entity";
 import { DayRecordRepository } from "../dayRecord/dayRecord.repository";
 import { RecordDto } from "./dto/record.request.dto";
+import { RecordResponseDto } from "./dto/record.response.dto";
 
 @Injectable()
 export class RecordService {
@@ -11,7 +14,7 @@ export class RecordService {
     private readonly DayRecordRepository: DayRecordRepository
   ) {}
 
-  async insertRecordByUser(recordDto: RecordDto): Promise<void> {
+  async insertRecordByUser(recordDto: RecordDto): Promise<RecordResponseDto> {
     const userId = recordDto.userId;
     const recordDataList = recordDto.recordData;
     for (let i = 0; i < recordDataList.length; i++) {
@@ -26,8 +29,9 @@ export class RecordService {
       dayRecord.stroke = recordDataList[i].stroke;
       dayRecord.calorie = recordDataList[i].calorie;
       dayRecord.beatPerMinute = recordDataList[i].beatPerMinute;
-      console.log(dayRecord);
       await this.DayRecordRepository.save(dayRecord);
     }
+
+    return utilResponse.success(messageResponse.INSERT_RECORD_SUCCESS, null);
   }
 }
