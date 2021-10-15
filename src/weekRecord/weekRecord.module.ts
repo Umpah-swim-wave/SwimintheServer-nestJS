@@ -10,4 +10,4 @@ import "dotenv/config";
   controllers: [WeekRecordController],
   providers: [WeekRecordService],
 })
-export class DayRecordModule {}
+export class WeekRecordModule {}
