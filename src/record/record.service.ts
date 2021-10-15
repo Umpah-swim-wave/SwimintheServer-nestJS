@@ -6,12 +6,15 @@ import { DayRecord } from "../dayRecord/dayRecord.entity";
 import { DayRecordRepository } from "../dayRecord/dayRecord.repository";
 import { RecordDto } from "./dto/record.request.dto";
 import { RecordResponseDto } from "./dto/record.response.dto";
+import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
 
 @Injectable()
 export class RecordService {
   constructor(
     @InjectRepository(DayRecordRepository)
-    private readonly DayRecordRepository: DayRecordRepository
+    private readonly DayRecordRepository: DayRecordRepository,
+    @InjectRepository(WeekRecordRepository)
+    private readonly WeekRecordRepository: WeekRecordRepository
   ) {}
 
   async insertRecordByUser(recordDto: RecordDto): Promise<RecordResponseDto> {
