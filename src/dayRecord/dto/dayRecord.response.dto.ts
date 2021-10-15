@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BaseResponseDto } from "src/common/dto/base.response.dto";
+import { BaseResponseDto } from "../../common/dto/base.response.dto";
 import {
   RecordDailyLabsDto,
   RecordDailyOverviewDataDto,

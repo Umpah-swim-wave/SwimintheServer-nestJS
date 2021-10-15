@@ -5,7 +5,7 @@ import { RecordService } from "./record.service";
 import { DayRecordRepository } from "../dayRecord/dayRecord.repository";
 
 import "dotenv/config";
-import { WeekRecordRepository } from "src/weekRecord/weekRecord.repository";
+import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
 @Module({
   imports: [
     TypeOrmModule.forFeature([DayRecordRepository, WeekRecordRepository]),
