@@ -33,6 +33,7 @@ export class RecordService {
     private readonly CalenderRepository: CalenderRepository
   ) {}
 
+  // TODO week_records와 month_records insert하는 로직 추가
   async insertRecordByUser(recordDto: RecordDto): Promise<RecordResponseDto> {
     const userId = recordDto.userId;
     const recordDataList = recordDto.recordData;
