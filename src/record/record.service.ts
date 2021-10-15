@@ -4,9 +4,10 @@ import utilResponse from "../common/response/util.response";
 import messageResponse from "../common/response/message.response";
 import { DayRecord } from "../dayRecord/dayRecord.entity";
 import { DayRecordRepository } from "../dayRecord/dayRecord.repository";
+import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
+import { CalenderRepository } from "../calender/calender.repository";
 import { RecordDto } from "./dto/record.request.dto";
 import { RecordResponseDto } from "./dto/record.response.dto";
-import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
 import dateUtils from "../common/util/dateUtils";
 const LRU = require("lru-cache");
 const options = {
@@ -27,7 +28,9 @@ export class RecordService {
     @InjectRepository(DayRecordRepository)
     private readonly DayRecordRepository: DayRecordRepository,
     @InjectRepository(WeekRecordRepository)
-    private readonly WeekRecordRepository: WeekRecordRepository
+    private readonly WeekRecordRepository: WeekRecordRepository,
+    @InjectRepository(CalenderRepository)
+    private readonly CalenderRepository: CalenderRepository
   ) {}
 
   async insertRecordByUser(recordDto: RecordDto): Promise<RecordResponseDto> {
@@ -48,8 +51,11 @@ export class RecordService {
       if (cache.has(recordDataList[i].date)) {
         dayRecord.week = cache.get(recordDataList[i].date);
       } else {
-        cache.set(recordDataList[i].date, 1);
-        dayRecord.week = 1;
+        const week = await this.CalenderRepository.findByDate(
+          recordDataList[i].date
+        );
+        cache.set(recordDataList[i].date, week);
+        dayRecord.week = week;
       }
 
       await this.DayRecordRepository.save(dayRecord);
