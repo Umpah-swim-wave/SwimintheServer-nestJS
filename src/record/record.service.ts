@@ -7,6 +7,7 @@ import { DayRecordRepository } from "../dayRecord/dayRecord.repository";
 import { RecordDto } from "./dto/record.request.dto";
 import { RecordResponseDto } from "./dto/record.response.dto";
 import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
+import dateUtils from "../common/util/dateUtils";
 const LRU = require("lru-cache");
 const options = {
   max: 500,
@@ -31,22 +32,26 @@ export class RecordService {
 
   async insertRecordByUser(recordDto: RecordDto): Promise<RecordResponseDto> {
     const userId = recordDto.userId;
-    cache.set("2021-03-01", "SUN:1:10");
     const recordDataList = recordDto.recordData;
     for (let i = 0; i < recordDataList.length; i++) {
+      console.log(recordDataList[i]);
       const dayRecord = new DayRecord();
       dayRecord.userId = userId;
-      dayRecord.dayOfWeek = recordDataList[i].dayOfWeek;
-      dayRecord.week = recordDataList[i].week;
-      dayRecord.yearMonth = recordDataList[i].yearMonth;
       dayRecord.distance = recordDataList[i].distance;
       dayRecord.speed = recordDataList[i].speed;
       dayRecord.time = recordDataList[i].time;
       dayRecord.stroke = recordDataList[i].stroke;
       dayRecord.calorie = recordDataList[i].calorie;
       dayRecord.beatPerMinute = recordDataList[i].beatPerMinute;
-      const tt = cache.get("2021-03-01").split(":");
-      console.log(tt[0], tt[1], tt[2]);
+      dayRecord.dayOfWeek = dateUtils.getDayOfWeek(recordDataList[i].date);
+      dayRecord.yearMonth = dateUtils.getYearMonth(recordDataList[i].date);
+      if (cache.has(recordDataList[i].date)) {
+        dayRecord.week = cache.get(recordDataList[i].date);
+      } else {
+        cache.set(recordDataList[i].date, 1);
+        dayRecord.week = 1;
+      }
+
       await this.DayRecordRepository.save(dayRecord);
     }
 
