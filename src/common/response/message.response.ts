@@ -18,4 +18,7 @@ export default {
   EXPIRED_TOKEN: "expired token",
   INVALID_TOKEN: "invalid token",
   SUCCESS_TOKEN: "토큰 발급 성공",
+
+  /*record*/
+  INSERT_RECORD_SUCCESS: "기록 저장에 성공했습니다",
 };

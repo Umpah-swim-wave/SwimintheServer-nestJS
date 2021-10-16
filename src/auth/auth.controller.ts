@@ -32,7 +32,7 @@ export class AuthController {
     description: "로그인 성공시 토큰을 던져준다.",
     type: SignInResponseDto,
   }) // 로그인 성공을 알리는 200 코드에 대한 설정
-  @ApiUnauthorizedResponse({ description: "잘못된 인증정보입니다. "}) // Invalid Credential에 대한 설정
+  @ApiUnauthorizedResponse({ description: "잘못된 인증정보입니다. "}) // Invalid Credential를 알리는 401 코드에 대한 설정
     signIn(
       @Body(ValidationPipe) signInRequestDto: SignInRequestDto
     ): Promise<SignInResponseDto> {

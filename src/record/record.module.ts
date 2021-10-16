@@ -2,11 +2,19 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { RecordController } from "./record.controller";
 import { RecordService } from "./record.service";
-import { RecordRepository } from "./record.repository";
+import { DayRecordRepository } from "../dayRecord/dayRecord.repository";
 
 import "dotenv/config";
+import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
+import { CalenderRepository } from "src/calender/calender.repository";
 @Module({
-  imports: [TypeOrmModule.forFeature([RecordRepository])],
+  imports: [
+    TypeOrmModule.forFeature([
+      DayRecordRepository,
+      WeekRecordRepository,
+      CalenderRepository,
+    ]),
+  ],
   controllers: [RecordController],
   providers: [RecordService],
 })

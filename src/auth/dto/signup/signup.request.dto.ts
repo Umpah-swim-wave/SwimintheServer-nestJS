@@ -6,9 +6,9 @@ export class SignUpRequestDto {
   @MinLength(6)
   @MaxLength(20)
   @ApiProperty({ description: "닉네임" })
-  nickname: string;
+  readonly nickname: string;
 
   @IsString()
   @ApiProperty({ description: "핸드폰 번호" })
-  phone: string;
+  readonly phone: string;
 }

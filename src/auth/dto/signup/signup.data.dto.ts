@@ -1,6 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from "@nestjs/swagger";
 
 export class SignUpDataDto {
-  @ApiProperty({ description: '닉네임' })
-  nickname: string;
+  @ApiProperty({ description: "닉네임" })
+  readonly nickname: string;
 }
