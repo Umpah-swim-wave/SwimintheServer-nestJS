@@ -23,6 +23,10 @@ export enum Stroke {
 
 export enum SwimSet {
   WARMUP = "WARMUP",
+  PRE = "PRE",
   MAIN = "MAIN",
+  KICK = "KICK",
+  PULL = "PULL",
+  DRILL = "DRILL",
   COOLDOWN = "COOLDOWN",
 }
