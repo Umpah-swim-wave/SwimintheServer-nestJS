@@ -3,11 +3,11 @@ import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import {
   RecordDailyFilterDto,
   RecordDailyDto,
-} from "./dto/recordFilter.request.dto";
+} from "./dto/dayRecordFilter.request.dto";
 import {
   RecordDailyListResponseDto,
   RecordDailyOverViewResponseDto,
-} from "./dto/record.response.dto";
+} from "./dto/dayRecord.response.dto";
 import { DayRecordService } from "./dayRecord.service";
 
 @ApiTags("dayRecord")
