@@ -1,7 +1,7 @@
 import { Body, Controller, Post, ValidationPipe } from "@nestjs/common";
 import { ApiNoContentResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
-import { BaseResponseDto } from "src/common/dto/base.response.dto";
 import { RecordDto } from "./dto/record.request.dto";
+import { RecordResponseDto } from "./dto/record.response.dto";
 import { RecordService } from "./record.service";
 
 @ApiTags("record")
@@ -19,10 +19,9 @@ export class RecordController {
   })
   async insertRecordByUser(
     @Body(ValidationPipe) recordDto: RecordDto
-  ): Promise<void> {
+  ): Promise<RecordResponseDto> {
     // TODO response type 정하고 변경
     await this.recordService.insertRecordByUser(recordDto);
-    console.log("test");
     return;
   }
 }

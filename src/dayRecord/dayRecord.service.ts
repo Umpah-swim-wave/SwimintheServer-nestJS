@@ -3,11 +3,11 @@ import { InjectRepository } from "@nestjs/typeorm";
 import {
   RecordDailyDto,
   RecordDailyFilterDto,
-} from "./dto/recordFilter.request.dto";
+} from "./dto/dayRecordFilter.request.dto";
 import {
   RecordDailyListResponseDto,
   RecordDailyOverViewResponseDto,
-} from "./dto/record.response.dto";
+} from "./dto/dayRecord.response.dto";
 import { DayRecordRepository } from "./dayRecord.repository";
 
 @Injectable()
