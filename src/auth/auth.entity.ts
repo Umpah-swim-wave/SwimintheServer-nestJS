@@ -10,12 +10,16 @@ export class User extends BaseEntity {
 
   @Column({
     type: "varchar",
+    name: "nickname",
+    comment: "유저 닉네임",
     length: 16,
   })
   nickname: string;
 
   @Column({
     type: "varchar",
+    name: "phone_number",
+    comment: "유저 휴대폰 번호",
     length: 20,
   })
   phone: string;
