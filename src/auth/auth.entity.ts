@@ -19,10 +19,10 @@ export class User extends BaseEntity {
   @Column({
     type: "varchar",
     name: "phone_number",
-    comment: "유저 휴대폰 번호",
+    comment: "유저의 휴대폰 번호",
     length: 20,
   })
-  phone: string;
+  phone: string; // 휴대폰 번호는 유효성 체크만 한 후 DB 저장
 
   @Column({
     type: "enum",
