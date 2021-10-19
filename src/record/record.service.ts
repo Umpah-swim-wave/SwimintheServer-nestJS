@@ -6,9 +6,10 @@ import { DayRecord } from "../dayRecord/dayRecord.entity";
 import { DayRecordRepository } from "../dayRecord/dayRecord.repository";
 import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
 import { CalenderRepository } from "../calender/calender.repository";
-import { RecordDto } from "./dto/record.request.dto";
+import { RecordRequestDto } from "./dto/record.request.dto";
 import { RecordResponseDto } from "./dto/record.response.dto";
 import dateUtils from "../common/util/dateUtils";
+import { Stroke } from "src/common/enum/Enum";
 const LRU = require("lru-cache");
 const options = {
   max: 500,
@@ -34,32 +35,38 @@ export class RecordService {
   ) {}
 
   // TODO week_records와 month_records insert하는 로직 추가
-  async insertRecordByUser(recordDto: RecordDto): Promise<RecordResponseDto> {
-    const userId = recordDto.userId;
-    const recordDataList = recordDto.recordData;
-    for (let i = 0; i < recordDataList.length; i++) {
-      console.log(recordDataList[i]);
-      const dayRecord = new DayRecord();
-      dayRecord.userId = userId;
-      dayRecord.distance = recordDataList[i].distance;
-      dayRecord.speed = recordDataList[i].speed;
-      dayRecord.time = recordDataList[i].time;
-      dayRecord.stroke = recordDataList[i].stroke;
-      dayRecord.calorie = recordDataList[i].calorie;
-      dayRecord.beatPerMinute = recordDataList[i].beatPerMinute;
-      dayRecord.dayOfWeek = dateUtils.getDayOfWeek(recordDataList[i].date);
-      dayRecord.yearMonth = dateUtils.getYearMonth(recordDataList[i].date);
-      if (cache.has(recordDataList[i].date)) {
-        dayRecord.week = cache.get(recordDataList[i].date);
-      } else {
-        const week = await this.CalenderRepository.findByDate(
-          recordDataList[i].date
-        );
-        cache.set(recordDataList[i].date, week);
-        dayRecord.week = week;
-      }
+  async insertRecordByUser(
+    recordRequestDto: RecordRequestDto
+  ): Promise<RecordResponseDto> {
+    const userId = recordRequestDto.userId;
+    const workoutDataList = recordRequestDto.workoutList;
+    for (let workout = 0; workout < workoutDataList.length; workout++) {
+      const distance = workoutDataList[workout].distancePerLabs;
 
-      await this.DayRecordRepository.save(dayRecord);
+      const recordLabsList = workoutDataList[workout].recordLabsList;
+      for (let i = 0; i < recordLabsList.length; i++) {
+        const dayRecord = new DayRecord();
+        dayRecord.userId = userId;
+        dayRecord.distance = distance;
+        dayRecord.speed = distance / recordLabsList[i].time;
+        dayRecord.time = recordLabsList[i].time;
+        dayRecord.stroke = Stroke[recordLabsList[i].strokeType];
+        dayRecord.dayOfWeek = dateUtils.getDayOfWeek(recordLabsList[i].date);
+        dayRecord.yearMonth = dateUtils.getYearMonth(recordLabsList[i].date);
+        if (cache.has(recordLabsList[i].date)) {
+          dayRecord.week = cache.get(recordLabsList[i].date);
+        } else {
+          const week = await this.CalenderRepository.findByDate(
+            recordLabsList[i].date
+          );
+          cache.set(recordLabsList[i].date, week);
+          dayRecord.week = week;
+        }
+
+        await this.DayRecordRepository.save(dayRecord);
+      }
+      const totalDistance =
+        distance * workoutDataList[workout].recordLabsList.length;
     }
 
     return utilResponse.success(messageResponse.INSERT_RECORD_SUCCESS, null);
