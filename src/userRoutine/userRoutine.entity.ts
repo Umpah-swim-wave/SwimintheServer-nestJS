@@ -60,13 +60,11 @@ export class userRoutine extends BaseEntity {
   setName: SwimSet;
 
   @Column({
-    type: "enum",
-    name: "stroke",
-    enumName: "stroke",
-    enum: Stroke,
+    type: "varchar",
+    name: "user_stroke",
     comment: "영법",
   })
-  stroke: Stroke;
+  userStroke: string;
 
   @Column({
     type: "int",
