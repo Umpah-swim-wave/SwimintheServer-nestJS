@@ -30,3 +30,9 @@ export enum SwimSet {
   DRILL = "DRILL",
   COOLDOWN = "COOLDOWN",
 }
+
+export enum Level {
+  BEGINNING = "BEGINNING", // 초급
+  INTERMEDIATE = "INTERMEDIATE", // 중급
+  ADVANCED = "ADVANCED", // 고급
+}

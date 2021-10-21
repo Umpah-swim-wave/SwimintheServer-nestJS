@@ -1,4 +1,4 @@
-import { SwimSet, Stroke } from "../common/enum/Enum";
+import { SwimSet, Stroke, Level } from "../common/enum/Enum";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({
@@ -9,18 +9,20 @@ export class Routine extends BaseEntity {
   id: number;
 
   @Column({
-    type: "varchar", // 제목 길이는 다양하므로 varchar로 설정
+    type: "varchar",
     name: "title",
     comment: "루틴의 제목",
   })
   title: string;
 
   @Column({
-    type: "char", // level 사이즈는 고정되어 있으므로 char로 설정
+    type: "enum",
     name: "level",
-    comment: "루틴의 레벨",
+    enumName: "swim_level",
+    enum: Level,
+    comment: "어푸가 추천하는 루틴의 레벨",
   })
-  level: string;
+  level: Level;
 
   @Column({
     type: "decimal",
@@ -32,14 +34,14 @@ export class Routine extends BaseEntity {
   @Column({
     type: "int",
     name: "time_sum",
-    comment: "수영한 총 시간 (단위 : m)", // 앞에 클라에서 초 단위 잘려서 넘어오기 때문에 분 단위의 int로 설정
+    comment: "수영한 총 시간 (단위 : m)", // 초 단위 잘려서 넘어오기 때문에 분 단위의 int로 설정
   })
   timeSum: number;
 
   @Column({
     type: "varchar",
     name: "description",
-    comment: "루틴에 대한 설명", // text는 disk에 저장되어 자주 불리는 query에서는 performance 차이가 크다고 해 varchar로 설정
+    comment: "루틴에 대한 설명",
   })
   description: string;
 
