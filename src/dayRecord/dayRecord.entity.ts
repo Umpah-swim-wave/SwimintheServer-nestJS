@@ -68,20 +68,6 @@ export class DayRecord extends BaseEntity {
   stroke: Stroke;
 
   @Column({
-    type: "int",
-    name: "calorie",
-    comment: "칼로리 (단위 : kcal)",
-  })
-  calorie: number;
-
-  @Column({
-    type: "int",
-    name: "beat_per_minute",
-    comment: "BPM",
-  })
-  beatPerMinute: number;
-
-  @Column({
     type: "enum",
     enumName: "active",
     enum: Active,

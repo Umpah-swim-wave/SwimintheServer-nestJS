@@ -17,11 +17,11 @@ export class RecordController {
   @ApiNoContentResponse({
     description: "쌓여있는 유저의 기록들을 넣는다.",
   })
-  async insertRecordByUser(
+  async insertRecord(
     @Body(ValidationPipe) recordRequestDto: RecordRequestDto
   ): Promise<RecordResponseDto> {
     // TODO response type 정하고 변경
-    await this.recordService.insertRecordByUser(recordRequestDto);
+    await this.recordService.insertRecord(recordRequestDto);
     return;
   }
 }

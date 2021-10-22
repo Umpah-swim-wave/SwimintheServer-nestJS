@@ -1,13 +1,13 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { RecordLabsDto } from "./record.labs.dto";
 
-export class RecordWorkoutaDto {
+export class RecordWorkoutDto {
   @ApiProperty({ description: "workout 시작날짜" })
   readonly startWorkoutDate: string;
   @ApiProperty({ description: "workout bpm" })
   readonly totalBeatPerMinute: number;
   @ApiProperty({ description: "workout 칼로리" })
-  readonly totalEnergyBured: number;
+  readonly totalEnergyBurned: number;
   @ApiProperty({ description: "labs 당 거리" })
   readonly distancePerLabs: number;
   @ApiProperty({ description: "workout stroke 수" })

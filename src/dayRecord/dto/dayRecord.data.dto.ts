@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { RecordDailyLabsDto } from "./dayRecord.labs.dto";
 
-export class RecordDailyOverviewDataDto {
+export class RecordDailyDataDto {
   @ApiProperty({ description: "일간 거리" })
   readonly total_distance: number;
   @ApiProperty({ description: "일간 시간" })
@@ -26,20 +27,9 @@ export class RecordDailyOverviewDataDto {
   @ApiProperty({ description: "접영 일간 속도" })
   readonly butterfly_total_speed: number;
   @ApiProperty({ description: "혼영 일간 거리" })
-  readonly medley_total_distance: number;
+  readonly im_total_distance: number;
   @ApiProperty({ description: "혼영 일간 속도" })
-  readonly medley_total_speed: number;
-}
-
-export class RecordDailyLabsDto {
-  @ApiProperty({ description: "랩스 id" })
-  readonly record_id: number;
-  @ApiProperty({ description: "랩스 영법" })
-  readonly stroke: string;
-  @ApiProperty({ description: "랩스 거리" })
-  readonly distance: number;
-  @ApiProperty({ description: "랩스 속도" })
-  readonly speed: number;
-  @ApiProperty({ description: "랩스 시간" })
-  readonly time: number;
+  readonly im_total_speed: number;
+  @ApiProperty({ description: "랩스 기록" })
+  readonly recordLabsList: RecordDailyLabsDto[];
 }

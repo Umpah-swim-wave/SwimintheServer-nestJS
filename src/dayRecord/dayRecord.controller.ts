@@ -15,7 +15,7 @@ import { DayRecordService } from "./dayRecord.service";
 export class DayRecordController {
   constructor(private dayRecordService: DayRecordService) {}
 
-  @Post("/daily/overview")
+  @Post("/overview")
   @ApiOperation({
     summary: "일간 기록 오버뷰 조회 API",
     description: "유저의 일간 기록의 오버뷰를 조회하는 API.",
@@ -33,7 +33,7 @@ export class DayRecordController {
     );
   }
 
-  @Post("/daily/list")
+  @Post("/list")
   @ApiOperation({
     summary: "일간 랩스 기록 조회 API",
     description: "유저의 일간 일간 랩스 기록을 조회하는 API.",

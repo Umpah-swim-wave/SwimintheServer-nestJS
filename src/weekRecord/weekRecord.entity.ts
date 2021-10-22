@@ -17,10 +17,31 @@ export class WeekRecord extends BaseEntity {
 
   @Column({
     type: "int",
-    name: "count",
+    name: "labs_count",
     comment: "dayRecord의 row 개수",
   })
-  count: number;
+  labsCount: number;
+
+  @Column({
+    type: "int",
+    name: "stroke_count",
+    comment: "스트로크 개수",
+  })
+  strokeCount: number;
+
+  @Column({
+    type: "varchar",
+    name: "year_month",
+    comment: "수영한 년월 yyyy-mm 형식",
+  })
+  yearMonth: string;
+
+  @Column({
+    type: "int",
+    name: "week",
+    comment: "수영한 주",
+  })
+  week: number;
 
   @Column({
     type: "enum",
@@ -33,31 +54,122 @@ export class WeekRecord extends BaseEntity {
 
   @Column({
     type: "int",
-    name: "week",
-    comment: "수영한 주",
+    name: "total_distance",
+    comment: "총 수영한 거리 (단위 : m)",
   })
-  week: number;
-
-  @Column({
-    type: "varchar",
-    name: "year_month",
-    comment: "수영한 년월 yyyy-mm 형식",
-  })
-  yearMonth: string;
-
-  @Column({
-    type: "int",
-    name: "distance",
-    comment: "수영한 거리 (단위 : m)",
-  })
-  distance: number;
+  totalDistance: number;
 
   @Column({
     type: "decimal",
-    name: "speed",
-    comment: "수영한 속력 (단위 : m/s)",
+    name: "total_speed",
+    comment: "총 수영한 속력 (단위 : m/s)",
   })
-  speed: number;
+  totalSpeed: number;
+
+  @Column({
+    type: "int",
+    name: "freestyle_count",
+    comment: "자유형 labs 개수",
+  })
+  freestyleCount: number;
+
+  @Column({
+    type: "int",
+    name: "freestyle_distance",
+    comment: "자유형 수영한 거리 (단위 : m)",
+  })
+  freestyleDistance: number;
+
+  @Column({
+    type: "decimal",
+    name: "freestyle_speed",
+    comment: "자유형 수영한 속력 (단위 : m/s)",
+  })
+  freestyleSpeed: number;
+
+  @Column({
+    type: "int",
+    name: "back_count",
+    comment: "배영 labs 개수",
+  })
+  backCount: number;
+
+  @Column({
+    type: "int",
+    name: "back_distance",
+    comment: "배영 수영한 거리 (단위 : m)",
+  })
+  backDistance: number;
+
+  @Column({
+    type: "decimal",
+    name: "back_speed",
+    comment: "배영 수영한 속력 (단위 : m/s)",
+  })
+  backSpeed: number;
+
+  @Column({
+    type: "int",
+    name: "breast_count",
+    comment: "평영 labs 개수",
+  })
+  breastCount: number;
+
+  @Column({
+    type: "int",
+    name: "breast_distance",
+    comment: "평영 수영한 거리 (단위 : m)",
+  })
+  breastDistance: number;
+
+  @Column({
+    type: "decimal",
+    name: "breast_speed",
+    comment: "평영 수영한 속력 (단위 : m/s)",
+  })
+  breastSpeed: number;
+
+  @Column({
+    type: "int",
+    name: "butterfly_count",
+    comment: "접영 labs 개수",
+  })
+  butterflyCount: number;
+
+  @Column({
+    type: "int",
+    name: "butterfly_distance",
+    comment: "접영 수영한 거리 (단위 : m)",
+  })
+  butterflyDistance: number;
+
+  @Column({
+    type: "decimal",
+    name: "butterfly_speed",
+    comment: "접영 수영한 속력 (단위 : m/s)",
+  })
+  butterflySpeed: number;
+
+  @Column({
+    type: "int",
+    name: "im_count",
+    comment: "혼영 labs 개수",
+  })
+  imCount: number;
+
+  @Column({
+    type: "int",
+    name: "im_distance",
+    comment: "혼영 수영한 거리 (단위 : m)",
+  })
+  imDistance: number;
+
+  @Column({
+    type: "decimal",
+    name: "im_speed",
+    comment: "혼영 수영한 속력 (단위 : m/s)",
+  })
+  imSpeed: number;
 
   @Column({
     type: "int",
@@ -65,14 +177,6 @@ export class WeekRecord extends BaseEntity {
     comment: "수영한 시간 (단위 : s)",
   })
   time: number;
-
-  @Column({
-    type: "enum",
-    enumName: "stroke",
-    enum: Stroke,
-    comment: "영법",
-  })
-  stroke: Stroke;
 
   @Column({
     type: "int",
