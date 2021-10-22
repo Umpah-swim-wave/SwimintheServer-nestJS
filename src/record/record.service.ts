@@ -43,44 +43,46 @@ export class RecordService {
     recordRequestDto: RecordRequestDto
   ): Promise<RecordResponseDto> {
     const userId = recordRequestDto.userId;
+
     const workoutDataList = recordRequestDto.workoutList;
     for (let workout = 0; workout < workoutDataList.length; workout++) {
       const distance = workoutDataList[workout].distancePerLabs;
       let totalTime = 0;
 
-      let dayOfWeek = dateUtils.getDayOfWeek(
+      const workoutDate = dateUtils.getYearMonthDay(
         workoutDataList[workout].startWorkoutDate
       );
-      let yearMonth = dateUtils.getYearMonth(
-        workoutDataList[workout].startWorkoutDate
-      );
+      let dayOfWeek = dateUtils.getDayOfWeek(workoutDate);
+      let yearMonth = dateUtils.getYearMonth(workoutDate);
+
       const strokeDistanceList = [0, 0, 0, 0, 0];
       const strokeLabsCountList = [0, 0, 0, 0, 0];
       const strokeSpeedList = [0, 0, 0, 0, 0];
       let week;
-      if (cache.has(workoutDataList[workout].startWorkoutDate)) {
-        week = cache.get(workoutDataList[workout].startWorkoutDate);
+
+      if (cache.has(workoutDate)) {
+        week = cache.get(workoutDate);
       } else {
-        week = await this.CalenderRepository.findByDate(
-          workoutDataList[workout].startWorkoutDate
-        );
-        cache.set(workoutDataList[workout].startWorkoutDate, week);
+        week = await this.CalenderRepository.findByDate(workoutDate);
+        cache.set(workoutDate, week);
       }
 
       const recordLabsList = workoutDataList[workout].recordLabsList;
       const labsCount = workoutDataList[workout].recordLabsList.length;
-      for (let i = 0; i < labsCount; i++) {
+
+      for (let i = labsCount - 1; i >= 0; i--) {
         const dayRecord = new DayRecord();
-        const stroke = recordLabsList[i].strokeType;
+        const stroke = recordLabsList[i].strokeType - 1;
         dayRecord.userId = userId;
+        dayRecord.date = workoutDate;
         dayRecord.distance = distance;
         dayRecord.speed = distance / recordLabsList[i].time;
         dayRecord.time = recordLabsList[i].time;
 
-        dayRecord.stroke = Stroke[strokeList[stroke - 1]];
-        strokeDistanceList[stroke - 1] += distance;
-        strokeSpeedList[stroke - 1] += dayRecord.speed;
-        strokeLabsCountList[stroke - 1] += 1;
+        dayRecord.stroke = Stroke[strokeList[stroke]];
+        strokeDistanceList[stroke] += distance;
+        strokeSpeedList[stroke] += dayRecord.speed;
+        strokeLabsCountList[stroke] += 1;
 
         dayRecord.dayOfWeek = dayOfWeek;
         dayRecord.yearMonth = yearMonth;
@@ -95,16 +97,16 @@ export class RecordService {
       const totalBeatPerMinute = workoutDataList[workout].totalBeatPerMinute;
       const totalCalorie = workoutDataList[workout].totalEnergyBurned;
       const totalDistance = distance * labsCount;
-
       const weekRecord = new WeekRecord();
 
       weekRecord.userId = userId;
       weekRecord.yearMonth = yearMonth;
+      weekRecord.dayOfWeek = dayOfWeek;
       weekRecord.week = week;
-      weekRecord.calorie = totalCalorie;
-      weekRecord.strokeCount = totalStroke;
-      weekRecord.beatPerMinute = totalBeatPerMinute;
-      weekRecord.time = totalTime;
+      weekRecord.calorie = Math.round(totalCalorie);
+      weekRecord.strokeCount = Math.round(totalStroke);
+      weekRecord.beatPerMinute = Math.round(totalBeatPerMinute);
+      weekRecord.time = Math.round(totalTime);
 
       weekRecord.labsCount = labsCount;
       weekRecord.totalSpeed = totalDistance / totalTime;
@@ -112,23 +114,38 @@ export class RecordService {
 
       weekRecord.imCount = strokeLabsCountList[0];
       weekRecord.imDistance = strokeDistanceList[0];
-      weekRecord.imSpeed = strokeSpeedList[0] / strokeDistanceList[0];
+      weekRecord.imSpeed =
+        strokeLabsCountList[0] == 0
+          ? 0
+          : strokeSpeedList[0] / strokeLabsCountList[0];
 
       weekRecord.freestyleCount = strokeLabsCountList[1];
       weekRecord.freestyleDistance = strokeDistanceList[1];
-      weekRecord.freestyleSpeed = strokeSpeedList[1] / strokeDistanceList[1];
+      weekRecord.freestyleSpeed =
+        strokeLabsCountList[1] == 0
+          ? 0
+          : strokeSpeedList[1] / strokeLabsCountList[1];
 
       weekRecord.backCount = strokeLabsCountList[2];
       weekRecord.backDistance = strokeDistanceList[2];
-      weekRecord.backSpeed = strokeSpeedList[2] / strokeDistanceList[2];
+      weekRecord.backSpeed =
+        strokeLabsCountList[2] == 0
+          ? 0
+          : strokeSpeedList[2] / strokeLabsCountList[2];
 
       weekRecord.breastCount = strokeLabsCountList[3];
       weekRecord.breastDistance = strokeDistanceList[3];
-      weekRecord.breastSpeed = strokeSpeedList[3] / strokeDistanceList[3];
+      weekRecord.breastSpeed =
+        strokeLabsCountList[3] == 0
+          ? 0
+          : strokeSpeedList[3] / strokeLabsCountList[3];
 
       weekRecord.butterflyCount = strokeLabsCountList[4];
       weekRecord.butterflyDistance = strokeDistanceList[4];
-      weekRecord.butterflySpeed = strokeSpeedList[4] / strokeDistanceList[4];
+      weekRecord.butterflySpeed =
+        strokeLabsCountList[4] == 0
+          ? 0
+          : strokeSpeedList[4] / strokeLabsCountList[4];
 
       weekRecord.totalSpeed = totalDistance / totalTime;
       weekRecord.totalDistance = totalDistance;

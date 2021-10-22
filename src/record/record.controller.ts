@@ -21,7 +21,6 @@ export class RecordController {
     @Body(ValidationPipe) recordRequestDto: RecordRequestDto
   ): Promise<RecordResponseDto> {
     // TODO response type 정하고 변경
-    await this.recordService.insertRecord(recordRequestDto);
-    return;
+    return this.recordService.insertRecord(recordRequestDto);
   }
 }

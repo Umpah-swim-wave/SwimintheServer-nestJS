@@ -16,6 +16,13 @@ export class DayRecord extends BaseEntity {
   userId: number;
 
   @Column({
+    type: "varchar",
+    name: "date",
+    comment: "수영한 날짜 yyyy-mm-dd 형식",
+  })
+  date: string;
+
+  @Column({
     type: "enum",
     name: "day_of_week",
     enumName: "day_of_week",
