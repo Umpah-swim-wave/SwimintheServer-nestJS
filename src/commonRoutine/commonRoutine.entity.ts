@@ -4,7 +4,7 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity({
     name: "routine",
 })
-export class Routine extends BaseEntity {
+export class CommonRoutine extends BaseEntity {
   @PrimaryGeneratedColumn() // 열 자동 생성 위해 쓰이는 데코레이터
   id: number;
 
