@@ -116,39 +116,38 @@ export class RecordService {
       // TODO 속도 구하는 더러운 코드 함수로 빼기
       weekRecord.imCount = strokeLabsCountList[0];
       weekRecord.imDistance = strokeDistanceList[0];
-      weekRecord.imSpeed =
-        strokeLabsCountList[0] == 0
-          ? 0
-          : strokeSpeedList[0] / strokeLabsCountList[0];
+      weekRecord.imSpeed = this.getSpeed(
+        strokeLabsCountList[0],
+        strokeSpeedList[0]
+      );
 
       weekRecord.freestyleCount = strokeLabsCountList[1];
       weekRecord.freestyleDistance = strokeDistanceList[1];
-      weekRecord.freestyleSpeed =
-        strokeLabsCountList[1] == 0
-          ? 0
-          : strokeSpeedList[1] / strokeLabsCountList[1];
+      weekRecord.freestyleSpeed = this.getSpeed(
+        strokeLabsCountList[1],
+        strokeSpeedList[1]
+      );
 
       weekRecord.backCount = strokeLabsCountList[2];
       weekRecord.backDistance = strokeDistanceList[2];
-      weekRecord.backSpeed =
-        strokeLabsCountList[2] == 0
-          ? 0
-          : strokeSpeedList[2] / strokeLabsCountList[2];
+      weekRecord.backSpeed = this.getSpeed(
+        strokeLabsCountList[2],
+        strokeSpeedList[2]
+      );
 
       weekRecord.breastCount = strokeLabsCountList[3];
       weekRecord.breastDistance = strokeDistanceList[3];
-      weekRecord.breastSpeed =
-        strokeLabsCountList[3] == 0
-          ? 0
-          : strokeSpeedList[3] / strokeLabsCountList[3];
+      weekRecord.breastSpeed = this.getSpeed(
+        strokeLabsCountList[3],
+        strokeSpeedList[3]
+      );
 
       weekRecord.butterflyCount = strokeLabsCountList[4];
       weekRecord.butterflyDistance = strokeDistanceList[4];
-      weekRecord.butterflySpeed =
-        strokeLabsCountList[4] == 0
-          ? 0
-          : strokeSpeedList[4] / strokeLabsCountList[4];
-
+      weekRecord.butterflySpeed = this.getSpeed(
+        strokeLabsCountList[4],
+        strokeSpeedList[4]
+      );
       weekRecord.totalSpeed = totalDistance / totalTime;
       weekRecord.totalDistance = totalDistance;
 
@@ -156,5 +155,10 @@ export class RecordService {
     }
 
     return utilResponse.success(messageResponse.INSERT_RECORD_SUCCESS, null);
+  }
+
+  getSpeed(count: number, speed: number): number {
+    if (count == 0) return 0;
+    return speed / count;
   }
 }
