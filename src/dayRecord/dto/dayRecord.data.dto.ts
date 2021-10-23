@@ -3,33 +3,33 @@ import { RecordDailyLabsDto } from "./dayRecord.labs.dto";
 
 export class RecordDailyDataDto {
   @ApiProperty({ description: "일간 거리" })
-  readonly total_distance: number;
+  readonly totalDistance: number;
   @ApiProperty({ description: "일간 시간" })
-  readonly total_time: number;
+  readonly totalTime: number;
   @ApiProperty({ description: "일간 칼로리" })
-  readonly total_calorie: number;
+  readonly totalCalorie: number;
   @ApiProperty({ description: "일간 bpm" })
-  readonly total_bpm: number;
+  readonly totalBpm: number;
   @ApiProperty({ description: "자유형 일간 거리" })
-  readonly freestyle_total_distance: number;
+  readonly freestyleTotalDistance: number;
   @ApiProperty({ description: "자유형 일간 속도" })
-  readonly freestyle_total_speed: number;
+  readonly freestyleTotalSpeed: number;
   @ApiProperty({ description: "평영 일간 거리" })
-  readonly breast_total_distance: number;
+  readonly breastTotalDistance: number;
   @ApiProperty({ description: "평영 일간 속도" })
-  readonly breast_total_speed: number;
+  readonly breastTotalSpeed: number;
   @ApiProperty({ description: "배영 일간 거리" })
-  readonly back_total_distance: number;
+  readonly backTotalDistance: number;
   @ApiProperty({ description: "배영 일간 속도" })
-  readonly back_total_speed: number;
+  readonly backTotalSpeed: number;
   @ApiProperty({ description: "접영 일간 거리" })
-  readonly butterfly_total_distance: number;
+  readonly butterflyTotalDistance: number;
   @ApiProperty({ description: "접영 일간 속도" })
-  readonly butterfly_total_speed: number;
+  readonly butterflyTotalSpeed: number;
   @ApiProperty({ description: "혼영 일간 거리" })
-  readonly im_total_distance: number;
+  readonly imTotalDistance: number;
   @ApiProperty({ description: "혼영 일간 속도" })
-  readonly im_total_speed: number;
+  readonly imTotalSpeed: number;
   @ApiProperty({ description: "랩스 기록" })
   readonly recordLabsList: RecordDailyLabsDto[];
 }
