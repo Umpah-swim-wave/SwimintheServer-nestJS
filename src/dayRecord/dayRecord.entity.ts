@@ -16,6 +16,13 @@ export class DayRecord extends BaseEntity {
   userId: number;
 
   @Column({
+    type: "varchar",
+    name: "date",
+    comment: "수영한 날짜 yyyy-mm-dd 형식",
+  })
+  date: string;
+
+  @Column({
     type: "enum",
     name: "day_of_week",
     enumName: "day_of_week",
@@ -66,20 +73,6 @@ export class DayRecord extends BaseEntity {
     comment: "영법",
   })
   stroke: Stroke;
-
-  @Column({
-    type: "int",
-    name: "calorie",
-    comment: "칼로리 (단위 : kcal)",
-  })
-  calorie: number;
-
-  @Column({
-    type: "int",
-    name: "beat_per_minute",
-    comment: "BPM",
-  })
-  beatPerMinute: number;
 
   @Column({
     type: "enum",

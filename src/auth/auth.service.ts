@@ -37,13 +37,13 @@ export class AuthService {
       return utilResponse.fail(messageResponse.NO_USER);
     }
 
-    const UserId = user.id;
+    const userId = user.id;
     const userNickname = user.nickname;
-    const payload: JwtPayload = { userId: UserId };
+    const payload: JwtPayload = { userId: userId };
     const token = await this.JwtService.sign(payload);
 
     const data: SignInDataDto = {
-      UserId,
+      userId,
       userNickname,
       token,
     };
