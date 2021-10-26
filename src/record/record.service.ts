@@ -44,7 +44,7 @@ export class RecordService {
     recordRequestDto: RecordRequestDto
   ): Promise<RecordResponseDto> {
     const userId = recordRequestDto.userId;
-
+    console.log(recordRequestDto);
     const workoutDataList = recordRequestDto.workoutList;
     for (let workout = 0; workout < workoutDataList.length; workout++) {
       const distance = workoutDataList[workout].distancePerLabs;
