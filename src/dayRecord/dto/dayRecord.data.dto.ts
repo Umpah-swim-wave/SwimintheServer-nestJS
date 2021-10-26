@@ -2,6 +2,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import { RecordDailyLabsDto } from "./dayRecord.labs.dto";
 
 export class RecordDailyDataDto {
+  @ApiProperty({ description: "수영한 날짜 YYYY/MM/DD 형태" })
+  readonly date: string;
   @ApiProperty({ description: "일간 거리" })
   readonly totalDistance: number;
   @ApiProperty({ description: "일간 시간" })

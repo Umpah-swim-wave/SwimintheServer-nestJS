@@ -113,7 +113,6 @@ export class RecordService {
       weekRecord.totalSpeed = totalDistance / totalTime;
       weekRecord.totalDistance = totalDistance;
 
-      // TODO 속도 구하는 더러운 코드 함수로 빼기
       weekRecord.imCount = strokeLabsCountList[0];
       weekRecord.imDistance = strokeDistanceList[0];
       weekRecord.imSpeed = this.getSpeed(
