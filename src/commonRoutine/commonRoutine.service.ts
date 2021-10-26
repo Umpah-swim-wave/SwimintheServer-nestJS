@@ -10,3 +10,4 @@ export class CommonRoutineService {
     private readonly CommonRoutineRepository: CommonRoutineRepository
   ) {}
 }
+// db에 있는거 통채로 불러오기
