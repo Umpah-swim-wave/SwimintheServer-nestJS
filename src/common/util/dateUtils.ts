@@ -17,4 +17,7 @@ export default {
   getDayOfWeek: (date): DayOfWeek => {
     return DAY_OF_WEEK[dayjs(date).day()];
   },
+  getYearMonthDay: (date): string => {
+    return date.slice(0, 10);
+  },
 };
