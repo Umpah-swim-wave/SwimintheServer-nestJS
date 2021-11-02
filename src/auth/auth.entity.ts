@@ -18,7 +18,7 @@ export class User extends BaseEntity {
 
   @Column({
     type: "varchar",
-    name: "phone_number",
+    name: "phone",
     comment: "유저의 휴대폰 번호",
     length: 20,
   })

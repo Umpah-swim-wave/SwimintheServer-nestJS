@@ -44,7 +44,7 @@ export class RecordService {
     recordRequestDto: RecordRequestDto
   ): Promise<RecordResponseDto> {
     const userId = recordRequestDto.userId;
-
+    console.log(recordRequestDto);
     const workoutDataList = recordRequestDto.workoutList;
     for (let workout = 0; workout < workoutDataList.length; workout++) {
       const distance = workoutDataList[workout].distancePerLabs;
@@ -153,7 +153,7 @@ export class RecordService {
       await this.WeekRecordRepository.save(weekRecord);
     }
 
-    return utilResponse.success(messageResponse.INSERT_RECORD_SUCCESS, null);
+    return utilResponse.success(messageResponse.INSERT_RECORD_SUCCESS, "");
   }
 
   getSpeed(count: number, speed: number): number {
