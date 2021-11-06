@@ -2,6 +2,9 @@ import { Body, Controller, Get, ValidationPipe } from "@nestjs/common";
 import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { CommonRoutineListResponseDto } from "./dto/commonRoutine.response.dto";
 import { CommonRoutineService } from "./commonRoutine.service";
+import util from "../common/response/util.response";
+import responseMessage from "../common/response/message.response";
+import { CommonRoutineListDto } from "./dto/commonRoutine.data.dto";
 
 @ApiTags("commonRoutine")
 @Controller("commonRoutine")
@@ -17,9 +20,11 @@ export class CommonRoutineController {
     description: "기본 루틴 조회 성공입니다.",
     type: CommonRoutineListResponseDto,
   })
-  async findRoutineList(
-    @Body(ValidationPipe) commonRoutineListResponseDto: CommonRoutineListResponseDto
+  async AllRoutineList(
+    @Body(ValidationPipe) routineListDto: CommonRoutineListDto
     ): Promise<CommonRoutineListResponseDto> {
-      return this.commonRoutineService.find(commonRoutineListResponseDto);
+      return await this.commonRoutineService.getAllRoutine(
+        routineListDto
+      )
   }
 }

@@ -1,10 +1,8 @@
 import { Injectable, Inject } from "@nestjs/common";
 import { CommonRoutine } from "./commonRoutine.entity"
 import { Repository } from "typeorm"
-import { CommonRoutineRepository } from "./commonRoutine.repository"
-import { CommonRoutineFilterDto } from "./dto/commonRoutine.request.dto"
-import utilResponse from "../common/response/util.response";
-import messageResponse from "../common/response/message.response";
+import { CommonRoutineListResponseDto } from "./dto/commonRoutine.response.dto"
+import { CommonRoutineListDto } from "./dto/commonRoutine.data.dto";
 
 @Injectable()
 export class CommonRoutineService {
@@ -13,14 +11,12 @@ export class CommonRoutineService {
     private readonly CommonRoutineRepository: Repository<CommonRoutine>
   ) {}
 
-  async findRoutine(
-    commonRoutineFilterDto: CommonRoutineFilterDto
-  ): Promise<CommonRoutineFilterDto> {
-    await this.CommonRoutineRepository.find();
+  async getAllRoutine(
+    commonRoutineListDto: CommonRoutineListDto
+  ): Promise<CommonRoutineListResponseDto> {
+    let result: CommonRoutineListResponseDto;
+    return result;
+    // const routineId = commonRoutineListDto.routineId;
+    // console.log(routineId);
   }
-  return utilResponse
-  // Promise<CommonRoutine[]> {
-  //   return await this.CommonRoutineRepository.find();
-  // }
 }
-// db에 있는거 통채로 불러오기

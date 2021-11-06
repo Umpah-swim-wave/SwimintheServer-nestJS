@@ -34,7 +34,7 @@ export class CommonRoutine extends BaseEntity {
   @Column({
     type: "int",
     name: "time_sum",
-    comment: "수영한 총 시간 (단위 : m)", // 초 단위 잘려서 넘어오기 때문에 분 단위의 int로 설정
+    comment: "수영한 총 시간 (단위 : s)", // 초 단위 잘려서 넘어오기 때문에 분 단위의 int로 설정
   })
   timeSum: number;
 
