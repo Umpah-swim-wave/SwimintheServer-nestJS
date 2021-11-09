@@ -11,7 +11,7 @@ import { CommonRoutineListDto } from "./dto/commonRoutine.data.dto";
 export class CommonRoutineController {
   constructor(private commonRoutineService: CommonRoutineService) {}
 
-  @Get("/routines")
+  @Get("/list")
   @ApiOperation({
     summary: "기본 루틴 조회 API",
     description: "어푸에서 추천하는 기본 루틴 조회 API",
@@ -20,11 +20,16 @@ export class CommonRoutineController {
     description: "기본 루틴 조회 성공입니다.",
     type: CommonRoutineListResponseDto,
   })
-  async AllRoutineList(
-    @Body(ValidationPipe) routineListDto: CommonRoutineListDto
-    ): Promise<CommonRoutineListResponseDto> {
-      return await this.commonRoutineService.getAllRoutine(
-        routineListDto
-      )
+  commonRoutineList(
+    @Body(ValidationPipe) commonRoutineListDto: CommonRoutineListDto
+  ): Promise<CommonRoutineListResponseDto> {
+    return this.commonRoutineService.getAllRoutine(commonRoutineListDto)
   }
+  // async AllRoutineList(
+  //   @Body(ValidationPipe) routineListDto: CommonRoutineListDto
+  //   ): Promise<CommonRoutineListResponseDto> {
+  //     return await this.commonRoutineService.getAllRoutine(
+  //       routineListDto
+  //     )
+  // }
 }

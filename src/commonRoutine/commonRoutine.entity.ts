@@ -2,7 +2,7 @@ import { SwimSet, Stroke, Level } from "../common/enum/Enum";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({
-    name: "routine",
+    name: "uhpuh_routine",
 })
 export class CommonRoutine extends BaseEntity {
   @PrimaryGeneratedColumn() // 열 자동 생성 위해 쓰이는 데코레이터
@@ -61,7 +61,7 @@ export class CommonRoutine extends BaseEntity {
     enum: Stroke,
     comment: "영법",
   })
-  stroke: Stroke;
+  stroke: Stroke; // 이거 배열로 다시 짜야함
 
   @Column({
     type: "int",
