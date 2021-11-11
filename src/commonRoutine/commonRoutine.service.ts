@@ -22,4 +22,11 @@ export class CommonRoutineService {
     });
     return utilResponse.success(messageResponse.GET_COMMON_ROUTINE_SUCCESS, result);
   }
+
+  async getRoutineDetail(
+    commonRoutineDetailDto: CommonRoutineListDto
+  ): Promise<CommonRoutineListResponseDto> {
+    const result = await this.CommonRoutineRepository.find();
+    return utilResponse.success(messageResponse.GET_COMMON_ROUTINE_DETAIL_SUCCESS, result);
+  }
 }
