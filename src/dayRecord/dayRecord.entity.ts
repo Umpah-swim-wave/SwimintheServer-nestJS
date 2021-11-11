@@ -53,13 +53,6 @@ export class DayRecord extends BaseEntity {
   distance: number;
 
   @Column({
-    type: "decimal",
-    name: "speed",
-    comment: "수영한 속력 (단위 : m/s)",
-  })
-  speed: number;
-
-  @Column({
     type: "int",
     name: "time",
     comment: "수영한 시간 (단위 : s)",

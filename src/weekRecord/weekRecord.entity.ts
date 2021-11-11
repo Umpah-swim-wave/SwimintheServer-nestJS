@@ -61,10 +61,10 @@ export class WeekRecord extends BaseEntity {
 
   @Column({
     type: "decimal",
-    name: "total_speed",
-    comment: "총 수영한 속력 (단위 : m/s)",
+    name: "total_time",
+    comment: "총 수영한 시간 (단위 : s)",
   })
-  totalSpeed: number;
+  totalTime: number;
 
   @Column({
     type: "int",
@@ -82,10 +82,10 @@ export class WeekRecord extends BaseEntity {
 
   @Column({
     type: "decimal",
-    name: "freestyle_speed",
-    comment: "자유형 수영한 속력 (단위 : m/s)",
+    name: "freestyle_time",
+    comment: "자유형 수영한 시간 (단위 : s)",
   })
-  freestyleSpeed: number;
+  freestyleTime: number;
 
   @Column({
     type: "int",
@@ -103,10 +103,10 @@ export class WeekRecord extends BaseEntity {
 
   @Column({
     type: "decimal",
-    name: "back_speed",
-    comment: "배영 수영한 속력 (단위 : m/s)",
+    name: "back_time",
+    comment: "배영 수영한 시간 (단위 : s)",
   })
-  backSpeed: number;
+  backTime: number;
 
   @Column({
     type: "int",
@@ -124,10 +124,10 @@ export class WeekRecord extends BaseEntity {
 
   @Column({
     type: "decimal",
-    name: "breast_speed",
-    comment: "평영 수영한 속력 (단위 : m/s)",
+    name: "breast_time",
+    comment: "평영 수영한 시간 (단위 : s)",
   })
-  breastSpeed: number;
+  breastTime: number;
 
   @Column({
     type: "int",
@@ -145,10 +145,10 @@ export class WeekRecord extends BaseEntity {
 
   @Column({
     type: "decimal",
-    name: "butterfly_speed",
-    comment: "접영 수영한 속력 (단위 : m/s)",
+    name: "butterfly_time",
+    comment: "접영 수영한 시간 (단위 : s)",
   })
-  butterflySpeed: number;
+  butterflyTime: number;
 
   @Column({
     type: "int",
@@ -166,17 +166,10 @@ export class WeekRecord extends BaseEntity {
 
   @Column({
     type: "decimal",
-    name: "im_speed",
-    comment: "혼영 수영한 속력 (단위 : m/s)",
+    name: "im_time",
+    comment: "혼영 수영한 시간 (단위 : s)",
   })
-  imSpeed: number;
-
-  @Column({
-    type: "int",
-    name: "time",
-    comment: "수영한 시간 (단위 : s)",
-  })
-  time: number;
+  imTime: number;
 
   @Column({
     type: "int",

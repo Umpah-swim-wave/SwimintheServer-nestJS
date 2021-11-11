@@ -39,7 +39,7 @@ export class RecordService {
     private readonly CalenderRepository: CalenderRepository
   ) {}
 
-  // TODO week_records와 month_records insert하는 로직 추가
+  // TODO month_records insert하는 로직 추가
   async insertRecord(
     recordRequestDto: RecordRequestDto
   ): Promise<RecordResponseDto> {
@@ -57,8 +57,8 @@ export class RecordService {
       let yearMonth = dateUtils.getYearMonth(workoutDate);
 
       const strokeDistanceList = [0, 0, 0, 0, 0];
+      const strokeTimeList = [0, 0, 0, 0, 0];
       const strokeLabsCountList = [0, 0, 0, 0, 0];
-      const strokeSpeedList = [0, 0, 0, 0, 0];
       let week;
 
       if (cache.has(workoutDate)) {
@@ -77,12 +77,11 @@ export class RecordService {
         dayRecord.userId = userId;
         dayRecord.date = workoutDate;
         dayRecord.distance = distance;
-        dayRecord.speed = distance / recordLabsList[i].time;
         dayRecord.time = recordLabsList[i].time;
 
         dayRecord.stroke = Stroke[strokeList[stroke]];
         strokeDistanceList[stroke] += distance;
-        strokeSpeedList[stroke] += dayRecord.speed;
+        strokeTimeList[stroke] += recordLabsList[i].time;
         strokeLabsCountList[stroke] += 1;
 
         dayRecord.dayOfWeek = dayOfWeek;
@@ -107,57 +106,37 @@ export class RecordService {
       weekRecord.calorie = Math.round(totalCalorie);
       weekRecord.strokeCount = Math.round(totalStroke);
       weekRecord.beatPerMinute = Math.round(totalBeatPerMinute);
-      weekRecord.time = Math.round(totalTime);
 
       weekRecord.labsCount = labsCount;
-      weekRecord.totalSpeed = totalDistance / totalTime;
+      weekRecord.totalTime = totalTime;
       weekRecord.totalDistance = totalDistance;
 
       weekRecord.imCount = strokeLabsCountList[0];
       weekRecord.imDistance = strokeDistanceList[0];
-      weekRecord.imSpeed = this.getSpeed(
-        strokeLabsCountList[0],
-        strokeSpeedList[0]
-      );
+      weekRecord.imTime = strokeTimeList[0];
 
       weekRecord.freestyleCount = strokeLabsCountList[1];
       weekRecord.freestyleDistance = strokeDistanceList[1];
-      weekRecord.freestyleSpeed = this.getSpeed(
-        strokeLabsCountList[1],
-        strokeSpeedList[1]
-      );
+      weekRecord.freestyleTime = strokeTimeList[1];
 
       weekRecord.backCount = strokeLabsCountList[2];
       weekRecord.backDistance = strokeDistanceList[2];
-      weekRecord.backSpeed = this.getSpeed(
-        strokeLabsCountList[2],
-        strokeSpeedList[2]
-      );
+      weekRecord.backTime = strokeTimeList[2];
 
       weekRecord.breastCount = strokeLabsCountList[3];
       weekRecord.breastDistance = strokeDistanceList[3];
-      weekRecord.breastSpeed = this.getSpeed(
-        strokeLabsCountList[3],
-        strokeSpeedList[3]
-      );
+      weekRecord.breastTime = strokeTimeList[3];
 
       weekRecord.butterflyCount = strokeLabsCountList[4];
       weekRecord.butterflyDistance = strokeDistanceList[4];
-      weekRecord.butterflySpeed = this.getSpeed(
-        strokeLabsCountList[4],
-        strokeSpeedList[4]
-      );
-      weekRecord.totalSpeed = totalDistance / totalTime;
+      weekRecord.butterflyTime = strokeTimeList[4];
+
       weekRecord.totalDistance = totalDistance;
+      weekRecord.totalTime = Math.round(totalTime);
 
       await this.WeekRecordRepository.save(weekRecord);
     }
 
-    return utilResponse.success(messageResponse.INSERT_RECORD_SUCCESS, "");
-  }
-
-  getSpeed(count: number, speed: number): number {
-    if (count == 0) return 0;
-    return speed / count;
+    return utilResponse.success(messageResponse.INSERT_RECORD_SUCCESS, null);
   }
 }
