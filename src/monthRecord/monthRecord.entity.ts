@@ -44,15 +44,6 @@ export class MonthRecord extends BaseEntity {
   week: number;
 
   @Column({
-    type: "enum",
-    name: "day_of_week",
-    enumName: "day_of_week",
-    enum: DayOfWeek,
-    comment: "수영한 요일",
-  })
-  dayOfWeek: DayOfWeek;
-
-  @Column({
     type: "int",
     name: "total_distance",
     comment: "총 수영한 거리 (단위 : m)",
@@ -205,4 +196,35 @@ export class MonthRecord extends BaseEntity {
     name: "updated_at",
   })
   updatedAt: string;
+
+  constructor() {
+    super();
+    this.calorie = 0;
+    this.strokeCount = 0;
+    this.beatPerMinute = 0;
+
+    this.labsCount = 0;
+    this.totalTime = 0;
+    this.totalDistance = 0;
+
+    this.imCount = 0;
+    this.imDistance = 0;
+    this.imTime = 0;
+
+    this.freestyleCount = 0;
+    this.freestyleDistance = 0;
+    this.freestyleTime = 0;
+
+    this.backCount = 0;
+    this.backDistance = 0;
+    this.backTime = 0;
+
+    this.breastCount = 0;
+    this.breastDistance = 0;
+    this.breastTime = 0;
+
+    this.butterflyCount = 0;
+    this.butterflyDistance = 0;
+    this.butterflyTime = 0;
+  }
 }

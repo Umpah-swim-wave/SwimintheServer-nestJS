@@ -5,6 +5,7 @@ import messageResponse from "../common/response/message.response";
 import { DayRecord } from "../dayRecord/dayRecord.entity";
 import { DayRecordRepository } from "../dayRecord/dayRecord.repository";
 import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
+import { MonthRecordRepository } from "../monthRecord/monthRecord.repository";
 import { CalenderRepository } from "../calender/calender.repository";
 import { RecordRequestDto } from "./dto/record.request.dto";
 import { RecordResponseDto } from "./dto/record.response.dto";
@@ -12,6 +13,7 @@ import dateUtils from "../common/util/dateUtils";
 import { Stroke } from "../common/enum/Enum";
 import { WeekRecord } from "../weekRecord/weekRecord.entity";
 import { UniqueColumsDao } from "../common/dao/UniqueColumns.dao";
+import { MonthRecord } from "../monthRecord/monthRecord.entity";
 
 const LRU = require("lru-cache");
 
@@ -36,6 +38,8 @@ export class RecordService {
     private readonly DayRecordRepository: DayRecordRepository,
     @InjectRepository(WeekRecordRepository)
     private readonly WeekRecordRepository: WeekRecordRepository,
+    @InjectRepository(MonthRecordRepository)
+    private readonly MonthRecordRepository: MonthRecordRepository,
     @InjectRepository(CalenderRepository)
     private readonly CalenderRepository: CalenderRepository
   ) {}
@@ -45,7 +49,6 @@ export class RecordService {
     recordRequestDto: RecordRequestDto
   ): Promise<RecordResponseDto> {
     const userId = recordRequestDto.userId;
-    console.log(recordRequestDto);
     const workoutDataList = recordRequestDto.workoutList;
     for (let workout = 0; workout < workoutDataList.length; workout++) {
       const distance = workoutDataList[workout].distancePerLabs;
@@ -115,6 +118,10 @@ export class RecordService {
       let weekRecord = await this.WeekRecordRepository.findByUniqueColumns(
         columns
       );
+      let monthRecord = await this.MonthRecordRepository.findByUniqueColumns(
+        columns
+      );
+
       if (!weekRecord) {
         weekRecord = new WeekRecord();
         weekRecord.userId = userId;
@@ -122,6 +129,13 @@ export class RecordService {
         weekRecord.dayOfWeek = dayOfWeek;
         weekRecord.week = week;
       }
+      if (!monthRecord) {
+        monthRecord = new MonthRecord();
+        monthRecord.userId = userId;
+        monthRecord.yearMonth = yearMonth;
+        monthRecord.week = week;
+      }
+
       weekRecord.calorie += totalCalorie;
       weekRecord.strokeCount += totalStroke;
       weekRecord.beatPerMinute += totalBeatPerMinute;
@@ -150,7 +164,36 @@ export class RecordService {
       weekRecord.butterflyDistance += strokeDistanceList[4];
       weekRecord.butterflyTime += strokeTimeList[4];
 
+      monthRecord.calorie += totalCalorie;
+      monthRecord.strokeCount += totalStroke;
+      monthRecord.beatPerMinute += totalBeatPerMinute;
+
+      monthRecord.labsCount += labsCount;
+      monthRecord.totalTime += totalTime;
+      monthRecord.totalDistance += totalDistance;
+
+      monthRecord.imCount += strokeLabsCountList[0];
+      monthRecord.imDistance += strokeDistanceList[0];
+      monthRecord.imTime += strokeTimeList[0];
+
+      monthRecord.freestyleCount += strokeLabsCountList[1];
+      monthRecord.freestyleDistance += strokeDistanceList[1];
+      monthRecord.freestyleTime += strokeTimeList[1];
+
+      monthRecord.backCount += strokeLabsCountList[2];
+      monthRecord.backDistance += strokeDistanceList[2];
+      monthRecord.backTime += strokeTimeList[2];
+
+      monthRecord.breastCount += strokeLabsCountList[3];
+      monthRecord.breastDistance += strokeDistanceList[3];
+      monthRecord.breastTime += strokeTimeList[3];
+
+      monthRecord.butterflyCount += strokeLabsCountList[4];
+      monthRecord.butterflyDistance += strokeDistanceList[4];
+      monthRecord.butterflyTime += strokeTimeList[4];
+
       await this.WeekRecordRepository.save(weekRecord);
+      await this.MonthRecordRepository.save(monthRecord);
     }
 
     return utilResponse.success(messageResponse.INSERT_RECORD_SUCCESS, null);
