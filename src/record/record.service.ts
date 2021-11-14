@@ -9,8 +9,9 @@ import { CalenderRepository } from "../calender/calender.repository";
 import { RecordRequestDto } from "./dto/record.request.dto";
 import { RecordResponseDto } from "./dto/record.response.dto";
 import dateUtils from "../common/util/dateUtils";
-import { Stroke } from "src/common/enum/Enum";
-import { WeekRecord } from "src/weekRecord/weekRecord.entity";
+import { Stroke } from "../common/enum/Enum";
+import { WeekRecord } from "../weekRecord/weekRecord.entity";
+import { UniqueColumsDao } from "../common/dao/UniqueColumns.dao";
 
 const LRU = require("lru-cache");
 
@@ -93,46 +94,61 @@ export class RecordService {
         await this.DayRecordRepository.save(dayRecord);
       }
 
-      const totalStroke = workoutDataList[workout].totalSwimmingStrokeCount;
-      const totalBeatPerMinute = workoutDataList[workout].totalBeatPerMinute;
-      const totalCalorie = workoutDataList[workout].totalEnergyBurned;
+      const totalStroke = Math.round(
+        workoutDataList[workout].totalSwimmingStrokeCount
+      );
+      const totalBeatPerMinute = Math.round(
+        workoutDataList[workout].totalBeatPerMinute
+      );
+      const totalCalorie = Math.round(
+        workoutDataList[workout].totalEnergyBurned
+      );
       const totalDistance = distance * labsCount;
-      const weekRecord = new WeekRecord();
 
-      weekRecord.userId = userId;
-      weekRecord.yearMonth = yearMonth;
-      weekRecord.dayOfWeek = dayOfWeek;
-      weekRecord.week = week;
-      weekRecord.calorie = Math.round(totalCalorie);
-      weekRecord.strokeCount = Math.round(totalStroke);
-      weekRecord.beatPerMinute = Math.round(totalBeatPerMinute);
+      const columns: UniqueColumsDao = {
+        userId,
+        yearMonth,
+        week,
+        dayOfWeek,
+      };
 
-      weekRecord.labsCount = labsCount;
-      weekRecord.totalTime = totalTime;
-      weekRecord.totalDistance = totalDistance;
+      let weekRecord = await this.WeekRecordRepository.findByUniqueColumns(
+        columns
+      );
+      if (!weekRecord) {
+        weekRecord = new WeekRecord();
+        weekRecord.userId = userId;
+        weekRecord.yearMonth = yearMonth;
+        weekRecord.dayOfWeek = dayOfWeek;
+        weekRecord.week = week;
+      }
+      weekRecord.calorie += totalCalorie;
+      weekRecord.strokeCount += totalStroke;
+      weekRecord.beatPerMinute += totalBeatPerMinute;
 
-      weekRecord.imCount = strokeLabsCountList[0];
-      weekRecord.imDistance = strokeDistanceList[0];
-      weekRecord.imTime = strokeTimeList[0];
+      weekRecord.labsCount += labsCount;
+      weekRecord.totalTime += totalTime;
+      weekRecord.totalDistance += totalDistance;
 
-      weekRecord.freestyleCount = strokeLabsCountList[1];
-      weekRecord.freestyleDistance = strokeDistanceList[1];
-      weekRecord.freestyleTime = strokeTimeList[1];
+      weekRecord.imCount += strokeLabsCountList[0];
+      weekRecord.imDistance += strokeDistanceList[0];
+      weekRecord.imTime += strokeTimeList[0];
 
-      weekRecord.backCount = strokeLabsCountList[2];
-      weekRecord.backDistance = strokeDistanceList[2];
-      weekRecord.backTime = strokeTimeList[2];
+      weekRecord.freestyleCount += strokeLabsCountList[1];
+      weekRecord.freestyleDistance += strokeDistanceList[1];
+      weekRecord.freestyleTime += strokeTimeList[1];
 
-      weekRecord.breastCount = strokeLabsCountList[3];
-      weekRecord.breastDistance = strokeDistanceList[3];
-      weekRecord.breastTime = strokeTimeList[3];
+      weekRecord.backCount += strokeLabsCountList[2];
+      weekRecord.backDistance += strokeDistanceList[2];
+      weekRecord.backTime += strokeTimeList[2];
 
-      weekRecord.butterflyCount = strokeLabsCountList[4];
-      weekRecord.butterflyDistance = strokeDistanceList[4];
-      weekRecord.butterflyTime = strokeTimeList[4];
+      weekRecord.breastCount += strokeLabsCountList[3];
+      weekRecord.breastDistance += strokeDistanceList[3];
+      weekRecord.breastTime += strokeTimeList[3];
 
-      weekRecord.totalDistance = totalDistance;
-      weekRecord.totalTime = Math.round(totalTime);
+      weekRecord.butterflyCount += strokeLabsCountList[4];
+      weekRecord.butterflyDistance += strokeDistanceList[4];
+      weekRecord.butterflyTime += strokeTimeList[4];
 
       await this.WeekRecordRepository.save(weekRecord);
     }
