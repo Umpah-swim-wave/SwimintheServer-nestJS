@@ -12,7 +12,7 @@ export class DayRecordController {
   @Post("/list")
   @ApiOperation({
     summary: "일간 랩스 기록 조회 API",
-    description: "유저의 일간 일간 랩스 기록을 조회하는 API.",
+    description: "유저의 일간 랩스 기록을 조회하는 API.",
   })
   @ApiOkResponse({
     description: "일간 랩스 기록을 조회한다.",
