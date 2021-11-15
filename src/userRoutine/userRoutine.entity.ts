@@ -27,7 +27,7 @@ export class userRoutine extends BaseEntity {
     name: "level",
     enumName: "swim_level",
     enum: Level,
-    comment: "유저가 생성한 루틴의 레벨",
+    comment: "유저가 생성한 루틴의 난이도",
   })
   level: Level;
 

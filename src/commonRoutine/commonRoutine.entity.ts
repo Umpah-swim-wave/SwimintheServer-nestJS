@@ -2,9 +2,9 @@ import { SwimSet, Stroke, Level } from "../common/enum/Enum";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({
-    name: "routine",
+    name: "uhpuh_routine",
 })
-export class Routine extends BaseEntity {
+export class CommonRoutine extends BaseEntity {
   @PrimaryGeneratedColumn() // 열 자동 생성 위해 쓰이는 데코레이터
   id: number;
 
@@ -34,7 +34,7 @@ export class Routine extends BaseEntity {
   @Column({
     type: "int",
     name: "time_sum",
-    comment: "수영한 총 시간 (단위 : m)", // 초 단위 잘려서 넘어오기 때문에 분 단위의 int로 설정
+    comment: "수영한 총 시간 (단위 : s)", // 초 단위 잘려서 넘어오기 때문에 분 단위의 int로 설정
   })
   timeSum: number;
 
@@ -61,7 +61,7 @@ export class Routine extends BaseEntity {
     enum: Stroke,
     comment: "영법",
   })
-  stroke: Stroke;
+  stroke: Stroke; // 이거 배열로 다시 짜야함
 
   @Column({
     type: "int",

@@ -9,7 +9,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
   entities: [__dirname + "/../**/*.entity.{js,ts}"],
-  synchronize: false,
+  synchronize: true,
 
   // type: "mysql",
   // host: "127.0.0.1",
