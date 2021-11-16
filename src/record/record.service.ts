@@ -1,14 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import utilResponse from "../common/response/util.response";
-import messageResponse from "../common/response/message.response";
 import { DayRecord } from "../dayRecord/dayRecord.entity";
 import { DayRecordRepository } from "../dayRecord/dayRecord.repository";
 import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
 import { MonthRecordRepository } from "../monthRecord/monthRecord.repository";
 import { CalenderRepository } from "../calender/calender.repository";
 import { RecordRequestDto } from "./dto/record.request.dto";
-import { RecordResponseDto } from "./dto/record.response.dto";
 import dateUtils from "../common/util/dateUtils";
 import { Stroke } from "../common/enum/Enum";
 import { WeekRecord } from "../weekRecord/weekRecord.entity";
@@ -45,9 +42,7 @@ export class RecordService {
   ) {}
 
   // TODO month_records insert하는 로직 추가
-  async insertRecord(
-    recordRequestDto: RecordRequestDto
-  ): Promise<RecordResponseDto> {
+  async insertRecord(recordRequestDto: RecordRequestDto): Promise<boolean> {
     const userId = recordRequestDto.userId;
     const workoutDataList = recordRequestDto.workoutList;
     for (let workout = 0; workout < workoutDataList.length; workout++) {
@@ -196,6 +191,6 @@ export class RecordService {
       await this.MonthRecordRepository.save(monthRecord);
     }
 
-    return utilResponse.success(messageResponse.INSERT_RECORD_SUCCESS, null);
+    return true;
   }
 }
