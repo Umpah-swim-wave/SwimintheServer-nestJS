@@ -14,7 +14,7 @@ export class WeekRecordRepository extends Repository<WeekRecord> {
     });
   }
 
-  async findLabsByUserIdAndSearchFilter(
+  async findByUserIdAndDate(
     userId: number,
     yearMonth: string,
     dayOfWeek: DayOfWeek,

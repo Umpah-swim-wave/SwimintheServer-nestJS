@@ -36,13 +36,12 @@ export class DayRecordService {
       date,
       stroke
     );
-    const overview =
-      await this.WeekRecordRepository.findLabsByUserIdAndSearchFilter(
-        userId,
-        yearMonth,
-        dayOfWeek,
-        week
-      );
+    const overview = await this.WeekRecordRepository.findByUserIdAndDate(
+      userId,
+      yearMonth,
+      dayOfWeek,
+      week
+    );
     const result = new RecordDailyListDto(date, overview, labs);
     return result;
   }
