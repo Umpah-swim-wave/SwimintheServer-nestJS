@@ -5,6 +5,7 @@ import { RecordDailyListDto } from "./dto/dayRecord.response.dto";
 import { DayRecordService } from "./dayRecord.service";
 import utilResponse from "src/common/response/util.response";
 import messageResponse from "src/common/response/message.response";
+import { BaseResponseDto } from "src/common/dto/base.response.dto";
 
 @ApiTags("dayRecord")
 @Controller("dayRecord")
