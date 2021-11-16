@@ -4,25 +4,23 @@ import { RecordDailyFilterDto } from "./dto/dayRecord.request.dto";
 
 @EntityRepository(DayRecord)
 export class DayRecordRepository extends Repository<DayRecord> {
-  async findLabsByUserIdAndSearchFilter(param: RecordDailyFilterDto) {
+  async findLabsByUserIdAndSearchFilter(
+    userId: number,
+    date: string,
+    stroke?: string
+  ) {
     const queryBuilder = createQueryBuilder()
-      .select([
-        "day_records.id",
-        "day_records.stroke",
-        "day_records.distance",
-        "day_records.time",
-      ])
+      .select(["id", "stroke", "distance", "time"])
+      .addSelect("distance/time", "speed")
       .from(DayRecord, "day_records")
-      .andWhere("day_records.userId = :userId", { userId: param.userId });
-    let date = param.date;
-    if (date === null) {
-      date = await this.findRecentlyDateByUserId(param.userId);
-    }
-    queryBuilder.andWhere("day_records.date = :date", { date });
+      .where("user_id = :userId", { userId: userId })
+      .andWhere("active = 'Y'");
 
-    if (param.stroke != null) {
-      queryBuilder.andWhere("day_records.stroke = :stroke", {
-        stroke: param.stroke,
+    queryBuilder.andWhere("date = :date", { date });
+
+    if (stroke != undefined) {
+      queryBuilder.andWhere("stroke = :stroke", {
+        stroke: stroke,
       });
     }
 
@@ -31,10 +29,10 @@ export class DayRecordRepository extends Repository<DayRecord> {
 
   async findRecentlyDateByUserId(userId: number): Promise<string> {
     return createQueryBuilder()
-      .select(["day_records.date"])
+      .select(["date"])
       .from(DayRecord, "day_records")
-      .andWhere("day_records.userId = :userId", { userId })
-      .orderBy("day_records.date", "DESC")
+      .where("day_records.user_id = :userId", { userId })
+      .orderBy("date", "DESC")
       .getRawOne();
   }
 }

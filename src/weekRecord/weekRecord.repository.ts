@@ -1,6 +1,7 @@
 import { UniqueColumsDao } from "../common/dao/UniqueColumns.dao";
-import { EntityRepository, Repository } from "typeorm";
+import { createQueryBuilder, EntityRepository, Repository } from "typeorm";
 import { WeekRecord } from "./weekRecord.entity";
+import { DayOfWeek } from "src/common/enum/Enum";
 
 @EntityRepository(WeekRecord)
 export class WeekRecordRepository extends Repository<WeekRecord> {
@@ -11,5 +12,25 @@ export class WeekRecordRepository extends Repository<WeekRecord> {
       week: params.week,
       dayOfWeek: params.dayOfWeek,
     });
+  }
+
+  async findLabsByUserIdAndSearchFilter(
+    userId: number,
+    yearMonth: string,
+    dayOfWeek: DayOfWeek,
+    week: number
+  ) {
+    const queryBuilder = createQueryBuilder()
+      .select("week_records")
+      .from(WeekRecord, "week_records")
+      .where("user_id = :userId", { userId })
+      .andWhere("`year_month` = :yearMonth", { yearMonth })
+      .andWhere("day_of_week = :dayOfWeek", { dayOfWeek })
+      .andWhere("week = :week", { week })
+      .andWhere("active = 'Y'");
+
+    // queryBuilder.andWhere("date = :date", { date });
+
+    return queryBuilder.getOne();
   }
 }
