@@ -29,8 +29,6 @@ export class WeekRecordRepository extends Repository<WeekRecord> {
       .andWhere("week = :week", { week })
       .andWhere("active = 'Y'");
 
-    // queryBuilder.andWhere("date = :date", { date });
-
     return queryBuilder.getOne();
   }
 }
