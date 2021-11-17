@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { RecordDailyLabsDto } from "./dayRecord.labs.dto";
+import { RecordWeeklyLabsDto } from "./weekRecord.labs.dto";
 
-export class RecordDailyListDto {
+export class RecordWeeklyListDto {
   @ApiProperty({ description: "수영한 날짜 YYYY/MM/DD 형태" })
   readonly date: string;
   @ApiProperty({ description: "일간 거리" })
@@ -33,24 +33,5 @@ export class RecordDailyListDto {
   @ApiProperty({ description: "혼영 일간 속도" })
   readonly imTotalSpeed: number;
   @ApiProperty({ description: "랩스 기록" })
-  readonly recordLabsList: RecordDailyLabsDto[];
-
-  constructor(date, overview, recordLabsList) {
-    this.date = date;
-    this.totalDistance = overview.totalDistance;
-    this.totalTime = overview.totalTime;
-    this.totalCalorie = overview.totalCalorie;
-    this.totalBpm = overview.beatPerMinute;
-    this.freestyleTotalDistance = overview.freestyleDistance;
-    this.freestyleTotalSpeed = overview.freestyleSpeed;
-    this.breastTotalDistance = overview.breastDistance;
-    this.breastTotalSpeed = overview.breastSpeed;
-    this.backTotalDistance = overview.backDistance;
-    this.backTotalSpeed = overview.backSpeed;
-    this.butterflyTotalDistance = overview.butterflyDistance;
-    this.butterflyTotalSpeed = overview.butterflySpeed;
-    this.imTotalDistance = overview.imDistance;
-    this.imTotalSpeed = overview.imSpeed;
-    this.recordLabsList = recordLabsList;
-  }
+  readonly recordLabsList: RecordWeeklyLabsDto[];
 }

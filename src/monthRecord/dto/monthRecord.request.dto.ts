@@ -1,11 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class RecordDailyFilterDto {
+export class RecordMonthlyFilterDto {
   @ApiProperty({ description: "유저 ID" })
   readonly userId: number;
 
   @ApiProperty({
-    description: "날짜(YYYY-MM-DD), 빈값이면 가장 최근 날짜로",
+    description: "날짜(YYYY-MM), 빈값이면 가장 최근 날짜로",
   })
   readonly date?: string;
 
