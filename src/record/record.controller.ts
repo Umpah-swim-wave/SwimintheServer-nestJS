@@ -1,7 +1,9 @@
 import { Body, Controller, Post, ValidationPipe } from "@nestjs/common";
 import { ApiNoContentResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
+import { BaseResponseDto } from "src/common/dto/base.response.dto";
+import messageResponse from "src/common/response/message.response";
+import utilResponse from "src/common/response/util.response";
 import { RecordRequestDto } from "./dto/record.request.dto";
-import { RecordResponseDto } from "./dto/record.response.dto";
 import { RecordService } from "./record.service";
 
 @ApiTags("record")
@@ -19,8 +21,9 @@ export class RecordController {
   })
   async insertRecord(
     @Body(ValidationPipe) recordRequestDto: RecordRequestDto
-  ): Promise<RecordResponseDto> {
+  ): Promise<BaseResponseDto> {
     // TODO response type 정하고 변경
-    return this.recordService.insertRecord(recordRequestDto);
+    const result = this.recordService.insertRecord(recordRequestDto);
+    return utilResponse.success(messageResponse.INSERT_RECORD_SUCCESS, result);
   }
 }
