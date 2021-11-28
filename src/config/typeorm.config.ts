@@ -10,13 +10,4 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   database: process.env.DATABASE_NAME,
   entities: [__dirname + "/../**/*.entity.{js,ts}"],
   synchronize: false,
-
-  // type: "mysql",
-  // host: "127.0.0.1",
-  // port: 3306,
-  // username: "root",
-  // password: "pass",
-  // database: "Umpha",
-  // entities: [__dirname + "/../**/*.entity.{js,ts}"],
-  // synchronize: false,
 };
