@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import mathUtils from "src/common/util/mathUtils";
 import { RecordDailyLabsDto } from "./dayRecord.labs.dto";
 
 export class RecordDailyListDto {
@@ -15,42 +16,57 @@ export class RecordDailyListDto {
   @ApiProperty({ description: "자유형 일간 거리" })
   readonly freestyleTotalDistance: number;
   @ApiProperty({ description: "자유형 일간 속도" })
-  readonly freestyleTotalSpeed: number;
+  readonly freestyleTotalSpeed: string;
   @ApiProperty({ description: "평영 일간 거리" })
   readonly breastTotalDistance: number;
   @ApiProperty({ description: "평영 일간 속도" })
-  readonly breastTotalSpeed: number;
+  readonly breastTotalSpeed: string;
   @ApiProperty({ description: "배영 일간 거리" })
   readonly backTotalDistance: number;
   @ApiProperty({ description: "배영 일간 속도" })
-  readonly backTotalSpeed: number;
+  readonly backTotalSpeed: string;
   @ApiProperty({ description: "접영 일간 거리" })
   readonly butterflyTotalDistance: number;
   @ApiProperty({ description: "접영 일간 속도" })
-  readonly butterflyTotalSpeed: number;
+  readonly butterflyTotalSpeed: string;
   @ApiProperty({ description: "혼영 일간 거리" })
   readonly imTotalDistance: number;
   @ApiProperty({ description: "혼영 일간 속도" })
-  readonly imTotalSpeed: number;
+  readonly imTotalSpeed: string;
   @ApiProperty({ description: "랩스 기록" })
   readonly recordLabsList: RecordDailyLabsDto[];
 
   constructor(date, overview, recordLabsList) {
     this.date = date;
-    this.totalDistance = overview.totalDistance;
-    this.totalTime = overview.totalTime;
-    this.totalCalorie = overview.totalCalorie;
-    this.totalBpm = overview.beatPerMinute;
-    this.freestyleTotalDistance = overview.freestyleDistance;
-    this.freestyleTotalSpeed = overview.freestyleSpeed;
-    this.breastTotalDistance = overview.breastDistance;
-    this.breastTotalSpeed = overview.breastSpeed;
-    this.backTotalDistance = overview.backDistance;
-    this.backTotalSpeed = overview.backSpeed;
-    this.butterflyTotalDistance = overview.butterflyDistance;
-    this.butterflyTotalSpeed = overview.butterflySpeed;
+    this.totalDistance = overview.total_distance;
+    this.totalTime = overview.total_time;
+    this.totalCalorie = overview.total_calorie;
+    this.totalBpm = overview.beat_per_minute;
+    this.freestyleTotalDistance = overview.freestyle_distance;
+    this.freestyleTotalSpeed = mathUtils.getSpeed(
+      overview.freestyle_distance,
+      overview.freestyle_time
+    );
+    this.breastTotalDistance = overview.breast_distance;
+    this.breastTotalSpeed = mathUtils.getSpeed(
+      overview.breast_distance,
+      overview.breast_time
+    );
+    this.backTotalDistance = overview.back_distance;
+    this.backTotalSpeed = mathUtils.getSpeed(
+      overview.back_distance,
+      overview.back_time
+    );
+    this.butterflyTotalDistance = overview.butterfly_distance;
+    this.butterflyTotalSpeed = mathUtils.getSpeed(
+      overview.butterfly_distance,
+      overview.butterfly_time
+    );
     this.imTotalDistance = overview.imDistance;
-    this.imTotalSpeed = overview.imSpeed;
+    this.imTotalSpeed = mathUtils.getSpeed(
+      overview.im_distance,
+      overview.im_time
+    );
     this.recordLabsList = recordLabsList;
   }
 }
