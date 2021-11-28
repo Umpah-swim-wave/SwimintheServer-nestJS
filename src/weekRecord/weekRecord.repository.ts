@@ -20,15 +20,14 @@ export class WeekRecordRepository extends Repository<WeekRecord> {
     dayOfWeek: DayOfWeek,
     week: number
   ) {
-    const queryBuilder = createQueryBuilder()
-      .select("week_records")
+    const queryBuilder = await createQueryBuilder()
+      .select("*")
       .from(WeekRecord, "week_records")
       .where("user_id = :userId", { userId })
       .andWhere("`year_month` = :yearMonth", { yearMonth })
       .andWhere("day_of_week = :dayOfWeek", { dayOfWeek })
       .andWhere("week = :week", { week })
       .andWhere("active = 'Y'");
-
-    return queryBuilder.getOne();
+    return await queryBuilder.getRawOne();
   }
 }

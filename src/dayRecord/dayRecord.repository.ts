@@ -1,4 +1,9 @@
-import { createQueryBuilder, EntityRepository, Repository } from "typeorm";
+import {
+  createQueryBuilder,
+  EntityRepository,
+  getRepository,
+  Repository,
+} from "typeorm";
 import { DayRecord } from "./dayRecord.entity";
 import { RecordDailyFilterDto } from "./dto/dayRecord.request.dto";
 
@@ -9,7 +14,7 @@ export class DayRecordRepository extends Repository<DayRecord> {
     date: string,
     stroke?: string
   ) {
-    const queryBuilder = createQueryBuilder()
+    const queryBuilder = await createQueryBuilder()
       .select(["id", "stroke", "distance", "time"])
       .addSelect("distance/time", "speed")
       .from(DayRecord, "day_records")
@@ -24,15 +29,14 @@ export class DayRecordRepository extends Repository<DayRecord> {
       });
     }
 
-    return queryBuilder.getRawMany();
+    return await queryBuilder.getRawMany();
   }
 
   async findRecentlyDateByUserId(userId: number): Promise<string> {
-    return createQueryBuilder()
-      .select(["date"])
-      .from(DayRecord, "day_records")
-      .where("day_records.user_id = :userId", { userId })
-      .orderBy("date", "DESC")
-      .getRawOne();
+    const result = await getRepository(DayRecord).findOne({
+      where: { userId },
+      select: ["date"],
+    });
+    return result.date;
   }
 }

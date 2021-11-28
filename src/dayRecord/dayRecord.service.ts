@@ -23,10 +23,11 @@ export class DayRecordService {
   ): Promise<RecordDailyListDto> {
     const userId = dto.userId;
     const stroke = dto.stroke;
-    const date =
-      dto.date === undefined
-        ? await this.DayRecordRepository.findRecentlyDateByUserId(userId)
-        : dto.date;
+
+    // request parameter에 date가 null 혹은 undefined라면 최근 date를 가져옵니다.
+    const date = !dto.date
+      ? await this.DayRecordRepository.findRecentlyDateByUserId(userId)
+      : dto.date;
     const yearMonth = dateUtils.getYearMonth(date);
     const dayOfWeek = dateUtils.getDayOfWeek(date);
     const week = await this.CalenderRepository.findByDate(date);
@@ -36,12 +37,16 @@ export class DayRecordService {
       date,
       stroke
     );
+
     const overview = await this.WeekRecordRepository.findByUserIdAndDate(
       userId,
       yearMonth,
       dayOfWeek,
       week
     );
+    if (!overview) {
+      // TODO 에러 메시지
+    }
     const result = new RecordDailyListDto(date, overview, labs);
     return result;
   }
