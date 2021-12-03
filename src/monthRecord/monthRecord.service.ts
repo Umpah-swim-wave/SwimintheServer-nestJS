@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Stroke } from "src/common/enum/Enum";
 import { RecordMonthlyFilterDto } from "./dto/monthRecord.request.dto";
 import { RecordMonthlyListResponseDto } from "./dto/monthRecord.response.dto";
+import { MonthRecord } from "./monthRecord.entity";
 import { MonthRecordRepository } from "./monthRecord.repository";
 
 @Injectable()
@@ -19,10 +19,8 @@ export class MonthRecordService {
     const date = !dto.date
       ? await this.MonthRecordRepository.findRecentlyDateByUserId(userId)
       : dto.date;
-    const labs = await this.MonthRecordRepository.findByUserIdAndDate(
-      userId,
-      date
-    );
+    const labs: Array<MonthRecord> =
+      await this.MonthRecordRepository.findByUserIdAndDate(userId, date);
 
     // stroke를 통해 어떠한
     let result: RecordMonthlyListResponseDto;

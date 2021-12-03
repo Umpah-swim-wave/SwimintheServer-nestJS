@@ -6,7 +6,6 @@ import {
   Repository,
 } from "typeorm";
 import { MonthRecord } from "./monthRecord.entity";
-import { Stroke } from "src/common/enum/Enum";
 
 @EntityRepository(MonthRecord)
 export class MonthRecordRepository extends Repository<MonthRecord> {
@@ -18,7 +17,10 @@ export class MonthRecordRepository extends Repository<MonthRecord> {
     });
   }
 
-  async findByUserIdAndDate(userId: number, yearMonth: string) {
+  async findByUserIdAndDate(
+    userId: number,
+    yearMonth: string
+  ): Promise<Array<MonthRecord>> {
     const queryBuilder = await createQueryBuilder()
       .select("*")
       .from(MonthRecord, "month_records")
