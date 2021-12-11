@@ -4,8 +4,10 @@ import { RecordDailyFilterDto } from "./dto/dayRecord.request.dto";
 import { RecordDailyListDto } from "./dto/dayRecord.response.dto";
 import { DayRecordRepository } from "./dayRecord.repository";
 import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
-import dateUtils from "src/common/util/dateUtils";
-import { CalenderRepository } from "src/calender/calender.repository";
+import dateUtils from "../common/util/dateUtils";
+import { CalenderRepository } from "../calender/calender.repository";
+import { RecentRecordDateRequestDto } from "./dto/dayRecentRecord.request.dto";
+import { RecentRecordDateDto } from "./dto/dayRecentRecord.response.dto";
 
 @Injectable()
 export class DayRecordService {
@@ -48,6 +50,23 @@ export class DayRecordService {
       // TODO 에러 메시지
     }
     const result = new RecordDailyListDto(date, overview, labs);
+    return result;
+  }
+
+  /**
+   * 유저의 수영 기록 날짜를 내림차순으로 리턴한다.
+   * TODO userId를 토큰으로 교체
+   * TODO 페이징 처리를 해야 할까?
+   *
+   * @param dto userId
+   * @returns
+   */
+  async findRecentRecordDateList(
+    dto: RecentRecordDateRequestDto
+  ): Promise<RecentRecordDateDto[]> {
+    const userId = dto.userId;
+    const result =
+      await this.DayRecordRepository.findRecentRecordDateListByUserId(userId);
     return result;
   }
 }

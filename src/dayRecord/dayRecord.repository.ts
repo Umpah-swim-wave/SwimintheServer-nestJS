@@ -5,7 +5,7 @@ import {
   Repository,
 } from "typeorm";
 import { DayRecord } from "./dayRecord.entity";
-import { RecordDailyFilterDto } from "./dto/dayRecord.request.dto";
+import { RecentRecordDateDto } from "./dto/dayRecentRecord.response.dto";
 
 @EntityRepository(DayRecord)
 export class DayRecordRepository extends Repository<DayRecord> {
@@ -38,5 +38,20 @@ export class DayRecordRepository extends Repository<DayRecord> {
       select: ["date"],
     });
     return result.date;
+  }
+
+  async findRecentRecordDateListByUserId(
+    userId: number
+  ): Promise<RecentRecordDateDto[]> {
+    const result = createQueryBuilder()
+      .select(["date"])
+      .distinct(true)
+      .from(DayRecord, "day_records")
+      .where("user_id = :userId", { userId: userId })
+      .andWhere("active = 'Y'")
+      .orderBy("date", "DESC")
+      .getRawMany();
+
+    return result;
   }
 }

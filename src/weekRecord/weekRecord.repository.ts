@@ -2,6 +2,7 @@ import { UniqueColumsDao } from "../common/dao/UniqueColumns.dao";
 import { createQueryBuilder, EntityRepository, Repository } from "typeorm";
 import { WeekRecord } from "./weekRecord.entity";
 import { DayOfWeek } from "src/common/enum/Enum";
+import { RecentRecordDateDto } from "./dto/weekRecentRecord.response.dto";
 
 @EntityRepository(WeekRecord)
 export class WeekRecordRepository extends Repository<WeekRecord> {

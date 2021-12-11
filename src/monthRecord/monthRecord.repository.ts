@@ -5,7 +5,7 @@ import {
   getRepository,
   Repository,
 } from "typeorm";
-import { MonthRecord } from "./monthRecord.entity";
+import { MonthRecord, RecentRecordDateDao } from "./monthRecord.entity";
 
 @EntityRepository(MonthRecord)
 export class MonthRecordRepository extends Repository<MonthRecord> {
@@ -37,5 +37,22 @@ export class MonthRecordRepository extends Repository<MonthRecord> {
       select: ["yearMonth"],
     });
     return result.yearMonth;
+  }
+
+  async findRecentRecordDateListByUserId(
+    userId: number
+  ): Promise<RecentRecordDateDao[]> {
+    const result = createQueryBuilder()
+      .select("year_month_date", "date")
+      .addSelect("week")
+      .distinct(true)
+      .from(MonthRecord, "month_records")
+      .where("user_id = :userId", { userId: userId })
+      .andWhere("active = 'Y'")
+      .orderBy("year_month_date", "DESC")
+      .orderBy("week", "DESC")
+      .getRawMany();
+
+    return result;
   }
 }
