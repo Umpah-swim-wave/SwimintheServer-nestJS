@@ -1,6 +1,7 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import dateUtils from "src/common/util/dateUtils";
+import { Stroke } from "../common/enum/Enum";
+import dateUtils from "../common/util/dateUtils";
 import { RecentRecordDateRequestDto } from "./dto/monthRecentRecord.request.dto";
 import { RecentRecordDateDto } from "./dto/monthRecentRecord.response.dto";
 import { RecordMonthlyFilterDto } from "./dto/monthRecord.request.dto";
@@ -23,11 +24,12 @@ export class MonthRecordService {
     const date = !dto.date
       ? await this.MonthRecordRepository.findRecentlyDateByUserId(userId)
       : dto.date;
-    const labs: Array<MonthRecord> =
+    const records: Array<MonthRecord> =
       await this.MonthRecordRepository.findByUserIdAndDate(userId, date);
 
-    // stroke를 통해 어떠한
-    let result: RecordMonthlyListResponseDto;
+    // stroke를 통해 어떠한 것을 보여줄지 정하기
+    const result = this.sumRecorTotalInfo(records, date);
+    records.forEach((value) => {});
     return result;
   }
 
@@ -43,6 +45,27 @@ export class MonthRecordService {
       const month = dateUtils.getMonth(value["date"]);
       result.push(new RecentRecordDateDto(year, month));
     });
+    return result;
+  }
+
+  private sumRecorTotalInfo(
+    records: Array<MonthRecord>,
+    date: string
+  ): RecordMonthlyListResponseDto {
+    if (!records || records.length == 0) {
+      throw new BadRequestException("유저의 기록이 없습니다.");
+    }
+    let result: RecordMonthlyListResponseDto = new RecordMonthlyListResponseDto(
+      date
+    );
+
+    records.forEach((value: MonthRecord) => {
+      console.log(value);
+      result.totalBpm += value["beat_per_minute"];
+      result.totalDistance += value["total_distance"];
+      result.totalTime += value["total_time"];
+    });
+    result.totalBpm /= records.length;
     return result;
   }
 }
