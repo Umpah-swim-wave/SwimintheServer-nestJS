@@ -30,7 +30,7 @@ export class DayRecordService {
     const date = !dto.date
       ? await this.DayRecordRepository.findRecentlyDateByUserId(userId)
       : dto.date;
-    const yearMonth = dateUtils.getYearMonth(date);
+    const yearMonthDate = dateUtils.getYearMonth(date);
     const dayOfWeek = dateUtils.getDayOfWeek(date);
     const week = await this.CalenderRepository.findByDate(date);
 
@@ -42,7 +42,7 @@ export class DayRecordService {
 
     const overview = await this.WeekRecordRepository.findByUserIdAndDate(
       userId,
-      yearMonth,
+      yearMonthDate,
       dayOfWeek,
       week
     );

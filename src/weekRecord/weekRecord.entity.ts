@@ -34,7 +34,7 @@ export class WeekRecord extends BaseEntity {
     name: "year_month_date",
     comment: "수영한 년월 yyyy-mm 형식",
   })
-  yearMonth: string;
+  yearMonthDate: string;
 
   @Column({
     type: "int",

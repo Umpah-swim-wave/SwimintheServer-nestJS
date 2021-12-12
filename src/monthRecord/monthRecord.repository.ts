@@ -12,20 +12,20 @@ export class MonthRecordRepository extends Repository<MonthRecord> {
   async findByUniqueColumns(params: UniqueColumsDao): Promise<MonthRecord> {
     return await this.findOne({
       userId: params.userId,
-      yearMonth: params.yearMonth,
+      yearMonthDate: params.yearMonthDate,
       week: params.week,
     });
   }
 
   async findByUserIdAndDate(
     userId: number,
-    yearMonth: string
+    yearMonthDate: string
   ): Promise<Array<MonthRecord>> {
     const queryBuilder = await createQueryBuilder()
       .select("*")
       .from(MonthRecord, "month_records")
       .where("user_id = :userId", { userId })
-      .andWhere("`year_month` = :yearMonth", { yearMonth })
+      .andWhere("`year_month_date` = :yearMonthDate", { yearMonthDate })
       .andWhere("active = 'Y'");
 
     return await queryBuilder.getRawMany();
@@ -34,9 +34,9 @@ export class MonthRecordRepository extends Repository<MonthRecord> {
   async findRecentlyDateByUserId(userId: number): Promise<string> {
     const result = await getRepository(MonthRecord).findOne({
       where: { userId },
-      select: ["yearMonth"],
+      select: ["yearMonthDate"],
     });
-    return result.yearMonth;
+    return result.yearMonthDate;
   }
 
   async findRecentRecordDateListByUserId(

@@ -44,21 +44,21 @@ export default {
   /**
    * YYYY-MM 형태의 날짜를 받아서 YYYY를 리턴
    *
-   * @param yearMonth 연월(YYYY-MM)
+   * @param yearMonthDate 연월(YYYY-MM)
    * @returns
    */
-  getYear: (yearMonth): string => {
-    return yearMonth.slice(0, 4);
+  getYear: (yearMonthDate): string => {
+    return yearMonthDate.slice(0, 4);
   },
 
   /**
    * YYYY-MM 형태의 날짜를 받아서 MM를 number로 바꾸어 리턴
    *
-   * @param yearMonth 연월(YYYY-MM)
+   * @param yearMonthDate 연월(YYYY-MM)
    * @returns
    */
-  getMonth: (yearMonth): number => {
-    return Number(yearMonth.slice(-2));
+  getMonth: (yearMonthDate): number => {
+    return Number(yearMonthDate.slice(-2));
   },
 
   getDayFormat: (date): string => {

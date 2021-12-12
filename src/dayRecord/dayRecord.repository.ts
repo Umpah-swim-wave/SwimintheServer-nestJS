@@ -15,7 +15,8 @@ export class DayRecordRepository extends Repository<DayRecord> {
     stroke?: string
   ) {
     const queryBuilder = await createQueryBuilder()
-      .select(["id", "stroke", "distance", "time"])
+      .select("id", "recordId")
+      .addSelect(["stroke", "distance", "time"])
       .addSelect("distance/time", "speed")
       .from(DayRecord, "day_records")
       .where("user_id = :userId", { userId: userId })
