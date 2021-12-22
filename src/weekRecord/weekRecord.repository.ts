@@ -2,13 +2,14 @@ import { UniqueColumsDao } from "../common/dao/UniqueColumns.dao";
 import { createQueryBuilder, EntityRepository, Repository } from "typeorm";
 import { WeekRecord } from "./weekRecord.entity";
 import { DayOfWeek } from "src/common/enum/Enum";
+import { RecentRecordDateDto } from "./dto/weekRecentRecord.response.dto";
 
 @EntityRepository(WeekRecord)
 export class WeekRecordRepository extends Repository<WeekRecord> {
   async findByUniqueColumns(params: UniqueColumsDao): Promise<WeekRecord> {
     return await this.findOne({
       userId: params.userId,
-      yearMonth: params.yearMonth,
+      yearMonthDate: params.yearMonthDate,
       week: params.week,
       dayOfWeek: params.dayOfWeek,
     });
@@ -16,19 +17,18 @@ export class WeekRecordRepository extends Repository<WeekRecord> {
 
   async findByUserIdAndDate(
     userId: number,
-    yearMonth: string,
+    yearMonthDate: string,
     dayOfWeek: DayOfWeek,
     week: number
   ) {
-    const queryBuilder = createQueryBuilder()
-      .select("week_records")
+    const queryBuilder = await createQueryBuilder()
+      .select("*")
       .from(WeekRecord, "week_records")
       .where("user_id = :userId", { userId })
-      .andWhere("`year_month` = :yearMonth", { yearMonth })
+      .andWhere("`year_month_date` = :yearMonthDate", { yearMonthDate })
       .andWhere("day_of_week = :dayOfWeek", { dayOfWeek })
       .andWhere("week = :week", { week })
       .andWhere("active = 'Y'");
-
-    return queryBuilder.getOne();
+    return await queryBuilder.getRawOne();
   }
 }

@@ -15,6 +15,13 @@ export class Calender extends BaseEntity {
   date: string;
 
   @Column({
+    type: "varchar",
+    name: "year_month_date",
+    comment: "수영한 년월 yyyy-mm 형식",
+  })
+  yearMonthDate: string;
+
+  @Column({
     type: "int",
     name: "week",
     comment: "해당 달의 주차",

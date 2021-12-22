@@ -53,7 +53,7 @@ export class RecordService {
         workoutDataList[workout].startWorkoutDate
       );
       let dayOfWeek = dateUtils.getDayOfWeek(workoutDate);
-      let yearMonth = dateUtils.getYearMonth(workoutDate);
+      let yearMonthDate = dateUtils.getYearMonth(workoutDate);
 
       const strokeDistanceList = [0, 0, 0, 0, 0];
       const strokeTimeList = [0, 0, 0, 0, 0];
@@ -84,7 +84,7 @@ export class RecordService {
         strokeLabsCountList[stroke] += 1;
 
         dayRecord.dayOfWeek = dayOfWeek;
-        dayRecord.yearMonth = yearMonth;
+        dayRecord.yearMonthDate = yearMonthDate;
         dayRecord.week = week;
 
         totalTime += dayRecord.time;
@@ -105,7 +105,7 @@ export class RecordService {
 
       const columns: UniqueColumsDao = {
         userId,
-        yearMonth,
+        yearMonthDate,
         week,
         dayOfWeek,
       };
@@ -120,14 +120,14 @@ export class RecordService {
       if (!weekRecord) {
         weekRecord = new WeekRecord();
         weekRecord.userId = userId;
-        weekRecord.yearMonth = yearMonth;
+        weekRecord.yearMonthDate = yearMonthDate;
         weekRecord.dayOfWeek = dayOfWeek;
         weekRecord.week = week;
       }
       if (!monthRecord) {
         monthRecord = new MonthRecord();
         monthRecord.userId = userId;
-        monthRecord.yearMonth = yearMonth;
+        monthRecord.yearMonthDate = yearMonthDate;
         monthRecord.week = week;
       }
 

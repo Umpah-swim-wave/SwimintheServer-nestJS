@@ -3,6 +3,11 @@ import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { RecordMonthlyListResponseDto } from "./dto/monthRecord.response.dto";
 import { RecordMonthlyFilterDto } from "./dto/monthRecord.request.dto";
 import { MonthRecordService } from "./monthRecord.service";
+import { BaseResponseDto } from "src/common/dto/base.response.dto";
+import utilResponse from "src/common/response/util.response";
+import messageResponse from "src/common/response/message.response";
+import { RecentRecordDateDto } from "./dto/monthRecentRecord.response.dto";
+import { RecentRecordDateRequestDto } from "./dto/monthRecentRecord.request.dto";
 
 @ApiTags("monthRecord")
 @Controller("monthRecord")
@@ -20,10 +25,34 @@ export class MonthRecordController {
   })
   async findRecordMonthlyList(
     @Body(ValidationPipe) recordMonthlyFilterDto: RecordMonthlyFilterDto
-  ): Promise<RecordMonthlyListResponseDto> {
-    // TODO response type 정하고 변경
-    return await this.monthRecordService.findMonthlyRecordList(
+  ): Promise<BaseResponseDto> {
+    const result = await this.monthRecordService.findMonthlyRecordList(
       recordMonthlyFilterDto
+    );
+    return utilResponse.success(
+      messageResponse.GET_MONTH_RECORDS_SUCCESS,
+      result
+    );
+  }
+
+  @Post("/recent-record-date/list")
+  @ApiOperation({
+    summary: "유저의 최근 수영한 날짜 리스트를 조회 API",
+    description: "유저의 최근 수영한 날짜 리스트를 조회하는 API.",
+  })
+  @ApiOkResponse({
+    description: "유저의 최근 수영한 날짜 리스트를 조회한다.",
+    type: RecentRecordDateDto,
+  })
+  async findRecentRecordDateList(
+    @Body(ValidationPipe) recentRecordDateRequestDto: RecentRecordDateRequestDto
+  ): Promise<BaseResponseDto> {
+    const result = await this.monthRecordService.findRecentRecordDateList(
+      recentRecordDateRequestDto
+    );
+    return utilResponse.success(
+      messageResponse.GET_DATE_RECORDS_SUCCESS,
+      result
     );
   }
 }
