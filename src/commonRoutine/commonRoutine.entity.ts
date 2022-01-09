@@ -52,7 +52,7 @@ export class CommonRoutine extends BaseEntity {
     enum: SwimSet,
     comment: "수영 세트 구분", // set 이름도 enum으로 설정
   })
-  setName: SwimSet;
+  swimSet: SwimSet;
 
   @Column({
     type: "enum",

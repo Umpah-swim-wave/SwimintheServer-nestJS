@@ -21,7 +21,7 @@ export class CommonRoutineListDto {
   readonly description: string;
 
   @ApiProperty({ description: "수영 세트 구분" })
-  readonly setName: SwimSet;
+  readonly swimSet: SwimSet;
 
   @ApiProperty({ description: "수영한 거리" })
   readonly distance: number;
