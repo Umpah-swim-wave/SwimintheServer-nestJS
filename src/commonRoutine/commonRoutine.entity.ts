@@ -61,7 +61,7 @@ export class CommonRoutine extends BaseEntity {
     enum: Stroke,
     comment: "영법",
   })
-  stroke: Stroke; // 이거 배열로 다시 짜야함
+  stroke: Stroke;
 
   @Column({
     type: "int",

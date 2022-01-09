@@ -18,7 +18,7 @@ export class CommonRoutineService {
     commonRoutineListDto: CommonRoutineListDto
   ): Promise<CommonRoutineListResponseDto> {
     const result = await this.CommonRoutineRepository.find({
-      select:['id', 'title', 'level', 'distanceSum', 'timeSum', 'description']
+      select: ['id', 'title', 'level', 'distanceSum', 'timeSum', 'description']
     });
     return utilResponse.success(messageResponse.GET_COMMON_ROUTINE_SUCCESS, result);
   }
