@@ -7,10 +7,12 @@ import { DayRecordRepository } from "../dayRecord/dayRecord.repository";
 import "dotenv/config";
 import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
 import { CalenderRepository } from "../calender/calender.repository";
+import { MonthRecordRepository } from "../monthRecord/monthRecord.repository";
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       DayRecordRepository,
+      MonthRecordRepository,
       WeekRecordRepository,
       CalenderRepository,
     ]),

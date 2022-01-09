@@ -21,6 +21,7 @@ export default {
 
   /*record*/
   INSERT_RECORD_SUCCESS: "기록 저장에 성공했습니다.",
+  GET_DAY_RECORDS_SUCCESS: "일간 기록 조회에 성공했습니다.",
 
   /*routine*/
   GET_COMMON_ROUTINE_SUCCESS: "기본 루틴 조회 성공했습니다.",
