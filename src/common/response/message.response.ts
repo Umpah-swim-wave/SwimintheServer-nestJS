@@ -24,5 +24,6 @@ export default {
   GET_DAY_RECORDS_SUCCESS: "일간 기록 조회에 성공했습니다.",
 
   /*routine*/
-  GET_COMMON_ROUTINE_SUCCESS: "기본 루틴 조회에 성공했습니다.",
+  GET_COMMON_ROUTINE_SUCCESS: "기본 루틴 조회 성공했습니다.",
+  GET_COMMON_ROUTINE_DETAIL_SUCCESS: "기본 루틴 상세 페이지 조회 성공했습니다."
 };

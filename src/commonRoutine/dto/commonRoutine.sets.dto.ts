@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class CommonRoutineDetailDataDto {
   @ApiProperty({ description: "세트명" })
-  readonly setName: string;
+  readonly swimSet: string;
 
   @ApiProperty({ description: "세트 영법" })
   readonly stroke: string;
