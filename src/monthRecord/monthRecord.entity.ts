@@ -2,9 +2,9 @@ import { Active, DayOfWeek, Stroke } from "../common/enum/Enum";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({
-  name: "week_records",
+  name: "month_records",
 })
-export class WeekRecord extends BaseEntity {
+export class MonthRecord extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -44,15 +44,6 @@ export class WeekRecord extends BaseEntity {
   week: number;
 
   @Column({
-    type: "enum",
-    name: "day_of_week",
-    enumName: "day_of_week",
-    enum: DayOfWeek,
-    comment: "수영한 요일",
-  })
-  dayOfWeek: DayOfWeek;
-
-  @Column({
     type: "int",
     name: "total_distance",
     comment: "총 수영한 거리 (단위 : m)",
@@ -60,7 +51,7 @@ export class WeekRecord extends BaseEntity {
   totalDistance: number;
 
   @Column({
-    type: "int",
+    type: "decimal",
     name: "total_time",
     comment: "총 수영한 시간 (단위 : s)",
   })

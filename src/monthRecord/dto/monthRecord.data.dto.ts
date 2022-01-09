@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { RecordDailyLabsDto } from "./dayRecord.labs.dto";
+import { RecordMonthlyLabsDto } from "./monthRecord.labs.dto";
 
-export class RecordDailyDataDto {
+export class RecordMonthlyDataDto {
   @ApiProperty({ description: "수영한 날짜 YYYY/MM/DD 형태" })
   readonly date: string;
   @ApiProperty({ description: "일간 거리" })
@@ -33,5 +33,5 @@ export class RecordDailyDataDto {
   @ApiProperty({ description: "혼영 일간 속도" })
   readonly imTotalSpeed: number;
   @ApiProperty({ description: "랩스 기록" })
-  readonly recordLabsList: RecordDailyLabsDto[];
+  readonly recordLabsList: RecordMonthlyLabsDto[];
 }
