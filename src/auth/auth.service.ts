@@ -8,7 +8,7 @@ import { SignUpRequestDto } from "./dto/signup/signup.request.dto";
 import { SignUpResponseDto } from "./dto/signup/signup.response.dto";
 import utilResponse from "../common/response/util.response";
 import messageResponse from "../common/response/message.response";
-import { JwtPayload } from "../common/jwt/dto/jwtPayload.dto";
+import { JwtPayload } from "./jwtPayload.dto";
 import { SignInDataDto } from "./dto/signin/signin.data.dto";
 import { SignUpDataDto } from "./dto/signup/signup.data.dto";
 
