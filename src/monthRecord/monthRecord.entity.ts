@@ -1,5 +1,6 @@
-import { Active, DayOfWeek, Stroke } from "../common/enum/Enum";
+import { Active } from "../common/enum/Enum";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { RecordMonthlyLabsDto } from "./dto/monthRecord.labs.dto";
 
 @Entity({
   name: "month_records",
@@ -196,6 +197,15 @@ export class MonthRecord extends BaseEntity {
     name: "updated_at",
   })
   updatedAt: string;
+
+  public get recordTotalInfo(): RecordMonthlyLabsDto {
+    const result = new RecordMonthlyLabsDto(
+      this.week,
+      this.totalTime,
+      this.totalDistance
+    );
+    return result;
+  }
 
   constructor() {
     super();

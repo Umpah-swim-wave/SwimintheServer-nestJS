@@ -4,6 +4,7 @@ import { Stroke } from "../common/enum/Enum";
 import dateUtils from "../common/util/dateUtils";
 import { RecentRecordDateRequestDto } from "./dto/monthRecentRecord.request.dto";
 import { RecentRecordDateDto } from "./dto/monthRecentRecord.response.dto";
+import { RecordMonthlyLabsDto } from "./dto/monthRecord.labs.dto";
 import { RecordMonthlyFilterDto } from "./dto/monthRecord.request.dto";
 import { RecordMonthlyListResponseDto } from "./dto/monthRecord.response.dto";
 import { MonthRecord } from "./monthRecord.entity";
@@ -27,8 +28,7 @@ export class MonthRecordService {
     const records: Array<MonthRecord> =
       await this.MonthRecordRepository.findByUserIdAndDate(userId, date);
 
-    // stroke를 통해 어떠한 것을 보여줄지 정하기
-    const result = this.sumRecorTotalInfo(records, date);
+    const result = this.sumRecorTotalInfo(records, date, stroke);
     records.forEach((value) => {});
     return result;
   }
@@ -50,7 +50,8 @@ export class MonthRecordService {
 
   private sumRecorTotalInfo(
     records: Array<MonthRecord>,
-    date: string
+    date: string,
+    stroke: Stroke
   ): RecordMonthlyListResponseDto {
     if (!records || records.length == 0) {
       throw new BadRequestException("유저의 기록이 없습니다.");
@@ -60,12 +61,21 @@ export class MonthRecordService {
     );
 
     records.forEach((value: MonthRecord) => {
-      console.log(value);
       result.totalBpm += value["beat_per_minute"];
       result.totalDistance += value["total_distance"];
       result.totalTime += value["total_time"];
+      result.recordLabsList.push(this.getRecordInfoByStroke(value, stroke));
     });
     result.totalBpm /= records.length;
     return result;
+  }
+
+  private getRecordInfoByStroke(
+    record: MonthRecord,
+    stroke: Stroke
+  ): RecordMonthlyLabsDto {
+    if (stroke) {
+      return record.recordTotalInfo;
+    }
   }
 }

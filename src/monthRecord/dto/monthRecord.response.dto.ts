@@ -13,7 +13,7 @@ export class RecordMonthlyListResponseDto {
   totalCalorie: number;
   @ApiProperty({ description: "총 bpm" })
   totalBpm: number;
-
+  @ApiProperty({ description: "그 달에 해당하는 주의 수영 기록" })
   recordLabsList: RecordMonthlyLabsDto[];
 
   constructor(date: string) {

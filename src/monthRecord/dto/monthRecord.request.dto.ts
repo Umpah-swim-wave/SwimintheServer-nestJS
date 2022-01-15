@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Stroke } from "../../common/enum/Enum";
 
 export class RecordMonthlyFilterDto {
   @ApiProperty({ description: "유저 ID" })
@@ -13,5 +14,5 @@ export class RecordMonthlyFilterDto {
     description:
       "영법 필터 (자유형(freestyle) / 평영(breast) / 배영(back) / 접영(butterfly)), 빈값이면 전체",
   })
-  readonly stroke?: string;
+  readonly stroke?: Stroke;
 }

@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import mathUtils from "src/common/util/mathUtils";
 
 export class RecordMonthlyLabsDto {
   @ApiProperty({ description: "랩스 주차" })
@@ -8,5 +9,12 @@ export class RecordMonthlyLabsDto {
   @ApiProperty({ description: "주차별 시간" })
   readonly time: number;
   @ApiProperty({ description: "주차별 속도" })
-  readonly speed: number;
+  readonly speed: string;
+
+  constructor(week: number, distance: number, time: number) {
+    this.week = week;
+    this.distance = distance;
+    this.time = time;
+    this.speed = mathUtils.getSpeed(distance, time);
+  }
 }
