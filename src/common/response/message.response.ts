@@ -25,5 +25,6 @@ export default {
 
   /*routine*/
   GET_COMMON_ROUTINE_SUCCESS: "기본 루틴 조회 성공했습니다.",
-  GET_COMMON_ROUTINE_DETAIL_SUCCESS: "기본 루틴 상세 페이지 조회 성공했습니다."
+  GET_COMMON_ROUTINE_DETAIL_SUCCESS: "기본 루틴 상세 페이지 조회 성공했습니다.",
+  GET_COMMON_ROUTINE_SET_SUCCESS: "기본 루틴의 세트 조회 성공했습니다."
 };

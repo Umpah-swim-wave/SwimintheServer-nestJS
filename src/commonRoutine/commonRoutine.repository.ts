@@ -7,9 +7,7 @@ import { CommonRoutineListResponseDto } from "./dto/commonRoutine.response.dto"
 export class CommonRoutineRepository extends Repository<CommonRoutine> {
   // async findAll(commonRoutineListDto: CommonRoutineListDto): Promise<CommonRoutine[]> {
   //   const { id, title, level, distanceSum, timeSum, description } = commonRoutineListDto;
-
   //   const result = await this.find({ id, title, level, distanceSum, timeSum, description });
-    
   //   return result;
   // }
 }

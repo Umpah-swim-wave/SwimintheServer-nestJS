@@ -25,7 +25,7 @@ export class CommonRoutineService {
   async getRoutineDetail(
     commonRoutineDetailDto: CommonRoutineListDto
   ): Promise<CommonRoutineListResponseDto> {
-    const result = await this.CommonRoutineRepository.find()
+    const result = await this.CommonRoutineRepository.find();
     return utilResponse.success(messageResponse.GET_COMMON_ROUTINE_DETAIL_SUCCESS, result);
   }
 }
