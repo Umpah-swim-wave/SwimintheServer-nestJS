@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Level } from "src/common/enum/Enum";
 
-export class CommonRoutineFilterDto {
+export class CommonRoutineListDto {
   @ApiProperty({ description: "루틴 id" })
   readonly id: number;
 

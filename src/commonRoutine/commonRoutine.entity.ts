@@ -45,37 +45,37 @@ export class CommonRoutine extends BaseEntity {
   })
   description: string;
 
-  @Column({
-    type: "enum",
-    name: "swim_set",
-    enumName: "swim_set",
-    enum: SwimSet,
-    comment: "수영 세트 구분", // set 이름도 enum으로 설정
-  })
-  swimSet: SwimSet;
+  // @Column({
+  //   type: "enum",
+  //   name: "swim_set",
+  //   enumName: "swim_set",
+  //   enum: SwimSet,
+  //   comment: "수영 세트 구분", // set 이름도 enum으로 설정
+  // })
+  // swimSet: SwimSet;
 
-  @Column({
-    type: "enum",
-    name: "stroke",
-    enumName: "stroke",
-    enum: Stroke,
-    comment: "영법",
-  })
-  stroke: Stroke;
+  // @Column({
+  //   type: "enum",
+  //   name: "stroke",
+  //   enumName: "stroke",
+  //   enum: Stroke,
+  //   comment: "영법",
+  // })
+  // stroke: Stroke;
 
-  @Column({
-    type: "int",
-    name: "distance",
-    comment: "수영한 거리 (단위 : m)",
-  })
-  distance: number;
+  // @Column({
+  //   type: "int",
+  //   name: "distance",
+  //   comment: "수영한 거리 (단위 : m)",
+  // })
+  // distance: number;
 
-  @Column({
-    type: "int",
-    name: "time",
-    comment: "수영한 시간 (단위 : s)",
-  })
-  time: number;
+  // @Column({
+  //   type: "int",
+  //   name: "time",
+  //   comment: "수영한 시간 (단위 : s)",
+  // })
+  // time: number;
 
   @Column({
     type: "timestamp",

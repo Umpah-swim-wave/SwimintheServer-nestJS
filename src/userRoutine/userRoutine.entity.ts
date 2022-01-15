@@ -52,35 +52,35 @@ export class userRoutine extends BaseEntity {
   })
   description: string;
 
-  @Column({
-    type: "enum",
-    name: "swim_set",
-    enumName: "swim_set",
-    enum: SwimSet,
-    comment: "수영 세트 구분",
-  })
-  setName: SwimSet;
+  // @Column({
+  //   type: "enum",
+  //   name: "swim_set",
+  //   enumName: "swim_set",
+  //   enum: SwimSet,
+  //   comment: "수영 세트 구분",
+  // })
+  // setName: SwimSet;
 
-  @Column({
-    type: "varchar",
-    name: "user_stroke",
-    comment: "영법",
-  })
-  userStroke: string;
+  // @Column({
+  //   type: "varchar",
+  //   name: "user_stroke",
+  //   comment: "영법",
+  // })
+  // userStroke: string;
 
-  @Column({
-    type: "int",
-    name: "distance",
-    comment: "수영한 거리 (단위 : m)",
-  })
-  distance: number;
+  // @Column({
+  //   type: "int",
+  //   name: "distance",
+  //   comment: "수영한 거리 (단위 : m)",
+  // })
+  // distance: number;
 
-  @Column({
-    type: "int",
-    name: "time",
-    comment: "수영한 시간 (단위 : s)",
-  })
-  time: number;
+  // @Column({
+  //   type: "int",
+  //   name: "time",
+  //   comment: "수영한 시간 (단위 : s)",
+  // })
+  // time: number;
 
   @Column({
     type: "enum",

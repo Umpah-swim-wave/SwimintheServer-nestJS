@@ -1,7 +1,6 @@
 import { EntityRepository, Repository } from "typeorm";
 import { CommonRoutine } from "./commonRoutine.entity";
-import { CommonRoutineListDto } from "./dto/commonRoutine.data.dto";
-import { CommonRoutineFilterDto } from "./dto/commonRoutine.request.dto";
+import { CommonRoutineListDto } from "./dto/commonRoutine.request.dto";
 import { CommonRoutineListResponseDto } from "./dto/commonRoutine.response.dto"
 
 @EntityRepository(CommonRoutine)

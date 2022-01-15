@@ -2,7 +2,7 @@ import { Body, Controller, Get, ValidationPipe } from "@nestjs/common";
 import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { CommonRoutineListResponseDto } from "./dto/commonRoutine.response.dto";
 import { CommonRoutineService } from "./commonRoutine.service";
-import { CommonRoutineListDto } from "./dto/commonRoutine.data.dto";
+import { CommonRoutineListDto } from "./dto/commonRoutine.request.dto";
 
 @ApiTags("commonRoutine")
 @Controller("commonRoutine")
