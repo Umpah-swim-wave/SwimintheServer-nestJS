@@ -1,8 +1,8 @@
 import { Body, Controller, Post, ValidationPipe } from "@nestjs/common";
 import { ApiNoContentResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
-import { BaseResponseDto } from "src/common/dto/base.response.dto";
-import messageResponse from "src/common/response/message.response";
-import utilResponse from "src/common/response/util.response";
+import { BaseResponseDto } from "../common/dto/base.response.dto";
+import messageResponse from "../common/response/message.response";
+import utilResponse from "../common/response/util.response";
 import { RecordRequestDto } from "./dto/record.request.dto";
 import { RecordService } from "./record.service";
 

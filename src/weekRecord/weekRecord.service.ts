@@ -1,12 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CalenderRepository } from "src/calender/calender.repository";
-import dateUtils from "src/common/util/dateUtils";
-import { MonthRecordRepository } from "src/monthRecord/monthRecord.repository";
-import { RecentRecordDateRequestDto } from "./dto/weekRecentRecord.request.dto";
+import { User } from "../auth/auth.entity";
+import { CalenderRepository } from "../calender/calender.repository";
+import dateUtils from "../common/util/dateUtils";
+import { MonthRecordRepository } from "../monthRecord/monthRecord.repository";
 import { RecentRecordDateDto } from "./dto/weekRecentRecord.response.dto";
 import { RecordWeeklyFilterDto } from "./dto/weekRecord.request.dto";
 import { RecordWeeklyListDto } from "./dto/weekRecord.response.dto";
+import { WeekRecord } from "./weekRecord.entity";
 import { WeekRecordRepository } from "./weekRecord.repository";
 
 @Injectable()
@@ -20,16 +21,22 @@ export class WeekRecordService {
     private readonly CalenderRepository: CalenderRepository
   ) {}
   async findWeeklyRecordList(
-    recordWeeklyFilterDto: RecordWeeklyFilterDto
+    dto: RecordWeeklyFilterDto,
+    user: User
   ): Promise<RecordWeeklyListDto> {
     let result: RecordWeeklyListDto;
+    const userId = user.id;
+    const stroke = dto.stroke;
+    const date = !dto.date
+      ? await this.WeekRecordRepository.findRecentlyDateByUserId(userId)
+      : dto.date;
+    const startDate = date["startDate"];
+    const endDate = date["endDate"];
     return result;
   }
 
-  async findRecentRecordDateList(
-    dto: RecentRecordDateRequestDto
-  ): Promise<RecentRecordDateDto[]> {
-    const userId = dto.userId;
+  async findRecentRecordDateList(user: User): Promise<RecentRecordDateDto[]> {
+    const userId = user.id;
     const queryResult =
       await this.MonthRecordRepository.findRecentRecordDateListByUserId(userId);
     const result: RecentRecordDateDto[] = [];

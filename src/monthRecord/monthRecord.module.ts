@@ -6,7 +6,7 @@ import { MonthRecordRepository } from "./monthRecord.repository";
 import { AuthModule } from "../auth/auth.module";
 
 import "dotenv/config";
-import { WeekRecordRepository } from "src/weekRecord/weekRecord.repository";
+import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
 @Module({
   imports: [
     TypeOrmModule.forFeature([MonthRecordRepository, WeekRecordRepository]),

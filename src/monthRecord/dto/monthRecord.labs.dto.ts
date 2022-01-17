@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import mathUtils from "src/common/util/mathUtils";
+import mathUtils from "../../common/util/mathUtils";
 
 export class RecordMonthlyLabsDto {
   @ApiProperty({ description: "랩스 주차" })

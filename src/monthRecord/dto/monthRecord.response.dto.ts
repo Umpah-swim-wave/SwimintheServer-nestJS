@@ -1,5 +1,4 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BaseResponseDto } from "../../common/dto/base.response.dto";
 import { RecordMonthlyLabsDto } from "./monthRecord.labs.dto";
 
 export class RecordMonthlyListResponseDto {
