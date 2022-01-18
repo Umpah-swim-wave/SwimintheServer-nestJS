@@ -27,11 +27,10 @@ export class WeekRecordService {
     let result: RecordWeeklyListDto;
     const userId = user.id;
     const stroke = dto.stroke;
-    const date = !dto.date
-      ? await this.WeekRecordRepository.findRecentlyDateByUserId(userId)
-      : dto.date;
-    const startDate = date["startDate"];
-    const endDate = date["endDate"];
+    const date = dto.date;
+    const week = dto.week;
+    const records: Array<WeekRecord> =
+      await this.WeekRecordRepository.findByUserIdAndDate(userId, date, week);
     return result;
   }
 

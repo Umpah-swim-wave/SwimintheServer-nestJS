@@ -31,7 +31,6 @@ export class DayRecordService {
       ? await this.DayRecordRepository.findRecentlyDateByUserId(userId)
       : dto.date;
     const yearMonthDate = dateUtils.getYearMonth(date);
-    const dayOfWeek = dateUtils.getDayOfWeek(date);
     const week = await this.CalenderRepository.findByDate(date);
 
     const labs = await this.DayRecordRepository.findLabsByUserIdAndSearchFilter(
@@ -43,7 +42,6 @@ export class DayRecordService {
     const overview = await this.WeekRecordRepository.findByUserIdAndDate(
       userId,
       yearMonthDate,
-      dayOfWeek,
       week
     );
     if (!overview) {

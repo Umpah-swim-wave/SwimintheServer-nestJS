@@ -31,7 +31,7 @@ export class WeekRecordRepository extends Repository<WeekRecord> {
       .andWhere("`year_month_date` = :yearMonthDate", { yearMonthDate })
       .andWhere("week = :week", { week })
       .andWhere("active = 'Y'");
-    return await queryBuilder.getRawOne();
+    return await queryBuilder.getRawMany();
   }
 
   async findRecentlyDateByUserId(userId: number): Promise<RecentRecordDateDao> {
