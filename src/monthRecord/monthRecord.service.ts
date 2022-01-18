@@ -3,7 +3,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "../auth/auth.entity";
 import { Stroke } from "../common/enum/Enum";
 import dateUtils from "../common/util/dateUtils";
-import { RecentRecordDateRequestDto } from "./dto/monthRecentRecord.request.dto";
 import { RecentRecordDateDto } from "./dto/monthRecentRecord.response.dto";
 import { RecordMonthlyLabsDto } from "./dto/monthRecord.labs.dto";
 import { RecordMonthlyFilterDto } from "./dto/monthRecord.request.dto";
@@ -36,10 +35,7 @@ export class MonthRecordService {
     return result;
   }
 
-  async findRecentRecordDateList(
-    dto: RecentRecordDateRequestDto,
-    user: User
-  ): Promise<RecentRecordDateDto[]> {
+  async findRecentRecordDateList(user: User): Promise<RecentRecordDateDto[]> {
     const userId = user.id;
     const queryResult =
       await this.MonthRecordRepository.findRecentRecordDateListByUserId(userId);

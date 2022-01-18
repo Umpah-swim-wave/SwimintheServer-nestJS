@@ -13,7 +13,6 @@ import { BaseResponseDto } from "../common/dto/base.response.dto";
 import utilResponse from "../common/response/util.response";
 import messageResponse from "../common/response/message.response";
 import { RecentRecordDateDto } from "./dto/monthRecentRecord.response.dto";
-import { RecentRecordDateRequestDto } from "./dto/monthRecentRecord.request.dto";
 import { GetUser } from "../auth/get-user.decorator";
 import { User } from "../auth/auth.entity";
 import { AuthGuard } from "@nestjs/passport";
@@ -57,14 +56,9 @@ export class MonthRecordController {
     type: RecentRecordDateDto,
   })
   async findRecentRecordDateList(
-    @Query(ValidationPipe)
-    recentRecordDateRequestDto: RecentRecordDateRequestDto,
     @GetUser() user: User
   ): Promise<BaseResponseDto> {
-    const result = await this.monthRecordService.findRecentRecordDateList(
-      recentRecordDateRequestDto,
-      user
-    );
+    const result = await this.monthRecordService.findRecentRecordDateList(user);
     return utilResponse.success(
       messageResponse.GET_DATE_RECORDS_SUCCESS,
       result
