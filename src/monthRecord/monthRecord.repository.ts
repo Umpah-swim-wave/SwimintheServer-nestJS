@@ -6,6 +6,7 @@ import {
   Repository,
 } from "typeorm";
 import { MonthRecord, RecentRecordDateDao } from "./monthRecord.entity";
+import { RecordWeeklyListDto } from "../weekRecord/dto/weekRecord.response.dto";
 
 @EntityRepository(MonthRecord)
 export class MonthRecordRepository extends Repository<MonthRecord> {
@@ -52,6 +53,24 @@ export class MonthRecordRepository extends Repository<MonthRecord> {
       .orderBy("year_month_date", "DESC")
       .orderBy("week", "DESC")
       .getRawMany();
+
+    return result;
+  }
+
+  async findRecordDateByUserId(
+    userId: number,
+    yearMonthDate: string,
+    week: number
+  ): Promise<RecordWeeklyListDto> {
+    const result = createQueryBuilder()
+      .select(["total_distance", "total_time", "beat_per_minute", "calorie"])
+      .addSelect("total_distance/total_time", "speed")
+      .from(MonthRecord, "month_records")
+      .where("user_id = :userId", { userId })
+      .andWhere("`year_month_date` = :yearMonthDate", { yearMonthDate })
+      .andWhere("`week` = :week", { week })
+      .andWhere("active = 'Y'")
+      .getRawOne();
 
     return result;
   }

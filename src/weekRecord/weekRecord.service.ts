@@ -24,13 +24,19 @@ export class WeekRecordService {
     dto: RecordWeeklyFilterDto,
     user: User
   ): Promise<RecordWeeklyListDto> {
-    let result: RecordWeeklyListDto;
     const userId = user.id;
     const stroke = dto.stroke;
     const date = dto.date;
     const week = dto.week;
     const records: Array<WeekRecord> =
       await this.WeekRecordRepository.findByUserIdAndDate(userId, date, week);
+    let result: RecordWeeklyListDto =
+      await this.MonthRecordRepository.findRecordDateByUserId(
+        userId,
+        date,
+        week
+      );
+    // TODO result.recordLabsList 코드 추가
     return result;
   }
 
