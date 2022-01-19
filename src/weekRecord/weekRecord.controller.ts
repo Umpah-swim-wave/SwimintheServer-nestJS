@@ -37,7 +37,6 @@ export class WeekRecordController {
     @Query(ValidationPipe) recordWeeklyFilterDto: RecordWeeklyFilterDto,
     @GetUser() user: User
   ): Promise<BaseResponseDto> {
-    // TODO response type 정하고 변경
     const result = await this.weekRecordService.findWeeklyRecordList(
       recordWeeklyFilterDto,
       user
