@@ -8,14 +8,14 @@ export class RecentRecordDateDto {
   readonly endDate: string;
 
   @ApiProperty({ description: "년월 날짜(YYYY-MM)" })
-  readonly yearMonthDate: string;
+  readonly date: string;
   @ApiProperty({ description: "주" })
   readonly week: number;
 
-  constructor(startDate, endDate, yearMonthDate, week) {
+  constructor(startDate, endDate, date, week) {
     this.startDate = startDate;
     this.endDate = endDate;
-    this.yearMonthDate = yearMonthDate;
+    this.date = date;
     this.week = week;
   }
 }
