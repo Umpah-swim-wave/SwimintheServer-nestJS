@@ -60,7 +60,9 @@ export class WeekRecordService {
         );
       const startDate = dateUtils.getDayFormat(dates[0]["date"]);
       const endDate = dateUtils.getDayFormat(dates[dates.length - 1]["date"]);
-      result.push(new RecentRecordDateDto(startDate, endDate));
+      result.push(
+        new RecentRecordDateDto(startDate, endDate, yearMonthDate, week)
+      );
     }
 
     return result;
