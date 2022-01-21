@@ -6,8 +6,8 @@ import { DayRecordRepository } from "./dayRecord.repository";
 import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
 import dateUtils from "../common/util/dateUtils";
 import { CalenderRepository } from "../calender/calender.repository";
-import { RecentRecordDateRequestDto } from "./dto/dayRecentRecord.request.dto";
 import { RecentRecordDateDto } from "./dto/dayRecentRecord.response.dto";
+import { User } from "../auth/auth.entity";
 
 @Injectable()
 export class DayRecordService {
@@ -21,9 +21,10 @@ export class DayRecordService {
   ) {}
 
   async findDailyRecordList(
-    dto: RecordDailyFilterDto
+    dto: RecordDailyFilterDto,
+    user: User
   ): Promise<RecordDailyListDto> {
-    const userId = dto.userId;
+    const userId = user.id;
     const stroke = dto.stroke;
 
     // request parameter에 date가 null 혹은 undefined라면 최근 date를 가져옵니다.
@@ -32,17 +33,18 @@ export class DayRecordService {
       : dto.date;
     const yearMonthDate = dateUtils.getYearMonth(date);
     const week = await this.CalenderRepository.findByDate(date);
-
+    const dayOfWeek = dateUtils.getDayOfWeek(date);
     const labs = await this.DayRecordRepository.findLabsByUserIdAndSearchFilter(
       userId,
       date,
       stroke
     );
 
-    const overview = await this.WeekRecordRepository.findByUserIdAndDate(
+    const overview = await this.WeekRecordRepository.findOneByUserIdAndDate(
       userId,
       yearMonthDate,
-      week
+      week,
+      dayOfWeek
     );
     if (!overview) {
       // TODO 에러 메시지
@@ -59,10 +61,8 @@ export class DayRecordService {
    * @param dto userId
    * @returns
    */
-  async findRecentRecordDateList(
-    dto: RecentRecordDateRequestDto
-  ): Promise<RecentRecordDateDto[]> {
-    const userId = dto.userId;
+  async findRecentRecordDateList(user: User): Promise<RecentRecordDateDto[]> {
+    const userId = user.id;
     const result =
       await this.DayRecordRepository.findRecentRecordDateListByUserId(userId);
     return result;

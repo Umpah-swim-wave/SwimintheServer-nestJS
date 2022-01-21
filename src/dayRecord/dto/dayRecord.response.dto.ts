@@ -40,7 +40,7 @@ export class RecordDailyListDto {
     this.date = date;
     this.totalDistance = overview.total_distance;
     this.totalTime = overview.total_time;
-    this.totalCalorie = overview.total_calorie;
+    this.totalCalorie = overview.calorie;
     this.totalBpm = overview.beat_per_minute;
     this.freestyleTotalDistance = overview.freestyle_distance;
     this.freestyleTotalSpeed = mathUtils.getSpeed(

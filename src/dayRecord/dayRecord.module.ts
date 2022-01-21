@@ -6,6 +6,7 @@ import { DayRecordRepository } from "./dayRecord.repository";
 import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
 import "dotenv/config";
 import { CalenderRepository } from "../calender/calender.repository";
+import { AuthModule } from "../auth/auth.module";
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { CalenderRepository } from "../calender/calender.repository";
       WeekRecordRepository,
       CalenderRepository,
     ]),
+    AuthModule,
   ],
   controllers: [DayRecordController],
   providers: [DayRecordService],
