@@ -12,4 +12,6 @@ export class RecordWeeklyLabsDto {
   speed: string;
   @ApiProperty({ description: '랩스 시간' })
   time: number;
+  @ApiProperty({ description: '랩스 칼로리' })
+  calorie: number;
 }
