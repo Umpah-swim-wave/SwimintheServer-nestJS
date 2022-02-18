@@ -1,5 +1,5 @@
-import * as dayjs from "dayjs";
-import { DayOfWeek } from "../enum/Enum";
+import * as dayjs from 'dayjs';
+import { DayOfWeek } from '../enum/Enum';
 
 const DAY_OF_WEEK: DayOfWeek[] = [
   DayOfWeek.SUN,
@@ -62,6 +62,6 @@ export default {
   },
 
   getDayFormat: (date): string => {
-    return dayjs(date).format("YY-MM-DD");
+    return dayjs(date).format('YY-MM-DD');
   },
 };

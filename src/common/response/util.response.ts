@@ -1,5 +1,5 @@
 export default {
-  success: (message: string, data: any) => {
+  success: (message: string, data?: any) => {
     return {
       success: true,
       message: message,

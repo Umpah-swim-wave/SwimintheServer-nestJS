@@ -1,21 +1,22 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { DayRecord } from "../dayRecord/dayRecord.entity";
-import { DayRecordRepository } from "../dayRecord/dayRecord.repository";
-import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
-import { MonthRecordRepository } from "../monthRecord/monthRecord.repository";
-import { CalenderRepository } from "../calender/calender.repository";
-import { RecordRequestDto } from "./dto/record.request.dto";
-import dateUtils from "../common/util/dateUtils";
-import { Stroke } from "../common/enum/Enum";
-import { WeekRecord } from "../weekRecord/weekRecord.entity";
-import { UniqueColumsDao } from "../common/dao/UniqueColumns.dao";
-import { MonthRecord } from "../monthRecord/monthRecord.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DayRecord } from '../dayRecord/dayRecord.entity';
+import { DayRecordRepository } from '../dayRecord/dayRecord.repository';
+import { WeekRecordRepository } from '../weekRecord/weekRecord.repository';
+import { MonthRecordRepository } from '../monthRecord/monthRecord.repository';
+import { CalenderRepository } from '../calender/calender.repository';
+import { RecordRequestDto } from './dto/record.request.dto';
+import dateUtils from '../common/util/dateUtils';
+import { Stroke } from '../common/enum/Enum';
+import { WeekRecord } from '../weekRecord/weekRecord.entity';
+import { UniqueColumsDao } from '../common/dao/UniqueColumns.dao';
+import { MonthRecord } from '../monthRecord/monthRecord.entity';
+import { User } from 'src/auth/auth.entity';
 
-const LRU = require("lru-cache");
+const LRU = require('lru-cache');
 
 // TODO enum이나 다른 곳에서도 쓸 수 있게 더 좋은 방법 찾아보기
-const strokeList = ["IM", "FREESTYLE", "BACK", "BREAST", "BUTTERFLY"];
+const strokeList = ['IM', 'FREESTYLE', 'BACK', 'BREAST', 'BUTTERFLY'];
 const options = {
   max: 500,
   maxAge: 1000 * 60 * 60,
@@ -38,19 +39,22 @@ export class RecordService {
     @InjectRepository(MonthRecordRepository)
     private readonly MonthRecordRepository: MonthRecordRepository,
     @InjectRepository(CalenderRepository)
-    private readonly CalenderRepository: CalenderRepository
+    private readonly CalenderRepository: CalenderRepository,
   ) {}
 
   // TODO month_records insert하는 로직 추가
-  async insertRecord(recordRequestDto: RecordRequestDto): Promise<boolean> {
-    const userId = recordRequestDto.userId;
+  async insertRecord(
+    recordRequestDto: RecordRequestDto,
+    user: User,
+  ): Promise<boolean> {
+    const userId = user.id;
     const workoutDataList = recordRequestDto.workoutList;
     for (let workout = 0; workout < workoutDataList.length; workout++) {
       const distance = workoutDataList[workout].distancePerLabs;
       let totalTime = 0;
 
       const workoutDate = dateUtils.getYearMonthDay(
-        workoutDataList[workout].startWorkoutDate
+        workoutDataList[workout].startWorkoutDate,
       );
       let dayOfWeek = dateUtils.getDayOfWeek(workoutDate);
       let yearMonthDate = dateUtils.getYearMonth(workoutDate);
@@ -93,13 +97,13 @@ export class RecordService {
       }
 
       const totalStroke = Math.round(
-        workoutDataList[workout].totalSwimmingStrokeCount
+        workoutDataList[workout].totalSwimmingStrokeCount,
       );
       const totalBeatPerMinute = Math.round(
-        workoutDataList[workout].totalBeatPerMinute
+        workoutDataList[workout].totalBeatPerMinute,
       );
       const totalCalorie = Math.round(
-        workoutDataList[workout].totalEnergyBurned
+        workoutDataList[workout].totalEnergyBurned,
       );
       const totalDistance = distance * labsCount;
 
@@ -111,10 +115,10 @@ export class RecordService {
       };
 
       let weekRecord = await this.WeekRecordRepository.findByUniqueColumns(
-        columns
+        columns,
       );
       let monthRecord = await this.MonthRecordRepository.findByUniqueColumns(
-        columns
+        columns,
       );
 
       if (!weekRecord) {
