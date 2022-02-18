@@ -33,6 +33,9 @@ export class WeekRecordService {
     const week = dto.week;
     const records: Array<WeekRecord> =
       await this.WeekRecordRepository.findByUserIdAndDate(userId, date, week);
+    if (!records || records.length == 0) {
+      return new RecordWeeklyListDto();
+    }
     const result: RecordWeeklyListDto =
       await this.MonthRecordRepository.findRecordDateByUserId(
         userId,
