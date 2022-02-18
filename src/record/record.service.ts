@@ -56,8 +56,8 @@ export class RecordService {
       const workoutDate = dateUtils.getYearMonthDay(
         workoutDataList[workout].startWorkoutDate,
       );
-      let dayOfWeek = dateUtils.getDayOfWeek(workoutDate);
-      let yearMonthDate = dateUtils.getYearMonth(workoutDate);
+      const dayOfWeek = dateUtils.getDayOfWeek(workoutDate);
+      const yearMonthDate = dateUtils.getYearMonth(workoutDate);
 
       const strokeDistanceList = [0, 0, 0, 0, 0];
       const strokeTimeList = [0, 0, 0, 0, 0];
