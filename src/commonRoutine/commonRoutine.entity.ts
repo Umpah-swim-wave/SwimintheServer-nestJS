@@ -1,5 +1,11 @@
 import { Level } from "../common/enum/Enum";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { 
+  BaseEntity, 
+  BeforeUpdate,
+  Column, 
+  Entity, 
+  PrimaryGeneratedColumn 
+} from "typeorm";
 
 @Entity({
   name: "uhpuh_routine",
@@ -46,15 +52,20 @@ export class CommonRoutine extends BaseEntity {
   description: string;
 
   @Column({
-    type: "timestamp",
-    name: "created_at",
-    default: () => "CURRENT_TIMESTAMP",
+    type: 'datetime',
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
   })
-  createdAt: string;
+  createdAt: Date;
 
   @Column({
-    type: 'timestamp',
+    type: 'datetime',
     name: 'updated_at',
   })
-  updatedAt: string;
+  updatedAt: Date;
+
+  @BeforeUpdate()
+  updateDates() {
+    this.updatedAt = new Date();
+  }
 }

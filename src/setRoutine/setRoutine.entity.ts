@@ -1,5 +1,11 @@
 import { SwimSet } from "../common/enum/Enum";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { 
+  BaseEntity, 
+  BeforeUpdate, 
+  Column, 
+  Entity, 
+  PrimaryGeneratedColumn 
+} from "typeorm";
 
 @Entity({
   name: "set_routine",
@@ -37,4 +43,22 @@ export class SetRoutine extends BaseEntity {
     comment: "수영한 시간 (단위 : s)",
   })
   time: number;
+
+  @Column({
+    type: 'datetime',
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
+
+  @Column({
+    type: 'datetime',
+    name: 'updated_at',
+  })
+  updatedAt: Date;
+
+  @BeforeUpdate()
+  updateDates() {
+    this.updatedAt = new Date();
+  }
 }

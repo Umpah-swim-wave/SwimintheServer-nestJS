@@ -5,7 +5,11 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
+import { CommonRoutine } from "../commonRoutine/commonRoutine.entity";
+import { SetRoutine } from "../setRoutine/setRoutine.entity";
 
 @Entity({
   name: 'users',
@@ -55,4 +59,11 @@ export class User extends BaseEntity {
   updateDates() {
     this.updatedAt = new Date();
   }
+
+  @ManyToMany(() => CommonRoutine)
+  @JoinTable()
+  commonRoutine: CommonRoutine;
+  @ManyToMany(() => SetRoutine)
+  @JoinTable()
+  setRoutine: SetRoutine;
 }
