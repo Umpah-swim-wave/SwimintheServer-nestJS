@@ -29,9 +29,9 @@ export class Calender extends BaseEntity {
   week: number;
 
   @Column({
-    type: "timestamp",
+    type: "datetime",
     name: "created_at",
     default: () => "CURRENT_TIMESTAMP",
   })
-  createdAt: string;
+  createdAt: Date;
 }

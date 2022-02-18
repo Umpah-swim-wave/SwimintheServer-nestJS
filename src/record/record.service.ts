@@ -11,6 +11,7 @@ import { Stroke } from "../common/enum/Enum";
 import { WeekRecord } from "../weekRecord/weekRecord.entity";
 import { UniqueColumsDao } from "../common/dao/UniqueColumns.dao";
 import { MonthRecord } from "../monthRecord/monthRecord.entity";
+import { User } from "src/auth/auth.entity";
 
 const LRU = require("lru-cache");
 
@@ -42,8 +43,11 @@ export class RecordService {
   ) {}
 
   // TODO month_records insert하는 로직 추가
-  async insertRecord(recordRequestDto: RecordRequestDto): Promise<boolean> {
-    const userId = recordRequestDto.userId;
+  async insertRecord(
+    recordRequestDto: RecordRequestDto,
+    user: User
+  ): Promise<boolean> {
+    const userId = user.id;
     const workoutDataList = recordRequestDto.workoutList;
     for (let workout = 0; workout < workoutDataList.length; workout++) {
       const distance = workoutDataList[workout].distancePerLabs;
