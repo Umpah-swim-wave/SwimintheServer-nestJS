@@ -31,7 +31,7 @@ export class WeekRecordRepository extends Repository<WeekRecord> {
       .where('user_id = :userId', { userId })
       .andWhere('`year_month_date` = :yearMonthDate', { yearMonthDate })
       .andWhere('week = :week', { week })
-      .andWhere("active = 'Y'");
+      .andWhere(`active = 'Y'`);
     return await queryBuilder.getRawMany();
   }
 
@@ -48,7 +48,7 @@ export class WeekRecordRepository extends Repository<WeekRecord> {
       .andWhere('`year_month_date` = :yearMonthDate', { yearMonthDate })
       .andWhere('week = :week', { week })
       .andWhere('day_of_week = :dayOfWeek', { dayOfWeek })
-      .andWhere("active = 'Y'");
+      .andWhere(`active = 'Y'`);
     return await queryBuilder.getRawOne();
   }
 
@@ -59,7 +59,7 @@ export class WeekRecordRepository extends Repository<WeekRecord> {
       .distinct(true)
       .from(WeekRecord, 'week_record')
       .where('user_id = :userId', { userId: userId })
-      .andWhere("active = 'Y'")
+      .andWhere(`active = 'Y'`)
       .orderBy('year_month_date', 'DESC')
       .orderBy('week', 'DESC')
       .limit(1)
@@ -77,7 +77,7 @@ export class WeekRecordRepository extends Repository<WeekRecord> {
       .distinct(true)
       .from(WeekRecord, 'week_record')
       .where('user_id = :userId', { userId: userId })
-      .andWhere("active = 'Y'")
+      .andWhere(`active = 'Y'`)
       .orderBy('year_month_date', 'DESC')
       .orderBy('week', 'DESC')
       .getRawMany();

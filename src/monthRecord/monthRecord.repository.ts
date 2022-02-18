@@ -27,7 +27,7 @@ export class MonthRecordRepository extends Repository<MonthRecord> {
       .from(MonthRecord, 'month_records')
       .where('user_id = :userId', { userId })
       .andWhere('`year_month_date` = :yearMonthDate', { yearMonthDate })
-      .andWhere("active = 'Y'");
+      .andWhere(`active = 'Y'`);
 
     return await queryBuilder.getRawMany();
   }
@@ -49,7 +49,7 @@ export class MonthRecordRepository extends Repository<MonthRecord> {
       .distinct(true)
       .from(MonthRecord, 'month_records')
       .where('user_id = :userId', { userId: userId })
-      .andWhere("active = 'Y'")
+      .andWhere(`active = 'Y'`)
       .orderBy('year_month_date', 'DESC')
       .orderBy('week', 'DESC')
       .getRawMany();
@@ -69,7 +69,7 @@ export class MonthRecordRepository extends Repository<MonthRecord> {
       .where('user_id = :userId', { userId })
       .andWhere('`year_month_date` = :yearMonthDate', { yearMonthDate })
       .andWhere('`week` = :week', { week })
-      .andWhere("active = 'Y'")
+      .andWhere(`active = 'Y'`)
       .getRawOne();
 
     return result;

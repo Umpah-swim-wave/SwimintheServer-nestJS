@@ -20,7 +20,7 @@ export class DayRecordRepository extends Repository<DayRecord> {
       .addSelect('distance/time', 'speed')
       .from(DayRecord, 'day_records')
       .where('user_id = :userId', { userId: userId })
-      .andWhere("active = 'Y'");
+      .andWhere(`active = 'Y'`);
 
     queryBuilder.andWhere('date = :date', { date });
 
@@ -49,7 +49,7 @@ export class DayRecordRepository extends Repository<DayRecord> {
       .distinct(true)
       .from(DayRecord, 'day_records')
       .where('user_id = :userId', { userId: userId })
-      .andWhere("active = 'Y'")
+      .andWhere(`active = 'Y'`)
       .orderBy('date', 'DESC')
       .getRawMany();
 
