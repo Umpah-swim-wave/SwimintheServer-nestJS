@@ -26,7 +26,7 @@ export class CommonRoutine extends BaseEntity {
     name: 'level',
     enumName: 'swim_level',
     enum: Level,
-    comment: '어푸가 추천하는 루틴의 난이도',
+    comment: '루틴의 난이도',
   })
   level: Level;
 
@@ -50,6 +50,13 @@ export class CommonRoutine extends BaseEntity {
     comment: '루틴에 대한 설명',
   })
   description: string;
+
+  @Column({
+    type: 'boolean',
+    name: 'uhp_routine',
+    comment: '어푸 추천 루틴',
+  })
+  uhp_routine: Boolean;
 
   @Column({
     type: 'datetime',
