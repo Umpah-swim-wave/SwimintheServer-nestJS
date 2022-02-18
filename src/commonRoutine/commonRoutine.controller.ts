@@ -1,10 +1,8 @@
-import { Body, Controller, Get, ValidationPipe } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CommonRoutineListResponseDto } from './dto/commonRoutine.response.dto';
-import { CommonRoutineService } from './commonRoutine.service';
-import util from '../common/response/util.response';
-import responseMessage from '../common/response/message.response';
-import { CommonRoutineListDto } from './dto/commonRoutine.data.dto';
+import { Body, Controller, Get, ValidationPipe } from "@nestjs/common";
+import { ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
+import { CommonRoutineListResponseDto } from "./dto/commonRoutine.response.dto";
+import { CommonRoutineService } from "./commonRoutine.service";
+import { CommonRoutineListDto } from "./dto/commonRoutine.data.dto";
 
 @ApiTags('commonRoutine')
 @Controller('commonRoutine')
@@ -25,11 +23,19 @@ export class CommonRoutineController {
   ): Promise<CommonRoutineListResponseDto> {
     return this.commonRoutineService.getAllRoutine(commonRoutineListDto);
   }
-  // async AllRoutineList(
-  //   @Body(ValidationPipe) routineListDto: CommonRoutineListDto
-  //   ): Promise<CommonRoutineListResponseDto> {
-  //     return await this.commonRoutineService.getAllRoutine(
-  //       routineListDto
-  //     )
-  // }
+
+  @Get("/detail")
+  @ApiOperation({
+    summary: "기본 루틴 상세 조회 API",
+    description: "어푸에서 추천하는 기본 루틴의 상세 조회 API",
+  })
+  @ApiOkResponse({
+    description: "기본 루틴 상세 조회 성공했습니다.",
+    type: CommonRoutineListResponseDto,
+  })
+  commonRoutineDetail(
+    @Body(ValidationPipe) commonRoutineDetailDto: CommonRoutineListDto
+  ): Promise<CommonRoutineListResponseDto> {
+    return this.commonRoutineService.getRoutineDetail(commonRoutineDetailDto)
+  }
 }

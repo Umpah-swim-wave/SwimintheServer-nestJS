@@ -1,8 +1,14 @@
-import { SwimSet, Stroke, Level } from '../common/enum/Enum';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Level } from "../common/enum/Enum";
+import { 
+  BaseEntity, 
+  BeforeUpdate,
+  Column, 
+  Entity, 
+  PrimaryGeneratedColumn 
+} from "typeorm";
 
 @Entity({
-  name: 'uhpuh_routine',
+  name: "uhpuh_routine",
 })
 export class CommonRoutine extends BaseEntity {
   @PrimaryGeneratedColumn() // 열 자동 생성 위해 쓰이는 데코레이터
@@ -46,47 +52,20 @@ export class CommonRoutine extends BaseEntity {
   description: string;
 
   @Column({
-    type: 'enum',
-    name: 'swim_set',
-    enumName: 'swim_set',
-    enum: SwimSet,
-    comment: '수영 세트 구분', // set 이름도 enum으로 설정
-  })
-  setName: SwimSet;
-
-  @Column({
-    type: 'enum',
-    name: 'stroke',
-    enumName: 'stroke',
-    enum: Stroke,
-    comment: '영법',
-  })
-  stroke: Stroke; // 이거 배열로 다시 짜야함
-
-  @Column({
-    type: 'int',
-    name: 'distance',
-    comment: '수영한 거리 (단위 : m)',
-  })
-  distance: number;
-
-  @Column({
-    type: 'int',
-    name: 'time',
-    comment: '수영한 시간 (단위 : s)',
-  })
-  time: number;
-
-  @Column({
-    type: 'timestamp',
+    type: 'datetime',
     name: 'created_at',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  createdAt: string;
+  createdAt: Date;
 
   @Column({
-    type: 'timestamp',
+    type: 'datetime',
     name: 'updated_at',
   })
-  updatedAt: string;
+  updatedAt: Date;
+
+  @BeforeUpdate()
+  updateDates() {
+    this.updatedAt = new Date();
+  }
 }
