@@ -209,6 +209,7 @@ export class MonthRecord extends BaseEntity {
       this.week,
       this.totalTime,
       this.totalDistance,
+      this.calorie,
     );
     return result;
   }
