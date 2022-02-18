@@ -52,6 +52,7 @@ export class MonthRecordRepository extends Repository<MonthRecord> {
       .andWhere(`active = 'Y'`)
       .orderBy('year_month_date', 'DESC')
       .orderBy('week', 'DESC')
+      .limit(1)
       .getRawMany();
 
     return result;
