@@ -1,13 +1,13 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { RecordDailyFilterDto } from "./dto/dayRecord.request.dto";
-import { RecordDailyListDto } from "./dto/dayRecord.response.dto";
-import { DayRecordRepository } from "./dayRecord.repository";
-import { WeekRecordRepository } from "../weekRecord/weekRecord.repository";
-import dateUtils from "../common/util/dateUtils";
-import { CalenderRepository } from "../calender/calender.repository";
-import { RecentRecordDateDto } from "./dto/dayRecentRecord.response.dto";
-import { User } from "../auth/auth.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { RecordDailyFilterDto } from './dto/dayRecord.request.dto';
+import { RecordDailyListDto } from './dto/dayRecord.response.dto';
+import { DayRecordRepository } from './dayRecord.repository';
+import { WeekRecordRepository } from '../weekRecord/weekRecord.repository';
+import dateUtils from '../common/util/dateUtils';
+import { CalenderRepository } from '../calender/calender.repository';
+import { RecentRecordDateDto } from './dto/dayRecentRecord.response.dto';
+import { User } from '../auth/auth.entity';
 
 @Injectable()
 export class DayRecordService {
@@ -17,12 +17,12 @@ export class DayRecordService {
     @InjectRepository(WeekRecordRepository)
     private readonly WeekRecordRepository: WeekRecordRepository,
     @InjectRepository(CalenderRepository)
-    private readonly CalenderRepository: CalenderRepository
+    private readonly CalenderRepository: CalenderRepository,
   ) {}
 
   async findDailyRecordList(
     dto: RecordDailyFilterDto,
-    user: User
+    user: User,
   ): Promise<RecordDailyListDto> {
     const userId = user.id;
     const stroke = dto.stroke;
@@ -37,14 +37,14 @@ export class DayRecordService {
     const labs = await this.DayRecordRepository.findLabsByUserIdAndSearchFilter(
       userId,
       date,
-      stroke
+      stroke,
     );
 
     const overview = await this.WeekRecordRepository.findOneByUserIdAndDate(
       userId,
       yearMonthDate,
       week,
-      dayOfWeek
+      dayOfWeek,
     );
     if (!overview) {
       // TODO 에러 메시지

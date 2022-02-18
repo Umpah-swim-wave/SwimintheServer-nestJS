@@ -1,13 +1,13 @@
-import { UniqueColumsDao } from "../common/dao/UniqueColumns.dao";
+import { UniqueColumsDao } from '../common/dao/UniqueColumns.dao';
 import {
   createQueryBuilder,
   EntityRepository,
   getRepository,
   Repository,
-} from "typeorm";
-import { WeekRecord } from "./weekRecord.entity";
-import { RecentRecordDateDao } from "./dto/RecentRecordDate.dao";
-import { DayOfWeek } from "../common/enum/Enum";
+} from 'typeorm';
+import { WeekRecord } from './weekRecord.entity';
+import { RecentRecordDateDao } from './dto/RecentRecordDate.dao';
+import { DayOfWeek } from '../common/enum/Enum';
 
 @EntityRepository(WeekRecord)
 export class WeekRecordRepository extends Repository<WeekRecord> {
@@ -23,14 +23,14 @@ export class WeekRecordRepository extends Repository<WeekRecord> {
   async findByUserIdAndDate(
     userId: number,
     yearMonthDate: string,
-    week: number
+    week: number,
   ): Promise<WeekRecord[]> {
     const queryBuilder = await createQueryBuilder()
-      .select("*")
-      .from(WeekRecord, "week_records")
-      .where("user_id = :userId", { userId })
-      .andWhere("`year_month_date` = :yearMonthDate", { yearMonthDate })
-      .andWhere("week = :week", { week })
+      .select('*')
+      .from(WeekRecord, 'week_records')
+      .where('user_id = :userId', { userId })
+      .andWhere('`year_month_date` = :yearMonthDate', { yearMonthDate })
+      .andWhere('week = :week', { week })
       .andWhere("active = 'Y'");
     return await queryBuilder.getRawMany();
   }
@@ -39,29 +39,29 @@ export class WeekRecordRepository extends Repository<WeekRecord> {
     userId: number,
     yearMonthDate: string,
     week: number,
-    dayOfWeek: DayOfWeek
+    dayOfWeek: DayOfWeek,
   ): Promise<WeekRecord> {
     const queryBuilder = await createQueryBuilder()
-      .select("*")
-      .from(WeekRecord, "week_records")
-      .where("user_id = :userId", { userId })
-      .andWhere("`year_month_date` = :yearMonthDate", { yearMonthDate })
-      .andWhere("week = :week", { week })
-      .andWhere("day_of_week = :dayOfWeek", { dayOfWeek })
+      .select('*')
+      .from(WeekRecord, 'week_records')
+      .where('user_id = :userId', { userId })
+      .andWhere('`year_month_date` = :yearMonthDate', { yearMonthDate })
+      .andWhere('week = :week', { week })
+      .andWhere('day_of_week = :dayOfWeek', { dayOfWeek })
       .andWhere("active = 'Y'");
     return await queryBuilder.getRawOne();
   }
 
   async findRecentlyDateByUserId(userId: number): Promise<RecentRecordDateDao> {
     const result = createQueryBuilder()
-      .select("year_month_date", "date")
-      .addSelect("week")
+      .select('year_month_date', 'date')
+      .addSelect('week')
       .distinct(true)
-      .from(WeekRecord, "week_record")
-      .where("user_id = :userId", { userId: userId })
+      .from(WeekRecord, 'week_record')
+      .where('user_id = :userId', { userId: userId })
       .andWhere("active = 'Y'")
-      .orderBy("year_month_date", "DESC")
-      .orderBy("week", "DESC")
+      .orderBy('year_month_date', 'DESC')
+      .orderBy('week', 'DESC')
       .limit(1)
       .getRawOne();
 
@@ -69,17 +69,17 @@ export class WeekRecordRepository extends Repository<WeekRecord> {
   }
 
   async findRecentRecordDateListByUserId(
-    userId: number
+    userId: number,
   ): Promise<RecentRecordDateDao[]> {
     const result = createQueryBuilder()
-      .select("year_month_date", "date")
-      .addSelect("week")
+      .select('year_month_date', 'date')
+      .addSelect('week')
       .distinct(true)
-      .from(WeekRecord, "week_record")
-      .where("user_id = :userId", { userId: userId })
+      .from(WeekRecord, 'week_record')
+      .where('user_id = :userId', { userId: userId })
       .andWhere("active = 'Y'")
-      .orderBy("year_month_date", "DESC")
-      .orderBy("week", "DESC")
+      .orderBy('year_month_date', 'DESC')
+      .orderBy('week', 'DESC')
       .getRawMany();
 
     return result;

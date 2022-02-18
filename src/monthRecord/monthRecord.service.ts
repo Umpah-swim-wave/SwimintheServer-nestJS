@@ -1,25 +1,25 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "../auth/auth.entity";
-import { Stroke } from "../common/enum/Enum";
-import dateUtils from "../common/util/dateUtils";
-import { RecentRecordDateDto } from "./dto/monthRecentRecord.response.dto";
-import { RecordMonthlyLabsDto } from "./dto/monthRecord.labs.dto";
-import { RecordMonthlyFilterDto } from "./dto/monthRecord.request.dto";
-import { RecordMonthlyListResponseDto } from "./dto/monthRecord.response.dto";
-import { MonthRecord } from "./monthRecord.entity";
-import { MonthRecordRepository } from "./monthRecord.repository";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '../auth/auth.entity';
+import { Stroke } from '../common/enum/Enum';
+import dateUtils from '../common/util/dateUtils';
+import { RecentRecordDateDto } from './dto/monthRecentRecord.response.dto';
+import { RecordMonthlyLabsDto } from './dto/monthRecord.labs.dto';
+import { RecordMonthlyFilterDto } from './dto/monthRecord.request.dto';
+import { RecordMonthlyListResponseDto } from './dto/monthRecord.response.dto';
+import { MonthRecord } from './monthRecord.entity';
+import { MonthRecordRepository } from './monthRecord.repository';
 
 @Injectable()
 export class MonthRecordService {
   constructor(
     @InjectRepository(MonthRecordRepository)
-    private readonly MonthRecordRepository: MonthRecordRepository
+    private readonly MonthRecordRepository: MonthRecordRepository,
   ) {}
 
   async findMonthlyRecordList(
     dto: RecordMonthlyFilterDto,
-    user: User
+    user: User,
   ): Promise<RecordMonthlyListResponseDto> {
     const userId = user.id;
     const stroke = dto.stroke;
@@ -41,8 +41,8 @@ export class MonthRecordService {
       await this.MonthRecordRepository.findRecentRecordDateListByUserId(userId);
     const result: RecentRecordDateDto[] = [];
     queryResult.forEach((value) => {
-      const year = dateUtils.getYear(value["date"]);
-      const month = dateUtils.getMonth(value["date"]);
+      const year = dateUtils.getYear(value['date']);
+      const month = dateUtils.getMonth(value['date']);
       result.push(new RecentRecordDateDto(year, month));
     });
     return result;
@@ -51,19 +51,18 @@ export class MonthRecordService {
   private sumRecordTotalInfo(
     records: Array<MonthRecord>,
     date: string,
-    stroke: Stroke
+    stroke: Stroke,
   ): RecordMonthlyListResponseDto {
-    let result: RecordMonthlyListResponseDto = new RecordMonthlyListResponseDto(
-      date
-    );
+    const result: RecordMonthlyListResponseDto =
+      new RecordMonthlyListResponseDto(date);
 
     if (!records || records.length == 0) {
       return result;
     }
     records.forEach((value: MonthRecord) => {
-      result.totalBpm += value["beat_per_minute"];
-      result.totalDistance += value["total_distance"];
-      result.totalTime += value["total_time"];
+      result.totalBpm += value['beat_per_minute'];
+      result.totalDistance += value['total_distance'];
+      result.totalTime += value['total_time'];
       result.recordLabsList.push(this.getRecordInfoByStroke(value, stroke));
     });
     result.totalBpm /= records.length;
@@ -71,7 +70,7 @@ export class MonthRecordService {
   }
 
   private getRecordLabs(records: Array<MonthRecord>): RecordMonthlyLabsDto[] {
-    let result: RecordMonthlyLabsDto[] = [];
+    const result: RecordMonthlyLabsDto[] = [];
 
     if (!records || records.length == 0) {
       return result;
@@ -80,9 +79,9 @@ export class MonthRecordService {
       result.push(
         new RecordMonthlyLabsDto(
           value.week,
-          value["total_distance"],
-          value["total_time"]
-        )
+          value['total_distance'],
+          value['total_time'],
+        ),
       );
     });
     return result;
@@ -90,7 +89,7 @@ export class MonthRecordService {
 
   private getRecordInfoByStroke(
     record: MonthRecord,
-    stroke: Stroke
+    stroke: Stroke,
   ): RecordMonthlyLabsDto {
     if (stroke) {
       return record.recordTotalInfo;
