@@ -9,39 +9,39 @@ export class CommonRoutine extends BaseEntity {
   id: number;
 
   @Column({
-    type: "varchar",
-    name: "title",
-    comment: "루틴의 제목",
+    type: 'varchar',
+    name: 'title',
+    comment: '루틴의 제목',
   })
   title: string;
 
   @Column({
-    type: "enum",
-    name: "level",
-    enumName: "swim_level",
+    type: 'enum',
+    name: 'level',
+    enumName: 'swim_level',
     enum: Level,
-    comment: "어푸가 추천하는 루틴의 난이도",
+    comment: '어푸가 추천하는 루틴의 난이도',
   })
   level: Level;
 
   @Column({
-    type: "decimal",
-    name: "distance_sum",
-    comment: "수영한 총 거리 (단위 : m)",
+    type: 'decimal',
+    name: 'distance_sum',
+    comment: '수영한 총 거리 (단위 : m)',
   })
   distanceSum: number;
 
   @Column({
-    type: "int",
-    name: "time_sum",
-    comment: "수영한 총 시간 (단위 : s)", // 초 단위 잘려서 넘어오기 때문에 분 단위의 int로 설정
+    type: 'int',
+    name: 'time_sum',
+    comment: '수영한 총 시간 (단위 : s)', // 초 단위 잘려서 넘어오기 때문에 분 단위의 int로 설정
   })
   timeSum: number;
 
   @Column({
-    type: "varchar",
-    name: "description",
-    comment: "루틴에 대한 설명",
+    type: 'varchar',
+    name: 'description',
+    comment: '루틴에 대한 설명',
   })
   description: string;
 
@@ -53,8 +53,8 @@ export class CommonRoutine extends BaseEntity {
   createdAt: string;
 
   @Column({
-    type: "timestamp",
-    name: "updated_at",
+    type: 'timestamp',
+    name: 'updated_at',
   })
   updatedAt: string;
 }

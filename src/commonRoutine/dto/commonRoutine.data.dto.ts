@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Level } from 'src/common/enum/Enum';
+import { Level, SwimSet } from 'src/common/enum/Enum';
 
-export class CommonRoutineFilterDto {
+export class CommonRoutineListDto {
   @ApiProperty({ description: '루틴 id' })
   readonly id: number;
 
@@ -19,4 +19,13 @@ export class CommonRoutineFilterDto {
 
   @ApiProperty({ description: '루틴 설명' })
   readonly description: string;
+
+  @ApiProperty({ description: '수영 세트 구분' })
+  readonly setName: SwimSet;
+
+  @ApiProperty({ description: '수영한 거리' })
+  readonly distance: number;
+
+  @ApiProperty({ description: '수영한 시간' })
+  readonly time: number;
 }

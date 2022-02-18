@@ -4,24 +4,24 @@ import { CommonRoutineListResponseDto } from "./dto/commonRoutine.response.dto";
 import { CommonRoutineService } from "./commonRoutine.service";
 import { CommonRoutineListDto } from "./dto/commonRoutine.request.dto";
 
-@ApiTags("commonRoutine")
-@Controller("commonRoutine")
+@ApiTags('commonRoutine')
+@Controller('commonRoutine')
 export class CommonRoutineController {
   constructor(private commonRoutineService: CommonRoutineService) {}
 
-  @Get("/list")
+  @Get('/list')
   @ApiOperation({
-    summary: "기본 루틴 조회 API",
-    description: "어푸에서 추천하는 기본 루틴 조회 API",
+    summary: '기본 루틴 조회 API',
+    description: '어푸에서 추천하는 기본 루틴 조회 API',
   })
   @ApiOkResponse({
-    description: "기본 루틴 조회 성공했습니다.",
+    description: '기본 루틴 조회 성공입니다.',
     type: CommonRoutineListResponseDto,
   })
   commonRoutineList(
-    @Body(ValidationPipe) commonRoutineListDto: CommonRoutineListDto
+    @Body(ValidationPipe) commonRoutineListDto: CommonRoutineListDto,
   ): Promise<CommonRoutineListResponseDto> {
-    return this.commonRoutineService.getAllRoutine(commonRoutineListDto)
+    return this.commonRoutineService.getAllRoutine(commonRoutineListDto);
   }
 
   @Get("/detail")

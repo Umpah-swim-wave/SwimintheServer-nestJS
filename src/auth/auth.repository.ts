@@ -1,9 +1,9 @@
-import { EntityRepository, Repository } from "typeorm";
-import { User } from "./auth.entity";
-import { SignUpDataDto } from "./dto/signup/signup.data.dto";
-import { SignInRequestDto } from "./dto/signin/signin.request.dto";
-import { Active } from "../common/enum/Enum";
-import { SignUpRequestDto } from "./dto/signup/signup.request.dto";
+import { EntityRepository, Repository } from 'typeorm';
+import { User } from './auth.entity';
+import { SignUpDataDto } from './dto/signup/signup.data.dto';
+import { SignInRequestDto } from './dto/signin/signin.request.dto';
+import { Active } from '../common/enum/Enum';
+import { SignUpRequestDto } from './dto/signup/signup.request.dto';
 @EntityRepository(User)
 export class AuthRepository extends Repository<User> {
   async signup(signUpRequestDto: SignUpRequestDto): Promise<SignUpDataDto> {

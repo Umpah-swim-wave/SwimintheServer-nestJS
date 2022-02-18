@@ -1,7 +1,5 @@
 import { EntityRepository, Repository } from "typeorm";
 import { CommonRoutine } from "./commonRoutine.entity";
-import { CommonRoutineListDto } from "./dto/commonRoutine.request.dto";
-import { CommonRoutineListResponseDto } from "./dto/commonRoutine.response.dto"
 
 @EntityRepository(CommonRoutine)
 export class CommonRoutineRepository extends Repository<CommonRoutine> {
