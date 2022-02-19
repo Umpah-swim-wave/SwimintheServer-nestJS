@@ -7,6 +7,7 @@ import utilResponse from 'src/common/response/util.response';
 import messageResponse from '../common/response/message.response';
 import { AuthRepository } from 'src/auth/auth.repository';
 import { User } from 'src/auth/auth.entity';
+import { SetRoutine } from 'src/setRoutine/setRoutine.entity';
 
 @Injectable()
 export class CommonRoutineService {
@@ -19,9 +20,11 @@ export class CommonRoutineService {
 
   async getAllRoutine(
     commonRoutineListDto: CommonRoutineListDto,
+    setRoutine: SetRoutine
   ): Promise<CommonRoutineListResponseDto> {
+    const setRoutineId = setRoutine.id;
     const result = await this.CommonRoutineRepository.find({
-      select: ['id', 'title', 'level', 'distanceSum', 'timeSum', 'description'],
+      select: ['id', 'title', 'level', 'distanceSum', 'timeSum', 'description'], where: {setRoutineId: setRoutineId}
     });
     return utilResponse.success(
       messageResponse.GET_COMMON_ROUTINE_SUCCESS,
@@ -41,7 +44,8 @@ export class CommonRoutineService {
     user: User
   ): Promise<CommonRoutineListResponseDto> {
     const userId = user.id;
-    const users = await this.AuthRepository.find({ relations: ['commonRoutine'], where: {id: userId} });
+    const users = await this.AuthRepository.find({ relations: ['commonRoutine'], where: {id: userId} 
+  });
     // users.forEach((user) => {
     //   console.log(user.commonRoutine)
     // });

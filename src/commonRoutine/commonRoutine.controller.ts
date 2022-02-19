@@ -6,6 +6,8 @@ import { CommonRoutineListDto } from "./dto/commonRoutine.data.dto";
 import { AuthGuard } from "@nestjs/passport";
 import { GetUser } from "src/auth/get-user.decorator";
 import { User } from "src/auth/auth.entity";
+import { GetRoutineSet } from "./get-setRoutine.decorator";
+import { SetRoutine } from "src/setRoutine/setRoutine.entity";
 
 @ApiTags('commonRoutine')
 @Controller('commonRoutine')
@@ -24,8 +26,9 @@ export class CommonRoutineController {
   })
   commonRoutineList(
     @Body(ValidationPipe) commonRoutineListDto: CommonRoutineListDto,
+    @GetRoutineSet() setRoutine : SetRoutine
   ): Promise<CommonRoutineListResponseDto> {
-    return this.commonRoutineService.getAllRoutine(commonRoutineListDto);
+    return this.commonRoutineService.getAllRoutine(commonRoutineListDto, setRoutine);
   }
 
   @Get("/detail")
