@@ -4,8 +4,11 @@ import {
   BeforeUpdate,
   Column, 
   Entity, 
-  PrimaryGeneratedColumn 
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
+import { SetRoutine } from "../setRoutine/setRoutine.entity";
 
 @Entity({
   name: "uhpuh_routine",
@@ -26,7 +29,7 @@ export class CommonRoutine extends BaseEntity {
     name: 'level',
     enumName: 'swim_level',
     enum: Level,
-    comment: '어푸가 추천하는 루틴의 난이도',
+    comment: '루틴의 난이도',
   })
   level: Level;
 
@@ -52,6 +55,13 @@ export class CommonRoutine extends BaseEntity {
   description: string;
 
   @Column({
+    type: 'boolean',
+    name: 'uhp_routine',
+    comment: '어푸 추천 루틴',
+  })
+  uhp_routine: Boolean;
+
+  @Column({
     type: 'datetime',
     name: 'created_at',
     default: () => 'CURRENT_TIMESTAMP',
@@ -68,4 +78,8 @@ export class CommonRoutine extends BaseEntity {
   updateDates() {
     this.updatedAt = new Date();
   }
+
+  @ManyToMany(() => SetRoutine)
+  @JoinTable()
+  setRoutine: SetRoutine[];
 }

@@ -27,7 +27,8 @@ export default {
   GET_DATE_RECORDS_SUCCESS: '수영한 날짜 리스트 조회에 성공했습니다.',
 
   /*routine*/
-  GET_COMMON_ROUTINE_SUCCESS: "기본 루틴 조회 성공했습니다.",
-  GET_COMMON_ROUTINE_DETAIL_SUCCESS: "기본 루틴 상세 페이지 조회 성공했습니다.",
-  GET_COMMON_ROUTINE_SET_SUCCESS: "기본 루틴의 세트 조회 성공했습니다."
+  GET_COMMON_ROUTINE_SUCCESS: "전체 루틴 조회 성공했습니다.",
+  GET_COMMON_ROUTINE_DETAIL_SUCCESS: "전체 루틴 상세 페이지 조회 성공했습니다.",
+  GET_COMMON_ROUTINE_SET_SUCCESS: "전체 루틴의 세트 조회 성공했습니다.",
+  GET_USER_ROUTINE_SUCCESS: "유저 루틴 조회 성공했습니다."
 };

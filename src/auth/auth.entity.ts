@@ -62,8 +62,8 @@ export class User extends BaseEntity {
 
   @ManyToMany(() => CommonRoutine)
   @JoinTable()
-  commonRoutine: CommonRoutine;
+  commonRoutine: CommonRoutine[];
   @ManyToMany(() => SetRoutine)
   @JoinTable()
-  setRoutine: SetRoutine;
+  setRoutine: SetRoutine[];
 }
