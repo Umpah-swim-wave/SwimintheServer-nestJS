@@ -1,10 +1,5 @@
 import { UniqueColumsDao } from '../common/dao/UniqueColumns.dao';
-import {
-  createQueryBuilder,
-  EntityRepository,
-  getRepository,
-  Repository,
-} from 'typeorm';
+import { createQueryBuilder, EntityRepository, Repository } from 'typeorm';
 import { WeekRecord } from './weekRecord.entity';
 import { RecentRecordDateDao } from './dto/RecentRecordDate.dao';
 import { DayOfWeek } from '../common/enum/Enum';

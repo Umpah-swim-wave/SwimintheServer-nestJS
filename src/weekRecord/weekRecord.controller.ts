@@ -1,8 +1,6 @@
 import {
-  Body,
   Controller,
   Get,
-  Post,
   Query,
   UseGuards,
   ValidationPipe,

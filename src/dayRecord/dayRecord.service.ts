@@ -53,14 +53,6 @@ export class DayRecordService {
     return result;
   }
 
-  /**
-   * 유저의 수영 기록 날짜를 내림차순으로 리턴한다.
-   * TODO userId를 토큰으로 교체
-   * TODO 페이징 처리를 해야 할까?
-   *
-   * @param dto userId
-   * @returns
-   */
   async findRecentRecordDateList(user: User): Promise<RecentRecordDateDto[]> {
     const userId = user.id;
     const result =

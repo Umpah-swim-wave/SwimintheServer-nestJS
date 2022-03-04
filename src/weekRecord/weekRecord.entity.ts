@@ -1,4 +1,4 @@
-import { Active, DayOfWeek, Stroke } from '../common/enum/Enum';
+import { Active, DayOfWeek } from '../common/enum/Enum';
 import {
   BaseEntity,
   BeforeUpdate,

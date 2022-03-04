@@ -10,11 +10,14 @@ export class RecordMonthlyLabsDto {
   readonly time: number;
   @ApiProperty({ description: '주차별 속도' })
   readonly speed: string;
+  @ApiProperty({ description: '주차별 칼로리' })
+  readonly calorie: number;
 
-  constructor(week: number, distance: number, time: number) {
+  constructor(week: number, distance: number, time: number, calorie: number) {
     this.week = week;
     this.distance = distance;
     this.time = time;
     this.speed = mathUtils.getSpeed(distance, time);
+    this.calorie = calorie;
   }
 }

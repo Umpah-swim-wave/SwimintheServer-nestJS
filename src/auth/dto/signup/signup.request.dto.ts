@@ -3,8 +3,8 @@ import { IsString, MaxLength, MinLength } from 'class-validator';
 
 export class SignUpRequestDto {
   @IsString()
-  @MinLength(6)
-  @MaxLength(20)
+  @MinLength(1)
+  @MaxLength(10)
   @ApiProperty({ description: '닉네임' })
   readonly nickname: string;
 

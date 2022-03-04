@@ -6,14 +6,14 @@ import {
 } from 'typeorm';
 import { DayRecord } from './dayRecord.entity';
 import { RecentRecordDateDto } from './dto/dayRecentRecord.response.dto';
-
+import LabInterface from '../dayRecord/dto/labs.interface.dto';
 @EntityRepository(DayRecord)
 export class DayRecordRepository extends Repository<DayRecord> {
   async findLabsByUserIdAndSearchFilter(
     userId: number,
     date: string,
     stroke?: string,
-  ) {
+  ): Promise<LabInterface[]> {
     const queryBuilder = await createQueryBuilder()
       .select('id', 'recordId')
       .addSelect(['stroke', 'distance', 'time'])

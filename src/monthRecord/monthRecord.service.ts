@@ -81,6 +81,7 @@ export class MonthRecordService {
           value.week,
           value['total_distance'],
           value['total_time'],
+          value['calorie'],
         ),
       );
     });

@@ -33,6 +33,9 @@ export class WeekRecordService {
     const week = dto.week;
     const records: Array<WeekRecord> =
       await this.WeekRecordRepository.findByUserIdAndDate(userId, date, week);
+    if (!records || records.length == 0) {
+      return new RecordWeeklyListDto();
+    }
     const result: RecordWeeklyListDto =
       await this.MonthRecordRepository.findRecordDateByUserId(
         userId,
@@ -64,7 +67,6 @@ export class WeekRecordService {
         new RecentRecordDateDto(startDate, endDate, yearMonthDate, week),
       );
     }
-
     return result;
   }
 
@@ -80,6 +82,7 @@ export class WeekRecordService {
           lab.dayOfWeek = record['day_of_week'];
           lab.distance = record['freestyle_distance'];
           lab.time = record['freestyle_time'];
+          lab.calorie = record['calorie'];
           lab.speed = mathUtils.getSpeed(lab.distance, lab.time);
           labs.push(lab);
         });
@@ -90,6 +93,7 @@ export class WeekRecordService {
           lab.dayOfWeek = record['day_of_week'];
           lab.distance = record['butterfly_distance'];
           lab.time = record['butterfly_time'];
+          lab.calorie = record['calorie'];
           lab.speed = mathUtils.getSpeed(lab.distance, lab.time);
           labs.push(lab);
         });
@@ -110,6 +114,7 @@ export class WeekRecordService {
           lab.dayOfWeek = record['day_of_week'];
           lab.distance = record['breast_distance'];
           lab.time = record['breast_time'];
+          lab.calorie = record['calorie'];
           lab.speed = mathUtils.getSpeed(lab.distance, lab.time);
           labs.push(lab);
         });
@@ -120,6 +125,7 @@ export class WeekRecordService {
           lab.dayOfWeek = record['day_of_week'];
           lab.distance = record['im_distance'];
           lab.time = record['im_time'];
+          lab.calorie = record['calorie'];
           lab.speed = mathUtils.getSpeed(lab.distance, lab.time);
           labs.push(lab);
         });
@@ -130,6 +136,7 @@ export class WeekRecordService {
           lab.dayOfWeek = record['day_of_week'];
           lab.distance = record['total_distance'];
           lab.time = record['total_time'];
+          lab.calorie = record['calorie'];
           lab.speed = mathUtils.getSpeed(lab.distance, lab.time);
           labs.push(lab);
         });
