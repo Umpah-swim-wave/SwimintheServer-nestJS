@@ -4,6 +4,9 @@
 
 # env
 .env
+.env.stage.local
+.env.stage.dev
+.env.stage.prod
 
 # Logs
 logs
